@@ -987,7 +987,7 @@ CREATE TABLE `utilisateur` (
 --
 
 INSERT INTO `utilisateur` (`id_utilisateur`, `nom`, `prenom`, `email`, `hash_password`, `date_inscription`) VALUES
-(1, 'John', 'Doe', 'john@exemple.com', '$2y$10$U81gPqgMY0e0Tragq0hHnOJUVdNKHQE9f6CHl6dY/eiO5zBmN2Z4u', 1714580239);
+(1, 'Doe', 'John', 'john@exemple.com', '$2y$10$U81gPqgMY0e0Tragq0hHnOJUVdNKHQE9f6CHl6dY/eiO5zBmN2Z4u', 1714580239);
 
 --
 -- Index pour les tables déchargées
