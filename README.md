@@ -46,3 +46,4 @@ PHP 8.2, MariaDB 10.4
 mail : user@exemple.com
 pass : password
 ```
+- Pour récupérer les nouveaux articles, il faut envoyer une requete GET à l'url `/scripts/fetch-all-fluxs`
