@@ -1,0 +1,157 @@
+div.articles{
+    width: 300px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+div.article-header{
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    height: 68px;
+    padding-left: 16px;
+    border-right: 1px solid rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+div.filtres{
+    height: 24px;
+    padding-left: 8px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    border-right: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+div.filtres>span{
+    margin-left: 4px;
+    color: #4d4d4d;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+div#container-articles{
+    height: 100%;
+    overflow: scroll;
+    overflow-x: hidden;
+    border-right: 1px solid rgba(0, 0, 0, 0.08);
+    height: 100%;
+}
+
+div.article{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 8px 12px 6px 12px;
+    /* height: 106px; */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+span.bordure{
+    position: absolute;
+    height: 100%;
+    left: 0;
+    width: 3px;
+    background-color: rgb(91, 78, 207);
+    top: 0;
+    opacity: 0;
+}
+
+div.article-actif > span.bordure{
+    opacity: 1;
+}
+
+div.article-non-lu > div > span.titre{
+    font-weight: 500;
+}
+
+div.article-non-lu > div > span.non-lu{
+    opacity: 1;
+}
+
+div.article-actif > div > span.titre{
+    color: rgb(58, 46, 168);
+    font-weight: 500;
+}
+
+div.article:hover{
+    background-color: rgb(250, 250, 250);
+    cursor: pointer;
+}
+
+div.titre-description{
+    display: flex;
+    flex-direction: column;
+}
+
+span.titre{
+    font-size: 14px;
+    line-height: 20px;
+    height: auto;
+    width: auto;
+}
+
+
+span.description{
+    overflow: hidden;
+    line-height: 16px;
+    height: 32px;
+    margin-top: 4px;
+    font-size: 13px;
+    color: rgb(112, 112, 112);
+}
+
+div.banner{
+    height: 16px;
+    padding: 6px 0;
+    display: flex;
+    align-items: center;
+}
+
+div.banner>img{
+    margin-right: 8px;
+}
+
+span.source{
+    color: rgb(112, 112, 112);
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+span.date{
+    color: rgb(112, 112, 112);
+    font-size: 12px;
+}
+
+span.non-lu{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    border-radius: 50%;
+    background-color: rgb(91, 78, 207);
+    height: 8px;
+    width: 8px;
+    opacity: 0;
+}
+
+div#container_pagination{
+    padding: 5px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+div#container_pagination>button{
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+    border: 1px solid black;
+}
+
+div#container_pagination>span{
+    font-size: 14px;
+}

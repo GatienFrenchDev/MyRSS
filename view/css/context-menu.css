@@ -1,0 +1,25 @@
+
+div#context-menu{
+    padding: 5px;
+    border-radius: 4px;
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid black;
+    z-index: 99;
+    font-size: 14px;
+}
+
+div#context-menu>div{
+    padding: 6px;
+    color: black;
+    cursor: pointer;
+}
+
+div#context-menu>div>svg{
+    margin-right: 6px;
+}
+
+div#context-menu>div:hover{
+    background-color: #e4e6e7;
+}

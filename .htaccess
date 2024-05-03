@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# Désactive l'indexation des répertoires
+Options -Indexes
+
+
+# Permet d'éviter le .php à la fin du fichier pour avoir des urls + user friendly
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]

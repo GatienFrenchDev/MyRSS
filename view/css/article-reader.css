@@ -1,0 +1,35 @@
+div#article-reader{
+    padding: 8vh 6vw 0 5vw;
+    display: flex;
+    width: auto;
+    flex-direction: column;
+}
+
+div#article-reader>h1{
+    font-size: 28px;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+
+div#article-reader>h1:hover{
+    text-decoration: underline;
+}
+
+div#article-banner{
+    user-select: text;
+    display: flex;
+    align-items: center;
+    gap: .5vw;
+    font-size: 14px;
+    color: rgb(112, 112, 112);
+    margin-bottom: 3vh;
+}
+
+div#article-reader>p{
+    user-select: text;
+    letter-spacing: -0.05px;
+    font-weight: 400;
+    font-size: 14px;
+    color: rgb(26, 26, 26);
+    line-height: 21px;
+}

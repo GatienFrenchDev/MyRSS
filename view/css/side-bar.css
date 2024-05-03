@@ -1,0 +1,128 @@
+div.onglet-bottom>span>svg>path{
+    stroke-width: 2.5px;
+}
+
+div.side-bar{
+    height: 100%;
+    background: #eeeff0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+}
+
+a{
+    text-decoration: none;
+}
+
+a.onglet>svg>path{
+    fill: rgb(163, 163, 163);
+}
+
+div.side-bar>a, div.ajout-flux{
+    height: 60px;
+    font-size: 12px;
+    text-decoration: none;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: rgb(77, 77, 77);
+}
+
+div.side-bar>a.actif>svg>path{
+    fill: white;
+}
+
+div.side-bar>a.actif{
+    background-color: #5b4ecf;
+    color: white;
+}
+
+div.side-bar>a:not(.actif):hover{
+    background-color: #dbdcdd;
+}
+
+a.onglet:not(.actif):hover > svg>path{
+    fill: #5b4ecf;
+}
+
+div.side-bar>a>p{
+    margin-top: 6px;
+}
+
+div.ajout-flux{
+    height: 66px;
+    padding: 12px 0;
+    margin: 12px 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+div.ajout-flux:hover > a>span{
+    background-color: #3a2ea8;
+}
+
+
+div.ajout-flux>a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 6px;
+}
+
+div.ajout-flux>a>span{
+    box-shadow: rgba(91, 78, 207, 0.5) 0px 2px 4px 0px;
+    display: flex;
+    justify-content: center;
+    place-items: center;
+    height: 32px;
+    width: 32px;
+    background-color: #5b4ecf;
+    border-radius: 50%;
+}
+
+div.ajout-flux>a>p{
+    margin-top: 6px;
+    padding: 0 4px;
+}
+
+div.onglet-bottom{
+    width: 100%;
+    font-size: 12px;
+    height: 60px;
+    margin-bottom: 6px;
+}
+
+div.onglet-bottom>a{
+    color: #707070;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+div.onglet-bottom> a > span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4px;
+    height: 32px;
+    width: 32px;
+}
+
+div.onglet-bottom:hover{
+    cursor: pointer;
+}
+
+div.onglet-bottom:hover > a > span{
+    background-color: #dbdcdd;
+    border-radius: 50%;
+}
+
+div.onglet-bottom>a>p{
+    padding: 0 4px;
+    margin-top: 4px;
+}

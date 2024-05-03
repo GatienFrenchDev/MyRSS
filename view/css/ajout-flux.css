@@ -1,0 +1,60 @@
+body{
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 96px auto;
+}
+
+div.container{
+    height: 100%;
+    width: 100%;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fafafa;
+    height: 90px;
+    padding: 28px 0 36px 0;
+}
+
+form>h1{
+    font-size: 24px;
+    text-align: center;
+}
+
+form>div.recherche{
+    background-color: rgb(91, 78, 207);;
+    padding: 2px;
+    border-radius: 8px;
+    border: 1px solid rgb(91, 78, 207);
+    display: flex;
+    margin: 0;
+}
+
+form>div.recherche>input{
+    border: none;
+}
+
+#url-flux{
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    height: 100%;
+    padding-left: 16px;
+    width: 35vw;
+}
+
+input:focus{
+    outline: none;
+}
+
+form>div.recherche>input[type="submit"]{
+    height: 44px;
+    background-color: rgb(91, 78, 207);
+    color: white;
+    font-size: 16px;
+    padding: 11px 24px;
+    cursor: pointer;
+}

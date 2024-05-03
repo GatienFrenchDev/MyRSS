@@ -1,0 +1,19 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Fira Sans';
+    user-select: none;
+}
+
+body{
+    box-sizing: border-box;
+    height: 100vh;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 96px 325px 300px auto;
+    font-family: 'Fira Sans';
+}
+
+path{
+    stroke-width: 3px;
+}

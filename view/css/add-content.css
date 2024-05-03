@@ -1,0 +1,155 @@
+body{
+    display: flex;
+}
+
+div.container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+div.categorie-ajout{
+    padding: 10px 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+div.categorie-ajout>h4{
+    font-size: 18px;
+    margin: 20px 0px;
+}
+
+div.type{
+    display: flex;
+    width: 100%;
+}
+
+div.type>a{
+    margin: 0 8px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    border: 1px solid #eee;
+    padding: 16px;
+    font-size: 16px;
+    transition: all 0.2s ease-in-out;
+}
+
+div.type>a:hover{
+    border: 1px solid rgb(153, 144, 225);
+    background-color: rgb(250, 250, 250);
+}
+
+div.type>a>svg{
+    background-color: #5b4ecf;
+    border-radius: 4px;
+    padding: 8px;
+    margin-right: 12px;
+}
+
+div.type>a>svg>path{
+    fill: white;
+}
+
+#yt-icon{
+    background-color: #ff0000;
+    height: 28px;
+    width: 28px;
+}
+
+form{
+    display: flex;
+    height: 40vh;
+}
+
+div.top-bar{
+    height: 80px;
+    background-color: #fafafa;
+    display: flex;
+    align-items: center;
+}
+
+div.top-bar>a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 40px;
+    height: 36px;
+    width: 36px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid rgb(0, 0, 0, 0);
+}
+
+a>svg{
+    fill: rgb(112, 112, 112);
+}
+
+div.top-bar>a:hover{
+    border: 1px solid rgb(204, 204, 204);
+    background-color: rgb(228, 230, 231);
+}
+
+div.top-bar>div{
+    display: flex;
+    flex-direction: column;
+}
+
+div.top-bar>div>p{
+    font-weight: 500;
+    color: rgb(112, 112, 112);
+    font-size: 15px;
+}
+
+div.container>form{
+    margin: 32px 15vw;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(238, 239, 240);
+    background-color: #fafafa;
+    border-radius: 8px;
+    padding: 16px 20px;
+    height: 88px;
+}
+
+form>h3{
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
+form>div{
+    margin: 0;
+    padding: 0;
+    border: 2px solid #5b4ecf;
+    border-radius: 2px;
+    height: 42px;
+    display: flex;
+}
+
+form>div>input{
+    font-family: 'Fira Sans';
+    border: none;
+    height: 100%;
+}
+
+#adresse{
+    font-size: 16px;
+    width: 100%;
+    padding-left: 20px;
+}
+
+input:focus{
+    outline: none;
+}
+
+#envoi{
+    cursor: pointer;
+    padding: 0 24px;
+    background-color: #5b4ecf;
+    color: white;
+    font-size: 16px;
+}

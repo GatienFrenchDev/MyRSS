@@ -1,0 +1,19 @@
+body{
+    box-sizing: border-box;
+    height: 100vh;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 96px auto;
+    font-family: 'Fira Sans';
+}
+
+.container{
+    padding: 20px;
+}
+
+article.notification{
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 4px;
+    width: fit-content;
+}
