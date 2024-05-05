@@ -8,3 +8,9 @@ Options -Indexes
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+
+# Supprime l'accès à certains répertoires
+RedirectMatch 403 ^/docs/.*$
+RedirectMatch 403 ^/lib/.*$
+RedirectMatch 403 ^/model/.*$

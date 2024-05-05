@@ -44,7 +44,7 @@ if (!categorieAppartientA($id_utilisateur, $id_categorie)) {
 if (isFluxRSSindb($url)) {
     $id_flux = getIDFromURL($url);
     addRSSFluxToCategorie($id_flux, $id_categorie);
-    header("Location: ../index.php");
+    header("Location: ../");
     exit;
 }
 
@@ -69,8 +69,10 @@ if ($type_flux == "yt") {
     }
 
     $url = "https://www.youtube.com/feeds/videos.xml?channel_id=" . getIDFromYoutubeChannel($channel_username);
-    $id_flux = ajouterFluxRSSindb($url, $type_flux);
-    addRSSFluxToCategorie($id_flux, $id_categorie);
+    if (!isFluxRSSindb($url)) {
+        $id_flux = ajouterFluxRSSindb($url, $type_flux);
+        addRSSFluxToCategorie($id_flux, $id_categorie);
+    }
 }
 
 // Cas où le flux RSS est un flux RSS natif

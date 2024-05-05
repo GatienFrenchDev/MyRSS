@@ -12,9 +12,10 @@ require("model/model.php");
 $id_utilisateur = $_SESSION["user_id"];
 
 $invitations = getInvitations($id_utilisateur);
+$notifications = getNotifications($id_utilisateur);
 
-require("view/components/version-beta.php");
 require("view/components/side-bar.php");
 require("view/notifications.php");
+require("view/components/version-beta.php");
 
 

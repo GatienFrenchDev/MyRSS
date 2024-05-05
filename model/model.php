@@ -475,6 +475,22 @@ function invitationAppartientA(int $id_user, int $id_invitation): bool
     return $res != 0;
 }
 
+function notificationAppartientA(int $id_user, int $id_notification): bool
+{
+    $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
+
+    $stmt = $mysqli->prepare("SELECT * FROM notification WHERE id_utilisateur = ? AND id_notification = ?");
+    $stmt->bind_param("ii", $id_user, $id_notification);
+    $stmt->execute();
+    $stmt->store_result();
+    $res = $stmt->num_rows();
+
+    $stmt->close();
+    $mysqli->close();
+
+    return $res != 0;
+}
+
 
 function espaceAppartientA(int $id_user, int $id_espace): bool
 {
@@ -553,15 +569,19 @@ function getArticlesFromRSSFlux(int $id_flux, string $url): array
     if (str_starts_with($url, "https://www.youtube.com/feeds/videos.xml?channel_id=")) {
         $videos = [];
 
-        $xml = simplexml_load_file($url);
+        $xml = new DOMDocument();
+        $xml->load($url);
 
-        updateNomFromFlux($id_flux, $xml->title);
+        updateNomFromFlux($id_flux, $xml->getElementsByTagName("title")->item(0)->nodeValue);
 
-        foreach ($xml->entry as $entry) {
-            $titre = (string) $entry->title;
-            $lien = (string) $entry->link["href"];
-            $date_pub = (int) strtotime($entry->published);
-            $videos[] = new Article($titre, "", $lien, $date_pub);
+        foreach($xml->getElementsByTagName("entry") as $node){
+            $titre = $node->getElementsByTagName('title')->item(0)->nodeValue;
+            $titre = substr($titre, 0, 255);
+            $description = $node->getElementsByTagName('description')->item(0)->nodeValue;
+            $description = substr($description, 0, 255);
+            $lien = $node->getElementsByTagName('link')->item(0)->getAttribute('href');
+            $date_pub = (int) strtotime($node->getElementsByTagName('published')->item(0)->nodeValue);
+            $videos[] = new Article($titre, $description, $lien, $date_pub);
         }
 
         return $videos;
@@ -668,30 +688,42 @@ function accepterInvitation(int $id_invitation): void
     $mysqli->close();
 }
 
-function creerInvitation(string $email, int $id_espace): void
+/**
+ * Renvoi vrai si l'invitation a bien été envoyée.
+ */
+function creerInvitation(string $email, int $id_espace, int $id_utilisateur_inviteur): bool
 {
     $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
 
     $stmt = $mysqli->prepare("SELECT id_utilisateur FROM utilisateur WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
-    $ligne = $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
+    $ligne = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+    // si l'utilisateur n'existe pas
+    if (count($ligne) == 0) {
+        return false;
+    }
+
+    $ligne = $ligne[0];
 
     $id_utilisateur = $ligne["id_utilisateur"];
 
-    $stmt = $mysqli->prepare("INSERT INTO invitation (id_utilisateur, id_espace) VALUES (?, ?)");
-    $stmt->bind_param("ii", $id_utilisateur, $id_espace);
+    $stmt = $mysqli->prepare("INSERT INTO invitation (id_utilisateur, id_espace, id_utilisateur_inviteur) VALUES (?, ?, ?)");
+    $stmt->bind_param("iii", $id_utilisateur, $id_espace, $id_utilisateur_inviteur);
     $stmt->execute();
 
     $stmt->close();
     $mysqli->close();
+
+    return true;
 }
 
 function getInvitations(int $id_utilisateur): array
 {
     $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
 
-    $stmt = $mysqli->prepare("SELECT e.nom AS nom_espace, i.id_invitation, u.prenom
+    $stmt = $mysqli->prepare("SELECT e.nom AS nom_espace, i.id_invitation, i.id_utilisateur_inviteur
         FROM utilisateur u
         INNER JOIN invitation i ON i.id_utilisateur=u.id_utilisateur
         INNER JOIN espace_partage e ON e.id_espace = i.id_espace
@@ -699,6 +731,9 @@ function getInvitations(int $id_utilisateur): array
     $stmt->bind_param("i", $id_utilisateur);
     $stmt->execute();
     $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    for ($i = 0; $i < count($res); $i++) {
+        $res[$i]["invitateur"] = getUserDetailsFromId($res[$i]["id_utilisateur_inviteur"]);
+    }
     $stmt->close();
     $mysqli->close();
     return $res;
@@ -734,10 +769,10 @@ function getDernierUrlArticle(int $id_flux): Article | null
 
 
 /**
- * Exemple : getDetailsFromUser(1) renvoie `Array ( [nom] => Gillot [prenom] => Gatien [email] => pub@gatiendev.fr [date_inscription] => 0 )`
-
+ * Renvoie une liste vide si l'user existe pas.
+ * Exemple : getUserDetailsFromId(1) renvoie `Array ( [id_utilisateur] => 1 [nom] => Doe [prenom] => John [email] => john@exemple.com [date_inscription] => 1714580239 )`
  */
-function getDetailsFromUser(int $id_utilisateur):array
+function getUserDetailsFromId(int $id_utilisateur): array
 {
     $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
 
@@ -747,8 +782,130 @@ function getDetailsFromUser(int $id_utilisateur):array
     $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     $stmt->close();
     $mysqli->close();
-    if(count($res) > 0){
+    if (count($res) > 0) {
         return $res[0];
     }
     return [];
+}
+
+/**
+ * Permet de vérifier si un flux rss existe avec l'id passé en paramètre.
+ * e.g. : `rssFluxExist(13)` renvoie `true` si il existe un flux rss dans la db avec l'id 13
+ * @param id_flux - l'identifiant à tester
+ */
+function rssFluxExist(int $id_flux): bool
+{
+    $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
+
+    $stmt = $mysqli->prepare("SELECT COUNT(id_flux) as nb_fluxs FROM flux_rss WHERE id_flux = ?;");
+    $stmt->bind_param("i", $id_flux);
+    $stmt->execute();
+    $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    $stmt->close();
+    $mysqli->close();
+    return count($res) > 0;
+}
+
+/**
+ * Permet de vérifier si un utilisateur existe avec l'id passé en paramètre.
+ * e.g. : `userExist(13)` renvoie `true` si il existe un utilisateur dans la db avec l'id 13
+ * @param id_utilisateur - l'identifiant à tester
+ */
+function userExist(int $id_utilisateur): bool
+{
+    $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
+
+    $stmt = $mysqli->prepare("SELECT COUNT(id_utilisateur) as nb_user FROM utilisateur WHERE id_utilisateur = ?");
+    $stmt->bind_param("i", $id_utilisateur);
+    $stmt->execute();
+    $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    $stmt->close();
+    $mysqli->close();
+    return count($res) > 0;
+}
+
+function sendNotification(int $id_destinataire, string $titre, string $message): void
+{
+    $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
+
+    $stmt = $mysqli->prepare("INSERT INTO `notification` (`titre`, `description`, `id_utilisateur`) VALUES (?, ?, ?)");
+    $stmt->bind_param("ssi", $titre, $message, $id_destinataire);
+    $stmt->execute();
+    $stmt->close();
+    $mysqli->close();
+}
+
+
+/**
+ * Exemple : getUserDetailsFromMail(`john@exemple.com`) renvoie `Array ( [id_utilisateur] => 1 [nom] => Doe [prenom] => John [email] => john@exemple.com [date_inscription] => 1714580239 )`
+ * Renvoie une liste vide si l'user existe pas.
+ */
+function getUserDetailsFromMail(string $mail): array
+{
+    $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
+
+    $stmt = $mysqli->prepare("SELECT id_utilisateur, nom, prenom, email, date_inscription FROM utilisateur WHERE email = ?");
+    $stmt->bind_param("s", $mail);
+    $stmt->execute();
+    $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    $stmt->close();
+    $mysqli->close();
+    if (count($res) > 0) {
+        return $res[0];
+    }
+    return [];
+}
+
+function getNotifications(int $id_utilisateur): array
+{
+    $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
+
+    $stmt = $mysqli->prepare("SELECT * FROM notification WHERE id_utilisateur = ?");
+    $stmt->bind_param("i", $id_utilisateur);
+    $stmt->execute();
+    $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    $stmt->close();
+    $mysqli->close();
+    if (count($res) > 0) {
+        return $res;
+    }
+    return [];
+}
+
+function getFluxDetailsFromId(int $id_flux): array
+{
+    $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
+
+    $stmt = $mysqli->prepare("SELECT * FROM flux_rss WHERE id_flux = ?");
+    $stmt->bind_param("i", $id_flux);
+    $stmt->execute();
+    $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    $stmt->close();
+    $mysqli->close();
+    if (count($res) > 0) {
+        return $res[0];
+    }
+    return [];
+}
+
+function deleteNotification(int $id_notification): void
+{
+    $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
+
+    $stmt = $mysqli->prepare("DELETE FROM notification WHERE id_notification = ?");
+    $stmt->bind_param("i", $id_notification);
+    $stmt->execute();
+    $stmt->close();
+    $mysqli->close();
+}
+
+function removeFluxFromCategorie(int $id_flux, int $id_categorie)
+{
+    $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
+
+    $stmt = $mysqli->prepare("DELETE FROM contient WHERE id_flux = ? AND id_categorie = ?");
+    $stmt->bind_param("ii", $id_flux, $id_categorie);
+    $stmt->execute();
+    $stmt->close();
+    $mysqli->close();
 }

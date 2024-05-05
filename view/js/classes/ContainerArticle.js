@@ -28,7 +28,16 @@ class ContainerArticle {
         if (this.numero_page > 0) {
             btn_precedent.addEventListener("click", async () => {
                 this.vider();
-                const articles = await API.getAllArticles(this.numero_page - 1);
+                let articles = [];
+                if(arborescence.length == 0){
+                    articles = await API.getAllArticles(this.numero_page - 1);
+                }
+                else if(arborescence.length == 1){
+                    articles = await API.getArticlesFromEspace(arborescence[0]["id"], this.numero_page - 1);
+                }
+                else if(arborescence.length > 1){
+                    articles = await API.getArticlesFromCategorie(arborescence.slice(-1)[0]["id"], this.numero_page - 1);
+                }
                 this.numero_page--;
                 this.addArticles(articles);
             });
@@ -39,7 +48,16 @@ class ContainerArticle {
 
         bnt_suivant.addEventListener("click", async () => {
             this.vider();
-            const articles = await API.getAllArticles(this.numero_page + 1);
+            let articles = [];
+            if(arborescence.length == 0){
+                articles = await API.getAllArticles(this.numero_page + 1);
+            }
+            else if(arborescence.length == 1){
+                articles = await API.getArticlesFromEspace(arborescence[0]["id"], this.numero_page + 1);
+            }
+            else if(arborescence.length > 1){
+                articles = await API.getArticlesFromCategorie(arborescence.slice(-1)[0]["id"], this.numero_page + 1);
+            }
             this.numero_page++;
             this.addArticles(articles);
         });

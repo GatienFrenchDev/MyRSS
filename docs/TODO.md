@@ -2,6 +2,8 @@
 
 ## Grosses taches
 
+- fix pagination quand espace ou catégorie juste en `actif` (et donc variable `arborescence` pas vraiment à jour)
+
 - système de vérification par email lors de la création du compte (générer un uuid puis faire un lien du style /valider?id_utilisateur=xxxx&uuid=xxxxxx)
 https://www.php.net/manual/en/function.mail.php
 https://www.php.net/manual/fr/function.uniqid.php
@@ -10,7 +12,7 @@ https://www.php.net/manual/fr/function.uniqid.php
 
 - marquer un article comme traité (fonctionne par espace partagé)
 
-- recommander un flux à une personne (clic droit sur le flux puis saisi de l'adresse email puis envoi notification à la personne) (voir  `view/js/classes/FluxRSS.js:37`)
+- ✅ ~~recommander un flux à une personne (clic droit sur le flux puis saisi de l'adresse email puis envoi notification à la personne) (voir  `view/js/classes/FluxRSS.js:37`)~~ **Fini le 04/05 par Gatien**
 
 - ✅ ~~système de pagination dans les articles (utiliser mot clé SQL OFFSET LIMIT, stocker en variable la page courante en js et modifier endpoint API pour avoir un truc du style : `/api/getArticles?page=1&per_page=25`)
 https://sql.sh/cours/limit~~ **Fini le 21/04 par Gatien** 

@@ -4,7 +4,7 @@
  * Fichier regroupant quelques fonctions "pratiques" pour l'intégralité du projet.
  */
 
-define("API_KEY", "xxxxxxxxxxxxxxxxxxxxxxxxxxx");
+define("API_KEY", "AIzaSyBmKsQ8u8ry2NR72TDZQvKq4jO16Ia7KWo");
 
 function extractMainDomain(string $url): string | null
 {

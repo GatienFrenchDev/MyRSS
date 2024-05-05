@@ -8,12 +8,24 @@ body{
 }
 
 .container{
+    height: 100vh;
+    box-sizing: border-box;
     padding: 20px;
 }
 
+code{
+    all: revert;
+    user-select: text;
+}
+
 article.notification{
+    width: 40vw;
     padding: 10px;
     border: 1px solid black;
     border-radius: 4px;
-    width: fit-content;
+    margin-bottom: 10px;
+}
+
+article.notification>h3, article.notification>p{
+    margin-bottom: 10px;
 }

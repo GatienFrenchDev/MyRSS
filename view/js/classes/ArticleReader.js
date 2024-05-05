@@ -47,6 +47,9 @@ class ArticleReader{
             const id_video = article.url_article.split("https://www.youtube.com/watch?v=")[1];
             iframe.src = `https://www.youtube.com/embed/${id_video}`;
             iframe.style.height = "50vh";
+            // pour ne pas avoir de problèmes avec les retours à la ligne
+            description_component.innerHTML = "";
+            description_component.innerText = article.description;
         }
         
         

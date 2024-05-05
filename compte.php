@@ -13,7 +13,7 @@ if (!isset($_SESSION["user_id"])) {
 
 $id_utilisateur = $_SESSION["user_id"];
 
-$utilisateur = getDetailsFromUser($id_utilisateur);
+$utilisateur = getUserDetailsFromId($id_utilisateur);
 
 require "view/components/side-bar.php";
 require "view/compte.php";

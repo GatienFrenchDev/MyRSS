@@ -124,8 +124,8 @@ class API {
      * @param {Number} id_flux 
      * @returns {Article[]}
      */
-        static async getArticlesFromFlux(id_flux) {
-            const request = await fetch(`api/get-articles.php?id_flux=${encodeURIComponent(id_flux)}`, { method: 'GET' });
+        static async getArticlesFromFlux(id_flux, numero_page) {
+            const request = await fetch(`api/get-articles.php?id_flux=${encodeURIComponent(id_flux)}&numero_page=${encodeURIComponent(numero_page)}`, { method: 'GET' });
             const json = await request.json();
             let articles = [];
     
@@ -284,6 +284,19 @@ class API {
      */
     static async inviterEmailaUnEspace(id_espace, email) {
         await fetch(`api/inviter.php?id_espace=${encodeURIComponent(id_espace)}&email=${encodeURIComponent(email)}`);
+    }
+
+    /**
+     * 
+     * @param {Number} id_flux - l'id du flux à recommander
+     * @param {Number} mail_destinataire - le mail de l'utilisateur à qui la notification sera envoyée
+     */
+    static async recommanderFlux(id_flux, mail_destinataire){
+        await fetch(`api/recommander-flux.php?id_flux=${encodeURIComponent(id_flux)}&mail_destinataire=${encodeURIComponent(mail_destinataire)}`);
+    }
+
+    static async supprimerFlux(id_flux, id_categorie){
+        await fetch(`api/supprimer-flux.php?id_flux=${encodeURIComponent(id_flux)}&id_categorie=${encodeURIComponent(id_categorie)}`);
     }
 
 

@@ -4,7 +4,6 @@ class Arborescence{
      * @param {FluxRSS} flux_rss 
     */
    static addFluxRSS(flux_rss){
-    console.log
         const arborescence = document.getElementById('arborescence');
         const HTMLFluxRSS = flux_rss.getHTMLElement();
         arborescence.appendChild(HTMLFluxRSS);

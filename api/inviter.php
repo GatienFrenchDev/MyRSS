@@ -33,4 +33,8 @@ if(!espaceAppartientA($id_utilisateur, $id_espace)){
     exit;
 }
 
-creerInvitation($email, $id_espace);
+if(!creerInvitation($email, $id_espace, $id_utilisateur)){
+    http_response_code(400);
+    die(json_encode(["error" => "email does not exist in our db"]));
+    exit;
+}

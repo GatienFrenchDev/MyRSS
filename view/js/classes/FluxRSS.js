@@ -24,7 +24,8 @@ class FluxRSS {
             </svg>
         </div>`;
         DIVFlux.addEventListener('click', async () => {
-            const articles = await API.getArticlesFromFlux(this.id_flux);
+            const articles = await API.getArticlesFromFlux(this.id_flux, 0);
+            ContainerArticle.numero_page = 0;
             document.querySelectorAll(".flux-actif").forEach(article => {
                 article.classList.remove("flux-actif");
             })
@@ -45,11 +46,24 @@ class FluxRSS {
             const item_recommander = ContextMenu.addItem("Recommander ce flux");
             const item_supprimer = ContextMenu.addItem("Supprimer le flux de la catégorie");
             item_recommander.addEventListener("click", async () => {
-                // code à executer lorsque l'on clique sur le bouton `recommander ce flux` (créer un endpoint /api/recommander?id_flux=xx&mail=xxx)
+                let email_a_inviter = "";
+                while (email_a_inviter == "") {
+                    email_a_inviter = window.prompt("Entrez l'email de la personne à qui vous souhaitez recommander le flux");
+                    if (email_a_inviter === null) {
+                        return;
+                    }
+                    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if(!regex.test(email_a_inviter)){
+                        window.alert("Veuillez saisir un email valide");
+                        email_a_inviter = "";
+                    }
+                }
+                API.recommanderFlux(this.id_flux, email_a_inviter)
             });
             item_supprimer.addEventListener("click", async () => {
-                // code à executer lorsque l'on souhaite supprimer le flux rss de cette catégorie (créer un endpoint /api/retirer_categorie?id_categorie=xx&id_flux=xx)
-            })
+                API.supprimerFlux(this.id_flux, arborescence.slice(-1)[0]["id"]);
+                location.reload(); // oui il y a mieux mais c'est déjà bien comme ca
+            });
         });
 
         return DIVFlux;
