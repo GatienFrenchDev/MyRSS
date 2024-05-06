@@ -631,7 +631,7 @@ function pushNewCategorieToDB(string $nom, int $id_categorie_parent, int $id_esp
         $mysqli->close();
         return $id_categorie;
     } else {
-        $stmt = $mysqli->prepare("INSERT INTO categorie (nom, id_espace, id_parent) VALUES ('?', ?, ?)");
+        $stmt = $mysqli->prepare("INSERT INTO categorie (nom, id_espace, id_parent) VALUES (?, ?, ?)");
         $stmt->bind_param("sii", $nom, $id_espace, $id_categorie_parent);
         $stmt->execute();
         $id_categorie = $mysqli->insert_id;
