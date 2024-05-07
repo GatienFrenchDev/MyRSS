@@ -22,7 +22,7 @@ $id_espace = $_GET["id_espace"];
 $nom = $_GET["nom"];
 $id_utilisateur = $_SESSION["user_id"];
 
-require "../model/model.php";
+require_once "../model/EspaceModel.php";
 
 if(strlen($nom) > 32){
     http_response_code(414);
@@ -30,12 +30,12 @@ if(strlen($nom) > 32){
     exit;  
 }
 
-if(!espaceAppartientA($id_utilisateur, $id_espace)){
+if(!EspaceModel::espaceAppartientA($id_utilisateur, $id_espace)){
     http_response_code(403);
     die(json_encode(["error" => "espace does not belong to you"]));
     exit;
 }
 
-rename_espace($id_espace, $nom);
+EspaceModel::renameEspace($id_espace, $nom);
 die(json_encode(["success" => "Successfully renamed espace"]));
 exit;

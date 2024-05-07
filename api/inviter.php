@@ -25,15 +25,16 @@ if (!isset($_GET["email"])) {
 $id_espace = $_GET["id_espace"];
 $email = $_GET["email"];
 
-require "../model/model.php";
+require_once "../model/EspaceModel.php";
+require_once "../model/InvitationModel.php";
 
-if(!espaceAppartientA($id_utilisateur, $id_espace)){
+if(!EspaceModel::espaceAppartientA($id_utilisateur, $id_espace)){
     http_response_code(403);
     die(json_encode(["error" => "espace does not belong to you"]));
     exit;
 }
 
-if(!creerInvitation($email, $id_espace, $id_utilisateur)){
+if(!InvitationModel::creerInvitation($email, $id_espace, $id_utilisateur)){
     http_response_code(400);
     die(json_encode(["error" => "email does not exist in our db"]));
     exit;

@@ -32,14 +32,14 @@ if (!isset($_GET["type"])) {
 
 $nom_type = $_GET["type"];
 
-require "model/model.php";
+require_once "model/UtilisateurModel.php";
 
 
 if (array_key_exists($nom_type, $types)) {
-    $categories = getAllCategoriesFromUser($_SESSION["user_id"]);
+    $categories = UtilisateurModel::getAllCategoriesFromUser($_SESSION["user_id"]);
     $type = $types[$nom_type];
-    require "view/components/side-bar.php";
-    require "view/ajout-content.php";
+    require_once "view/components/side-bar.php";
+    require_once "view/ajout-content.php";
 } else {
     http_response_code(400);
     header("Location : index.php");

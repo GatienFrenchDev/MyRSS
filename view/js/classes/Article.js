@@ -58,7 +58,9 @@ class Article {
         element_titre.innerText = this.titre;
         element_titre.classList.add("titre");
 
+
         element_description.innerText = this.description;
+        element_description.innerText = element_description.innerText;
         element_description.classList.add("description");
 
         banner.classList.add("banner");

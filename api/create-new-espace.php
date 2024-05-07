@@ -15,9 +15,9 @@ if (isset($_SESSION["user_id"])) {
 
         $id_utilisateur = $_SESSION["user_id"];
 
-        require "../model/model.php";
+        require_once "../model/EspaceModel.php";
 
-        die(json_encode(["id_espace" => pushNewEspaceToDB($nom, $id_utilisateur)]));
+        die(json_encode(["id_espace" => EspaceModel::pushNewEspaceToDB($nom, $id_utilisateur)]));
 
 
     }

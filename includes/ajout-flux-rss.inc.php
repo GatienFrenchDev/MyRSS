@@ -1,7 +1,6 @@
 <?php
 
-require "../model/model.php";
-require "../lib/tools.php";
+require_once "../lib/tools.php";
 
 session_start();
 
@@ -33,17 +32,20 @@ if(!filter_var($url, FILTER_VALIDATE_URL)){
     exit;
 }
 
+require_once "../model/CategorieModel.php";
+require_once "../model/FluxModel.php";
+
 // Cas où la catégorie passé en paramètre n'appartient pas à l'utilisateur
-if (!categorieAppartientA($id_utilisateur, $id_categorie)) {
+if (!CategorieModel::categorieAppartientA($id_utilisateur, $id_categorie)) {
     http_response_code(403);
     die(json_encode(["error" => "id_categorie does not belong to you"]));
     exit;
 }
 
 // Cas où le flux RSS est déjà dans la db
-if (isFluxRSSindb($url)) {
-    $id_flux = getIDFromURL($url);
-    addRSSFluxToCategorie($id_flux, $id_categorie);
+if (FluxModel::isFluxRSSindb($url)) {
+    $id_flux = FluxModel::getIDFromURL($url);
+    CategorieModel::addRSSFluxToCategorie($id_flux, $id_categorie);
     header("Location: ../");
     exit;
 }
@@ -69,16 +71,16 @@ if ($type_flux == "yt") {
     }
 
     $url = "https://www.youtube.com/feeds/videos.xml?channel_id=" . getIDFromYoutubeChannel($channel_username);
-    if (!isFluxRSSindb($url)) {
-        $id_flux = ajouterFluxRSSindb($url, $type_flux);
-        addRSSFluxToCategorie($id_flux, $id_categorie);
+    if (!FluxModel::isFluxRSSindb($url)) {
+        $id_flux = FluxModel::ajouterFluxRSSindb($url, $type_flux);
+        CategorieModel::addRSSFluxToCategorie($id_flux, $id_categorie);
     }
 }
 
 // Cas où le flux RSS est un flux RSS natif
 else if($type_flux == "rss"){
-    $id_flux = ajouterFluxRSSindb($url, $type_flux);
-    addRSSFluxToCategorie($id_flux, $id_categorie);
+    $id_flux = FluxModel::ajouterFluxRSSindb($url, $type_flux);
+    CategorieModel::addRSSFluxToCategorie($id_flux, $id_categorie);
 }
 
 header("Location: ../index.php");

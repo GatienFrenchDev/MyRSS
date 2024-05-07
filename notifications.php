@@ -7,15 +7,15 @@ if (!isset($_SESSION["user_id"])) {
     exit;
 }
 
-require("model/model.php");
+require_once("model/UtilisateurModel.php");
 
 $id_utilisateur = $_SESSION["user_id"];
 
-$invitations = getInvitations($id_utilisateur);
-$notifications = getNotifications($id_utilisateur);
+$invitations = UtilisateurModel::getInvitations($id_utilisateur);
+$notifications = UtilisateurModel::getNotifications($id_utilisateur);
 
-require("view/components/side-bar.php");
-require("view/notifications.php");
-require("view/components/version-beta.php");
+require_once("view/components/side-bar.php");
+require_once("view/notifications.php");
+require_once("view/components/version-beta.php");
 
 

@@ -17,13 +17,13 @@ if (!isset($id_invitation)) {
     exit;
 }
 
-require "../model/model.php";
+require_once "../model/InvitationModel.php";
 
-if(!invitationAppartientA($id_utilisateur, $id_invitation)){
+if(!InvitationModel::invitationAppartientA($id_utilisateur, $id_invitation)){
     http_response_code(403);
     die(json_encode(["error" => "invitation does not belong to you"]));
     exit;
 }
 
-accepterInvitation($id_invitation);
+InvitationModel::accepterInvitation($id_invitation);
 header("Location: ../index.php");

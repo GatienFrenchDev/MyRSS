@@ -7,9 +7,7 @@ if (!isset($_SESSION["user_id"])) {
     exit;
 }
 
-require("model/model.php");
+require_once("view/components/side-bar.php");
 
-require("view/components/side-bar.php");
-
-require("view/homepage.php");
-require("view/components/version-beta.php");
+require_once("view/homepage.php");
+require_once("view/components/version-beta.php");

@@ -18,11 +18,12 @@ if (isset($_SESSION["user_id"])) {
 
         $id_utilisateur = $_SESSION["user_id"];
 
-        require_once "../model/model.php";
+        require_once "../model/EspaceModel.php";
+        require_once "../model/CategorieModel.php";
 
-        if (espaceAppartientA($id_utilisateur, $id_espace)) {
-            if(categorieAppartientA($id_utilisateur, $id_categorie_parent) || $id_categorie_parent==-1){
-                $id_categorie = pushNewCategorieToDB($nom, $id_categorie_parent, $id_espace);
+        if (EspaceModel::espaceAppartientA($id_utilisateur, $id_espace)) {
+            if(CategorieModel::categorieAppartientA($id_utilisateur, $id_categorie_parent) || $id_categorie_parent==-1){
+                $id_categorie = CategorieModel::pushNewCategorieToDB($nom, $id_categorie_parent, $id_espace);
                 die(json_encode(["id_categorie" => $id_categorie]));
             }
             else{

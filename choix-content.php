@@ -7,6 +7,6 @@ if (!isset($_SESSION["user_id"])) {
     exit;
 }
 
-include_once "view/components/side-bar.php";
+require_once "view/components/side-bar.php";
 
-include_once "view/choix-content.php";
+require_once "view/choix-content.php";

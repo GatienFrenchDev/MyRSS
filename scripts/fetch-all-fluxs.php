@@ -8,20 +8,24 @@
 
 $i = 0;
 
-require $_SERVER['DOCUMENT_ROOT'] . "/model/model.php";
+require_once "../model/FluxModel.php";
+require_once "../model/ArticleModel.php";
+require_once "../lib/tools.php";
+require_once "../classes/Article.php";
+
 
 echo "<h1> Récupération des flux RSS </h1>";
 echo "<p> Ce  script interroge tous les flux rss répertoriés dans la db et ajoute les nouveaux articles à la db.</p>";
 
 // Pour chaque flux rss stocké dans la db
-foreach(getAllRSSFlux() as $sourceRSS){
+foreach(FluxModel::getAllRSSFlux() as $sourceRSS){
 
     echo "<h2>" . $sourceRSS["nom"] . "</h2>";
 
     // On récupère tous les articles notés dans le xml du flux rss courant
     $articles = getArticlesFromRSSFlux($sourceRSS["id_flux"], $sourceRSS["adresse_url"]);
     // On récupère le dernier article en date du flux rss courant stocké dans la db
-    $dernier_article = getDernierUrlArticle($sourceRSS["id_flux"]);
+    $dernier_article = FluxModel::getDernierUrlArticle($sourceRSS["id_flux"]);
     $dernier_url_en_date = "";
     // On procéde ensuite par comparaison via l'url de l'article.
     // On considère que si 2 articles ont le même url d'article alors ils sont identiques.
@@ -37,7 +41,7 @@ foreach(getAllRSSFlux() as $sourceRSS){
             break;
         }
         $i++;
-        insertArticleIntoDB($article, $sourceRSS["id_flux"]);
+        ArticleModel::insertArticleIntoDB($article, $sourceRSS["id_flux"]);
     }
 }
 

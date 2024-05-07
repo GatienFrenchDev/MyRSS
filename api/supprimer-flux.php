@@ -24,13 +24,12 @@ if (!isset($_GET["id_categorie"])) {
     exit;
 }
 
-require "../model/model.php";
+require_once "../model/CategorieModel.php";
 
-if(!categorieAppartientA($id_utilisateur, $id_categorie)){
+if(!CategorieModel::categorieAppartientA($id_utilisateur, $id_categorie)){
     http_response_code(403);
     die(json_encode(["error" => "this categorie does not belong to you"]));
     exit;
 }
 
-removeFluxFromCategorie($id_flux, $id_categorie);
-header("Location: ../index.php");
+CategorieModel::removeFluxFromCategorie($id_flux, $id_categorie);

@@ -21,11 +21,12 @@ $id_article = $_GET["id_article"];
 $id_espace = $_GET["id_espace"];
 $id_utilisateur = $_SESSION["user_id"];
 
-require "../model/model.php";
+require_once "../model/EspaceModel.php";
+require_once "../model/ArticleModel.php";
 
-if(!espaceAppartientA($id_utilisateur, $id_espace)){
+if(!EspaceModel::espaceAppartientA($id_utilisateur, $id_espace)){
     die(json_encode(["error" => "espace does not belong to you"]));
     exit;
 }
 
-setArticleLu($id_article, $id_espace);
+ArticleModel::setArticleLu($id_article, $id_espace);

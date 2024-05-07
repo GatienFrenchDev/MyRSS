@@ -32,7 +32,7 @@ class FluxRSS {
             DIVFlux.classList.add("flux-actif");
             ContainerArticle.vider();
             ContainerArticle.addArticles(articles);
-            Headers.updateTitle(this.nom);
+            Header.updateTitle(this.nom);
         });
 
         DIVFlux.addEventListener("contextmenu", async (e) => {

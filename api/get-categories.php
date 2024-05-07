@@ -4,37 +4,35 @@
 
 session_start();
 
-if (isset($_SESSION["user_id"])) {
-
-    if (isset($_GET["id_espace"])) {
-
-        $id_espace = $_GET["id_espace"];
-        $id_utilisateur = $_SESSION["user_id"];
-
-        require_once "../model/model.php";
-
-        if (espaceAppartientA($id_utilisateur, $id_espace)) {
-            $categories = getCategoriesFromEspace($id_espace);
-            die(json_encode(["categories" => $categories]));
-        }
-        die(json_encode(["error" => "espace does not belong to you"]));
-    }
-
-    if (isset($_GET["id_categorie"])) {
-        $id_categorie = $_GET["id_categorie"];
-        $id_utilisateur = $_SESSION["user_id"];
-
-        require_once "../model/model.php";
-
-        if(categorieAppartientA($id_utilisateur, $id_categorie)){
-            $articles = getSubCategories($id_categorie);
-            die(json_encode(["categories" => $articles]));
-        }
-        die(json_encode(["error" => "categorie does not belong to you"]));
-
-    }
-
-    die(json_encode(["error" => "espace parameter needed"]));
+if (!isset($_SESSION["user_id"])) {
+    http_response_code(400);
+    die(json_encode(["error" => "authentification required"]));
 }
 
-die(json_encode(["error" => "authentification required"]));
+$id_utilisateur = $_SESSION["user_id"];
+
+if (isset($_GET["id_espace"])) {
+
+    $id_espace = $_GET["id_espace"];
+
+    require_once "../model/EspaceModel.php";
+
+    if (!EspaceModel::espaceAppartientA($id_utilisateur, $id_espace)) {
+        die(json_encode(["error" => "espace does not belong to you"]));
+    }
+    die(json_encode(["categories" => EspaceModel::getCategoriesFromEspace($id_espace)]));
+}
+
+if (isset($_GET["id_categorie"])) {
+
+    $id_categorie = $_GET["id_categorie"];
+
+    require_once "../model/CategorieModel.php";
+
+    if (!CategorieModel::categorieAppartientA($id_utilisateur, $id_categorie)) {
+        die(json_encode(["error" => "categorie does not belong to you"]));
+    }
+    die(json_encode(["categories" => CategorieModel::getSubCategories($id_categorie)]));
+}
+
+die(json_encode(["error" => "espace parameter or categorie parameter is needed"]));

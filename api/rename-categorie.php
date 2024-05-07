@@ -24,7 +24,7 @@ $id_categorie = $_GET["id_categorie"];
 $nom = $_GET["nom"];
 $id_utilisateur = $_SESSION["user_id"];
 
-require "../model/model.php";
+require_once "../model/CategorieModel.php";
 
 if(strlen($nom) > 32){
     http_response_code(414);
@@ -32,12 +32,12 @@ if(strlen($nom) > 32){
     exit;
 }
 
-if(!categorieAppartientA($id_utilisateur, $id_categorie)){
+if(!CategorieModel::categorieAppartientA($id_utilisateur, $id_categorie)){
     http_response_code(403);
     die(json_encode(["error" => "categorie does not belong to you"]));
     exit;
 }
 
-rename_categorie($id_categorie, $nom);
+CategorieModel::renameCategorie($id_categorie, $nom);
 die(json_encode(["success" => "Successfully renamed categorie"]));
 exit;

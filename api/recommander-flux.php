@@ -24,18 +24,20 @@ $id_flux = $_GET["id_flux"];
 $mail_destinataire = $_GET["mail_destinataire"];
 $id_utilisateur = $_SESSION["user_id"];
 
-require "../model/model.php";
+require_once "../model/FluxModel.php";
+require_once "../model/UtilisateurModel.php";
+require_once "../model/NotificationModel.php";
 
-if(!rssFluxExist($id_flux)){
+if(!FluxModel::rssFluxExist($id_flux)){
     http_response_code(404);
     die(json_encode(["error" => "this flux does not exist"]));
     exit;
 }
 
-$destinataire = getUserDetailsFromMail($mail_destinataire);
-$user = getUserDetailsFromId($id_utilisateur);
+$destinataire = UtilisateurModel::getUserDetailsFromMail($mail_destinataire);
+$user = UtilisateurModel::getUserDetailsFromId($id_utilisateur);
 
-$flux = getFluxDetailsFromId($id_flux);
+$flux = FluxModel::getFluxDetailsFromId($id_flux);
 
 // cas où le destinataire n'existe pas
 if(count($destinataire) == 0){ 
@@ -51,4 +53,4 @@ if($destinataire["id_utilisateur"] == $id_utilisateur){
     exit;
 }
 
-sendNotification($destinataire["id_utilisateur"], "Nouvelle recommandation", "<b>" . $user["prenom"]. " " . $user["nom"] . "</b> vous recommande ce flux<br><code> " . $flux["adresse_url"] . "</code>");
+NotificationModel::sendNotification($destinataire["id_utilisateur"], "Nouvelle recommandation", "<b>" . $user["prenom"]. " " . $user["nom"] . "</b> vous recommande ce flux<br><code> " . $flux["adresse_url"] . "</code>");

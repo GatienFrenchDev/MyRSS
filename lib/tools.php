@@ -1,8 +1,10 @@
 <?php
-
 /**
- * Fichier regroupant quelques fonctions "pratiques" pour l'intégralité du projet.
+ * Ensemble de fonctions "boite à outils" du projet.
  */
+
+require_once $_SERVER['DOCUMENT_ROOT'] . "/model/FluxModel.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/lib/Feed.php";
 
 define("API_KEY", "xxxxxxxxxxxxxxxxxxx");
 
@@ -57,4 +59,57 @@ function getUsernameFromYouTubeUrl($url) {
     } else {
         return false; // Aucun nom d'utilisateur trouvé
     }
+}
+
+function getArticlesFromRSSFlux(int $id_flux, string $url): array
+{
+    $rss = null;
+    $articles = [];
+
+    if (str_starts_with($url, "https://www.youtube.com/feeds/videos.xml?channel_id=")) {
+        $videos = [];
+
+        $xml = new DOMDocument();
+        $xml->load($url);
+
+        FluxModel::updateNomFromFlux($id_flux, $xml->getElementsByTagName("title")->item(0)->nodeValue);
+
+        foreach($xml->getElementsByTagName("entry") as $node){
+            $titre = $node->getElementsByTagName('title')->item(0)->nodeValue;
+            $titre = substr($titre, 0, 255);
+            $description = $node->getElementsByTagName('description')->item(0)->nodeValue;
+            $description = substr($description, 0, 255);
+            $lien = $node->getElementsByTagName('link')->item(0)->getAttribute('href');
+            $date_pub = (int) strtotime($node->getElementsByTagName('published')->item(0)->nodeValue);
+            $videos[] = new Article($titre, $description, $lien, $date_pub);
+        }
+
+        return $videos;
+    }
+
+    try {
+        $rss = Feed::loadRss($url);
+    } catch (\Throwable $th) {
+        return $articles;
+    }
+
+    FluxModel::updateNomFromFlux($id_flux, $rss->title);
+
+    foreach ($rss->item as $item) {
+        $ts = intval($item->timestamp);
+        if ($ts > time()) {
+            $ts = time();
+        }
+        if ($ts < 946681200) {
+            $ts = 946681200;
+        }
+        $articles[] = new Article(
+            strip_tags($item->title, "<br><b><i>"),
+            strip_tags($item->description, "<br><b><i>"),
+            $item->link,
+            $ts
+        );
+    }
+
+    return $articles;
 }

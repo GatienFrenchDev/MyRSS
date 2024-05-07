@@ -1,8 +1,5 @@
 <?php
 
-require "model/model.php";
-
-
 session_start();
 
 if (!isset($_SESSION["user_id"])) {
@@ -11,9 +8,11 @@ if (!isset($_SESSION["user_id"])) {
     exit;
 }
 
+require_once "model/UtilisateurModel.php";
+
 $id_utilisateur = $_SESSION["user_id"];
 
-$utilisateur = getUserDetailsFromId($id_utilisateur);
+$utilisateur = UtilisateurModel::getUserDetailsFromId($id_utilisateur);
 
-require "view/components/side-bar.php";
-require "view/compte.php";
+require_once "view/components/side-bar.php";
+require_once "view/compte.php";

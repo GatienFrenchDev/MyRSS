@@ -17,13 +17,12 @@ if (!isset($_GET["id_notification"])) {
     exit;
 }
 
-require "../model/model.php";
+require_once "../model/NotificationModel.php";
 
-if(!notificationAppartientA($id_utilisateur, $id_notification)){
+if(!NotificationModel::notificationAppartientA($id_utilisateur, $id_notification)){
     http_response_code(403);
     die(json_encode(["error" => "notification does not belong to you"]));
     exit;
 }
 
-deleteNotification($id_notification);
-header("Location: ../index.php");
+NotificationModel::deleteNotification($id_notification);
