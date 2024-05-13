@@ -1,8 +1,8 @@
 # 📰 MyRSS
 
-![image](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
-![image](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white)
-![image](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
+![PHP](./docs/img/php.svg)
+![MySQL](./docs/img/mysql.svg)
+![JS](./docs/img/js.svg)
 
 ## Outil collaboratif de gestion de flux RSS
 
@@ -27,9 +27,9 @@ MyRSS s'appuie sur plusieurs projets open source pour fonctionner efficacement :
 - [rss-php](https://github.com/dg/rss-php) - Une petite bibliothèque PHP pour faciliter le traitement des flux RSS.
 - [looping](https://www.looping-mcd.fr/) - Un logiciel de modélisation conceptuelle de données / modèle logique de données.
 
-MyRSS est basé sur PHP 8.2 et MariaDB 10.4
+MyRSS est basé sur PHP 8.2 et MariaDB 10.4 (testé également sous Ubuntu 24.04 avec PHP 8.3.6 et MySQL 8.0.36-2ubuntu3)
 
-## Déploiement local sous Windows
+## Déploiement local sous Windows pour environnement de développement
 
 - Téléchargez d'abord [XAMPP](https://www.apachefriends.org/fr/index.html) avec les modules `Apache` et `MySQL` (l'installation par défaut suffira).
 - Une fois installé, lancez XAMPP en tant qu'administrateur (clic droit sur `xampp.exe` > `Exécuter en tant qu'administrateur`).
@@ -45,6 +45,13 @@ pass : password
 ```
 - Pour récupérer les nouveaux articles, il faut envoyer une requete GET à l'url `/scripts/fetch-all-fluxs`
 
+## Déploiment sous Ubuntu pour production
+
+⏳ à venir ...
+
+## Déploiment sous Docker pour production
+⏳ à venir également...
+
 ## Structure du projet
 
 MyRSS essaye de se baser sur une architecture MVC.
@@ -53,6 +60,7 @@ MyRSS essaye de se baser sur une architecture MVC.
 .
 ├───api                 # Endpoints API appelés depuis le JS côté client
 ├───docs                # Fichiers utiles à la documentation du projet
+|   ├───img             
 │   └───mcd             
 ├───includes            # Fichiers PHP appelés lors de l’envoi de formulaire
 ├───lib                 # Librairies PHP utiles au projet
@@ -66,3 +74,6 @@ MyRSS essaye de se baser sur une architecture MVC.
         ├───classes
         └───lib         # Librairies tierces utilisés dans le JS
 ```
+
+## Crédits
+- https://github.com/Ileriayo/markdown-badges : fournisseur des badges présents dans le readme
