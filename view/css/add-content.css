@@ -146,6 +146,10 @@ input:focus{
     outline: none;
 }
 
+#dossier-icon{
+    background-color: #4893CD;
+}
+
 #envoi{
     cursor: pointer;
     padding: 0 24px;

@@ -3,7 +3,7 @@
 $host = "127.0.0.1";
 $dbname = "myrss";
 $username = "root";
-$password = "";
+$password = "root";
 
 $mysqli = new mysqli($host, $username, $password, $dbname);
 

@@ -3,7 +3,7 @@
 session_start();
 
 $id_invitation = $_GET["id_invitation"];
-$id_utilisateur = $_SESSION["user_id"];
+$id_utilisateur = $_SESSION["id_utilisateur"];
 
 if (!isset($id_utilisateur)) {
     http_response_code(401);

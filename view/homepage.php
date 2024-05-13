@@ -21,6 +21,7 @@
     <script src="view/js/classes/ArticleReader.js" defer></script>
     <script src="view/js/classes/Article.js" defer></script>
     <script src="view/js/classes/BoutonAjoutDossier.js" defer></script>
+    <script src="view/js/classes/BoutonAjoutFlux.js" defer></script>
     <script src="view/js/classes/Categorie.js" defer></script>
     <script src="view/js/classes/ContainerArticle.js" defer></script>
     <script src="view/js/classes/ContextMenu.js" defer></script>

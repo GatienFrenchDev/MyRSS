@@ -43,7 +43,7 @@ function createSideBar(int $onglet_actif):void
         </a> -->
 
         <div class="ajout-flux">
-            <a href="choix-content" class="ajout-flux-rss">
+            <a class="ajout-flux-rss">
                 <span class="plus">
                     <svg xmlns:xlink="http://www.w3.org/1999/xlink" class="icon white large" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 5V19M5 12H19" stroke="#E9E8F9" stroke-width="2px" stroke-linecap="round" stroke-linejoin="round" fill="#A3A3A3"></path>

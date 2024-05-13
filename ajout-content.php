@@ -2,7 +2,7 @@
 
 session_start();
 
-if (!isset($_SESSION["user_id"])) {
+if (!isset($_SESSION["id_utilisateur"])) {
     http_response_code(401);
     header("Location: login.php");
     exit;
@@ -30,13 +30,19 @@ if (!isset($_GET["type"])) {
     exit;
 }
 
+if (!isset($_GET["id_categorie"])) {
+    http_response_code(400);
+    header("Location : index.php");
+    exit;
+}
+
 $nom_type = $_GET["type"];
+$id_categorie = $_GET["id_categorie"];
 
 require_once "model/UtilisateurModel.php";
 
 
 if (array_key_exists($nom_type, $types)) {
-    $categories = UtilisateurModel::getAllCategoriesFromUser($_SESSION["user_id"]);
     $type = $types[$nom_type];
     require_once "view/components/side-bar.php";
     require_once "view/ajout-content.php";

@@ -5,7 +5,7 @@ require_once "../lib/tools.php";
 session_start();
 
 // Cas où l'utilisateur n'est pas connecté
-if (!isset($_SESSION["user_id"])) {
+if (!isset($_SESSION["id_utilisateur"])) {
     http_response_code(401);
     die(json_encode(["error" => "login needed"]));
     exit;
@@ -19,7 +19,7 @@ if (!(isset($_POST["adresse"]) && isset($_POST["categorie"]) && isset($_POST["ty
 }
 
 
-$id_utilisateur = $_SESSION["user_id"];
+$id_utilisateur = $_SESSION["id_utilisateur"];
 $id_categorie = $_POST["categorie"];
 $url = $_POST["adresse"];
 $type_flux = $_POST["type_flux"];

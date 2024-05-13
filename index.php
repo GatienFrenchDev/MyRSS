@@ -2,7 +2,7 @@
 
 session_start();
 
-if (!isset($_SESSION["user_id"])) {
+if (!isset($_SESSION["id_utilisateur"])) {
     header("Location: login");
     exit;
 }

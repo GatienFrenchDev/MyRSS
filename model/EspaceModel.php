@@ -106,4 +106,26 @@ class EspaceModel
         $mysqli->close();
         return $id_espace;
     }
+
+    /**
+     * Renvoie le nom de l'espace
+     */
+    static function getNom(int $id_espace):string
+    {
+        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
+
+        $stmt = $mysqli->prepare("SELECT nom FROM espace_partage WHERE id_espace = ?");
+        $stmt->bind_param("i", $id_espace);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+        $stmt->close();
+        $mysqli->close();
+
+        if(count($res) == 0){
+            return "";
+        }
+
+        return $res[0]["nom"];
+    }
 }
