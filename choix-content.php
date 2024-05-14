@@ -36,6 +36,10 @@ if(isset($_GET["id_espace"])){
 
     // chaine de charactere que l'on vient mettre dans les balises `<a>`. eg : `id_categorie=13` ou alors `id_espace=11`
     $parametre_balise = "id_espace=".$id_espace;
+    
+    require_once "view/components/side-bar.php";
+
+    require_once "view/choix-content.php";
 
 
 }
@@ -55,17 +59,18 @@ else if(isset($_GET["id_categorie"])){
         die(json_encode(["error" => "id_categorie does not belong to you"]));
     }
 
+    // récupération du nom de la catégorie pour pouvoir l'afficher en haut de la page
     $nom = CategorieModel::getNom($id_categorie);
 
     // chaine de charactere que l'on vient mettre dans les balises `<a>`. eg : `id_categorie=13` ou alors `id_espace=11`
     $parametre_balise = "id_categorie=".$id_categorie;
+
+    require_once "view/components/side-bar.php";
+
+    require_once "view/choix-content.php";
 
 }
 else{
     http_response_code(400);
     die(json_encode(["error" => "missing some parameters"]));
 }
-
-require_once "view/components/side-bar.php";
-
-require_once "view/choix-content.php";
