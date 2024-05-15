@@ -17,7 +17,9 @@ https://www.php.net/manual/fr/function.uniqid.php
 - ✅ ~~système de pagination dans les articles (utiliser mot clé SQL OFFSET LIMIT, stocker en variable la page courante en js et modifier endpoint API pour avoir un truc du style : `/api/getArticles?page=1&per_page=25`)
 https://sql.sh/cours/limit~~ **Fini le 21/04 par Gatien** 
 
-- lorsque l'on clique sur `Ajouter un flux` que l'on se positionne directement dans le répoirtoire courant (faire référence à la variable globale `arborescence` et aller sur la page `choix-content.php` avec en query `?id_espace=xx&id_categorie=xx`)
+- ✅ ~~lorsque l'on clique sur `Ajouter un flux` que l'on se positionne directement dans le répoirtoire courant (faire référence à la variable globale `arborescence` et aller sur la page `choix-content.php` avec en query `?id_espace=xx&id_categorie=xx`)~~
+  
+- ajouter l'arborescence complète en haut de la page `/ajout-content`
 
 ## Points d'améliorations
 
