@@ -18,7 +18,7 @@ Parameters :
 
 session_start();
 
-if (!isset($_SESSION["user_id"])) {
+if (!isset($_SESSION["id_utilisateur"])) {
     http_response_code(401);
     die(json_encode(["error" => "authentification required"]));
 }
@@ -41,7 +41,7 @@ require_once "../model/EspaceModel.php";
 require_once "../model/FluxModel.php";
 require_once "../model/UtilisateurModel.php";
 
-$id_utilisateur = $_SESSION["user_id"];
+$id_utilisateur = $_SESSION["id_utilisateur"];
 
 if (isset($_GET["id_categorie"])) {
     $id_categorie = $_GET["id_categorie"];

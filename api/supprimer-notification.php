@@ -3,9 +3,9 @@
 session_start();
 
 $id_notification = $_GET["id_notification"];
-$id_utilisateur = $_SESSION["user_id"];
+$id_utilisateur = $_SESSION["id_utilisateur"];
 
-if (!isset($_SESSION["user_id"])) {
+if (!isset($_SESSION["id_utilisateur"])) {
     http_response_code(401);
     die(json_encode(["error" => "authentification required"]));
     exit;

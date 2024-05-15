@@ -2,7 +2,7 @@
 
 session_start();
 
-if (!isset($_SESSION["user_id"])) {
+if (!isset($_SESSION["id_utilisateur"])) {
     http_response_code(401);
     die(json_encode(["error" => "authentification required"]));
     exit;
@@ -17,7 +17,7 @@ if (!(isset($_GET["id_categorie"]) xor isset($_GET["id_espace"]))) {
 require_once "../model/EspaceModel.php";
 require_once "../model/CategorieModel.php";
 
-$id_utilisateur = $_SESSION["user_id"];
+$id_utilisateur = $_SESSION["id_utilisateur"];
 
 if (isset($_GET["id_categorie"])) {
 

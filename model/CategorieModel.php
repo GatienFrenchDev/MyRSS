@@ -131,13 +131,13 @@ class CategorieModel
     {
         $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
 
-        if (!isset($_SESSION["user_id"])) {
+        if (!isset($_SESSION["id_utilisateur"])) {
             return [];
         }
 
 
         if ($id_categorie < 0) {
-            return UtilisateurModel::getEspaces($_SESSION["user_id"]);
+            return UtilisateurModel::getEspaces($_SESSION["id_utilisateur"]);
         }
 
 
@@ -189,9 +189,9 @@ class CategorieModel
     }
 
     /*
-Si categorie parent null alors mettre $id_categorie_parent à -1.
-Renvoi id de la categorie qui vient d'etre crée
-*/
+    Si pas de catégorie parent (création d'une catégorie juste en dessous d'un espace) alors mettre `$id_categorie_parent` à -1.
+    Renvoi id de la categorie qui vient d'etre crée
+    */
     static function pushNewCategorieToDB(string $nom, int $id_categorie_parent, int $id_espace): int
     {
         $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
@@ -240,5 +240,27 @@ Renvoi id de la categorie qui vient d'etre crée
         $mysqli->close();
 
         return $res != 0;
+    }
+
+    /**
+     * Renvoie le nom de la catégorie
+     */
+    static function getNom(int $id_categorie):string
+    {
+        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
+
+        $stmt = $mysqli->prepare("SELECT nom FROM categorie WHERE id_categorie = ?");
+        $stmt->bind_param("i", $id_categorie);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+        $stmt->close();
+        $mysqli->close();
+
+        if(count($res) == 0){
+            return "";
+        }
+
+        return $res[0]["nom"];
     }
 }

@@ -146,10 +146,18 @@ input:focus{
     outline: none;
 }
 
+#dossier-icon{
+    background-color: #4893CD;
+}
+
 #envoi{
     cursor: pointer;
     padding: 0 24px;
     background-color: #5b4ecf;
     color: white;
     font-size: 16px;
+}
+
+.non-disponible{
+    filter:  grayscale(1);
 }

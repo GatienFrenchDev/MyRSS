@@ -7,7 +7,7 @@ session_start();
 
 $res = [];
 
-if (isset($_SESSION["user_id"])) {
+if (isset($_SESSION["id_utilisateur"])) {
 
     if (isset($_GET["nom"]) && isset($_GET["id_espace"]) && isset($_GET["id_categorie_parent"])) {
 
@@ -16,7 +16,7 @@ if (isset($_SESSION["user_id"])) {
         $id_categorie_parent = $_GET["id_categorie_parent"];
 
 
-        $id_utilisateur = $_SESSION["user_id"];
+        $id_utilisateur = $_SESSION["id_utilisateur"];
 
         require_once "../model/EspaceModel.php";
         require_once "../model/CategorieModel.php";

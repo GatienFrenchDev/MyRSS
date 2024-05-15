@@ -2,7 +2,7 @@
 
 session_start();
 
-if (!isset($_SESSION["user_id"])) {
+if (!isset($_SESSION["id_utilisateur"])) {
     http_response_code(401);
     header("Location: login");
     exit;
@@ -10,7 +10,7 @@ if (!isset($_SESSION["user_id"])) {
 
 require_once "model/UtilisateurModel.php";
 
-$id_utilisateur = $_SESSION["user_id"];
+$id_utilisateur = $_SESSION["id_utilisateur"];
 
 $utilisateur = UtilisateurModel::getUserDetailsFromId($id_utilisateur);
 

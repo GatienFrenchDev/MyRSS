@@ -2,14 +2,14 @@
 
 session_start();
 
-if (!isset($_SESSION["user_id"])) {
+if (!isset($_SESSION["id_utilisateur"])) {
     header("Location: login");
     exit;
 }
 
 require_once("model/UtilisateurModel.php");
 
-$id_utilisateur = $_SESSION["user_id"];
+$id_utilisateur = $_SESSION["id_utilisateur"];
 
 $invitations = UtilisateurModel::getInvitations($id_utilisateur);
 $notifications = UtilisateurModel::getNotifications($id_utilisateur);

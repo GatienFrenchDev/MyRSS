@@ -18,7 +18,7 @@
     <div class="container">
 
         <div class="top-bar">
-            <a href="choix-content.php">
+            <a href="<?= $url_btn_retour ?>">
                 <svg xmlns:xlink="http://www.w3.org/1999/xlink" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="#707070" stroke-width="2px" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
                 </svg>
@@ -35,18 +35,19 @@
 
             <input type="hidden" name="type_flux" value="<?= $nom_type ?>">
 
-            <select name="categorie" id="categorie" required style="margin-bottom:6px;">
-                <?php
-                foreach ($categories as $categorie) {
-                ?>
-                    <option value="<?= htmlspecialchars($categorie["id_categorie"]) ?>"><?= htmlspecialchars($categorie["nom"]) ?></option>
-                <?php
-                }
-                ?>
-            </select>
+            <input type="hidden" name="espace" value="<?= $id_espace ?>">
+
+            <?php
+            if(!is_null($id_categorie)){ ?>
+
+            <input type="hidden" name="categorie" value="<?= $id_categorie ?>">
+            
+            <?php
+            }
+            ?>
 
             <div>
-                <input name="adresse" type="url" id="adresse" placeholder="<?= htmlspecialchars($type["placeholder"]) ?>" required>
+                <input name="adresse" type="<?= $type["type_input"] ?>" id="adresse" placeholder="<?= htmlspecialchars($type["placeholder"]) ?>" required>
                 <input type="submit" value="Ajouter" id="envoi">
             </div>
 
