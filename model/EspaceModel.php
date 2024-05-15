@@ -110,7 +110,7 @@ class EspaceModel
     /**
      * Renvoie le nom de l'espace
      */
-    static function getNom(int $id_espace):string
+    static function getNom(int $id_espace): string
     {
         $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
 
@@ -122,7 +122,7 @@ class EspaceModel
         $stmt->close();
         $mysqli->close();
 
-        if(count($res) == 0){
+        if (count($res) == 0) {
             return "";
         }
 

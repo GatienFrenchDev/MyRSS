@@ -189,9 +189,9 @@ class CategorieModel
     }
 
     /*
-Si categorie parent null alors mettre $id_categorie_parent à -1.
-Renvoi id de la categorie qui vient d'etre crée
-*/
+    Si pas de catégorie parent (création d'une catégorie juste en dessous d'un espace) alors mettre `$id_categorie_parent` à -1.
+    Renvoi id de la categorie qui vient d'etre crée
+    */
     static function pushNewCategorieToDB(string $nom, int $id_categorie_parent, int $id_espace): int
     {
         $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");

@@ -12,32 +12,50 @@ $types = [
     "rss" =>  [
         "titre" => "RSS",
         "description" => "Entrez l'adresse du flux",
-        "placeholder" => "https://exemple.com/feed",
+        "placeholder" => "https://example.com/feed",
+        "type_input" => "url"
     ],
 
     "yt" =>  [
         "titre" => "YouTube",
         "description" => "Entrez l'identifiant de la chaine YouTube",
-        "placeholder" => "https://www.youtube.com/@nobodyplaylists/"
+        "placeholder" => "https://www.youtube.com/@nobodyplaylists/",
+        "type_input" => "url"
+    ],
+
+    "categorie" =>  [
+        "titre" => "Catégorie",
+        "description" => "Entrez le nom de la catégorie à créer",
+        "placeholder" => "Actualités",
+        "type_input" => "text"
     ],
 
 ];
 
+if(!isset($_GET["id_espace"])){
+    http_response_code(400);
+    header("Location : /");
+    exit;
+}
 
 if (!isset($_GET["type"])) {
     http_response_code(400);
-    header("Location : index.php");
+    header("Location : /");
     exit;
 }
 
-if (!isset($_GET["id_categorie"])) {
-    http_response_code(400);
-    header("Location : index.php");
-    exit;
+
+$id_espace = $_GET["id_espace"];
+$id_categorie = null;
+
+if(isset($_GET["id_categorie"])){
+    $id_categorie = $_GET["id_categorie"];
 }
+
 
 $nom_type = $_GET["type"];
-$id_categorie = $_GET["id_categorie"];
+$url_btn_retour = is_null($id_categorie)?"choix-content.php?id_espace=".$id_espace:"choix-content.php?id_espace=".$id_espace."&id_categorie=".$id_categorie;
+
 
 require_once "model/UtilisateurModel.php";
 

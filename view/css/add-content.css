@@ -159,5 +159,5 @@ input:focus{
 }
 
 .non-disponible{
-    filter:  class="non-disponible"grayscale(1);
+    filter:  grayscale(1);
 }

@@ -25,11 +25,11 @@ https://sql.sh/cours/limit~~ **Fini le 21/04 par Gatien**
 
 - documenter chaque fonction comme dans la fonction `getIDFromYoutubeChannel()` dans le fichier `/lib/tools.php`
 
-- changer nom variable session `$_SESSION["id_user"]` en `$_SESSION["id_utilisateur"]` (pour consistance nommage variables dans tout le projet)
+- ✅ ~~changer nom variable session `$_SESSION["id_user"]` en `$_SESSION["id_utilisateur"]` (pour consistance nommage variables dans tout le projet)~~
 
-- utiliser seulement des `require ""` et pas des `require()` ou `include` ou `include_once`
+- ✅ ~~utiliser seulement des `require ""` et pas des `require()` ou `include` ou `include_once`~~
 
-- revoir la structure du projet (voir good pratices php project)
+- ✅ ~~revoir la structure du projet (voir good pratices php project)~~
 
 https://phptherightway.com/
 
@@ -58,16 +58,16 @@ https://developer.mozilla.org/fr/docs/Web/HTML/Element/article
 - faire toutes les requetes SQL avec des `prepared statements`
 https://www.php.net/manual/en/mysqli.quickstart.prepared-statements.php
 
-- créditer auteur librairie `rss-php`
-https://github.com/dg/rss-php
+- ✅ ~~créditer auteur librairie `rss-php`
+https://github.com/dg/rss-php~~
 
-- créditer auteur libraire `moment.js`
-https://momentjs.com/
+- ✅ ~~créditer auteur libraire `moment.js`
+https://momentjs.com/~~
 
 
 ### `/api`
-- refaire le systeme de check (pour éviter les `if` emboités)
-https://www.geeksforgeeks.org/writing-clean-else-statements/
+- ✅ ~~refaire le systeme de check (pour éviter les `if` emboités)
+https://www.geeksforgeeks.org/writing-clean-else-statements/~~
 
 - documenter chaque endpoint (voir ex à `/api/get-articles.php`)
 
@@ -77,10 +77,10 @@ https://www.php.net/manual/fr/function.filter-var.php
 ### `/includes/inscription.inc.php`
 - améliorer la vérification des données d'entrées par le formulaire
 
-- changer mode de requete mysqli pour des requetes parametriques
+- ✅ ~~changer mode de requete mysqli pour des requetes parametriques~~
 
 ### `/view/js`
-- répartir les fonctions js en plusieurs fichiers (voir peut être créer des classes si besoin...)
+- ✅ ~~répartir les fonctions js en plusieurs fichiers (voir peut être créer des classes si besoin...)~~
 
 
 ## Trucs utiles
