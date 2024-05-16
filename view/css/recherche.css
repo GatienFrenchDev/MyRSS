@@ -4,4 +4,54 @@ body{
 
 div.container{
     height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+h1{
+    margin-bottom: 15px;
+}
+
+span{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+input{
+    border: 1px solid black;
+}
+
+input#text{
+    box-sizing: border-box;
+    font-size: 20px;
+    font-weight: 450;
+    width: 100%;
+    padding: 5px;
+}
+
+input#debut, input#fin{
+    padding: 5px;
+}
+
+input#valider{
+    cursor: pointer;
+    background-color: white;
+    padding: 5px;
+    font-size: 20px;
+    font-weight: 450;
+    transition: all .5s ease-in-out;
+}
+
+input#valider:hover{
+    border: 1px solid #41cf41;
+    color: #41cf41;
 }

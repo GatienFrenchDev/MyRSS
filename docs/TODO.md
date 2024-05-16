@@ -31,6 +31,8 @@ https://sql.sh/cours/limit~~ **Fini le 21/04 par Gatien**
 
 ### `/`
 
+- idéalement remplacer la classe `mysqli` par `PDO` dans `/model`
+
 - documenter chaque fonction comme dans la fonction `getIDFromYoutubeChannel()` dans le fichier `/lib/tools.php`
 
 - ✅ ~~changer nom variable session `$_SESSION["id_user"]` en `$_SESSION["id_utilisateur"]` (pour consistance nommage variables dans tout le projet)~~
