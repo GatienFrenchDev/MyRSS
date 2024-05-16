@@ -25,7 +25,6 @@ MyRSS s'appuie sur plusieurs projets open source pour fonctionner efficacement :
 
 - [moment.js](https://github.com/moment/moment/) - Une bibliothèque JavaScript pour l'analyse, la validation, la manipulation et le formatage des dates.
 - [rss-php](https://github.com/dg/rss-php) - Une petite bibliothèque PHP pour faciliter le traitement des flux RSS.
-- [looping](https://www.looping-mcd.fr/) - Un logiciel de modélisation conceptuelle de données / modèle logique de données.
 
 MyRSS est basé sur PHP 8.2 et MariaDB 10.4 (testé également sous Ubuntu 24.04 avec PHP 8.3.6 et MySQL 8.0.36-2ubuntu3)
 
@@ -77,3 +76,5 @@ MyRSS essaye de se baser sur une architecture MVC.
 
 ## Crédits
 - https://github.com/Ileriayo/markdown-badges : fournisseur des badges présents dans le readme
+
+- https://www.looping-mcd.fr/ - Logiciel de modélisation conceptuelle utilisé pour réaliser le mcd puis mld
