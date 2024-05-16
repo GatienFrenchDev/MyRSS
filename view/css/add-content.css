@@ -38,7 +38,7 @@ div.type>a{
     transition: all 0.2s ease-in-out;
 }
 
-div.type>a:hover{
+div.type>a:not(.non-disponible):hover{
     border: 1px solid rgb(153, 144, 225);
     background-color: rgb(250, 250, 250);
 }
@@ -50,9 +50,9 @@ div.type>a>svg{
     margin-right: 12px;
 }
 
-div.type>a>svg>path{
+/* div.type>a>svg>path{
     fill: white;
-}
+} */
 
 #yt-icon{
     background-color: #ff0000;

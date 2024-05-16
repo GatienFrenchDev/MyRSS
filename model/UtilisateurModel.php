@@ -2,7 +2,7 @@
 
 class UtilisateurModel
 {
-    static function getEspaces(int $user_id): array
+    static function getEspaces(int $id_utilisateur): array
     {
         $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
 
@@ -30,7 +30,7 @@ class UtilisateurModel
     GROUP BY 
         e.id_espace;");
 
-        $stmt->bind_param("i", $user_id);
+        $stmt->bind_param("i", $id_utilisateur);
         $stmt->execute();
         $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $stmt->close();
@@ -39,28 +39,26 @@ class UtilisateurModel
     }
 
     /**
-     * @param user_id - identifiant de l'utilisateur
+     * @param id_utilisateur - identifiant de l'utilisateur
      * @param numero_page - premiere page commence à 0 donc $numero_page appartient à [0;+inf[
      */
-    static function getAllArticles(int $user_id, int $numero_page): array
+    static function getAllArticles(int $id_utilisateur, int $numero_page): array
     {
         $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
 
         $numero_page *= 100;
 
-        $stmt = $mysqli->prepare("SELECT a.*, f.*,
-       CASE WHEN el.id_article IS NOT NULL THEN 1 ELSE 0 END AS est_lu
+        $stmt = $mysqli->prepare("SELECT a.*, f.*
        FROM article a
        INNER JOIN flux_rss f ON a.id_flux = f.id_flux
        INNER JOIN contient c ON c.id_flux = f.id_flux
        INNER JOIN categorie cg ON cg.id_categorie = c.id_categorie
        INNER JOIN espace_partage e ON e.id_espace = cg.id_espace
-       LEFT JOIN est_lu el ON a.id_article = el.id_article
        INNER JOIN contient_des cd ON cd.id_espace = e.id_espace
        INNER JOIN utilisateur u ON u.id_utilisateur = cd.id_utilisateur
        WHERE u.id_utilisateur = ?
        ORDER BY date_pub DESC LIMIT 100 OFFSET ?");
-        $stmt->bind_param("ii", $user_id, $numero_page);
+        $stmt->bind_param("ii", $id_utilisateur, $numero_page);
         $stmt->execute();
         $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
@@ -125,7 +123,7 @@ class UtilisateurModel
     }
 
     /**
-     * Exemple : getUserDetailsFromMail(`john@exemple.com`) renvoie `Array ( [id_utilisateur] => 1 [nom] => Doe [prenom] => John [email] => john@exemple.com [date_inscription] => 1714580239 )`
+     * Exemple : getUserDetailsFromMail(`john@example.com`) renvoie `Array ( [id_utilisateur] => 1 [nom] => Doe [prenom] => John [email] => john@example.com [date_inscription] => 1714580239 )`
      * Renvoie une liste vide si l'user existe pas.
      */
     static function getUserDetailsFromMail(string $mail): array
@@ -179,4 +177,57 @@ class UtilisateurModel
         $mysqli->close();
         return $res;
     }
+
+    /**
+     * Renvoi tous les articles non lu d'un utilisateur
+     */
+    static function getArticlesNonLu(int $id_utilisateur, int $numero_page): array
+    {
+        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
+
+        $stmt = $mysqli->prepare("SELECT a.*, f.*
+        FROM article a
+        INNER JOIN flux_rss f ON a.id_flux = f.id_flux
+        INNER JOIN contient c ON c.id_flux = f.id_flux
+        INNER JOIN categorie cg ON cg.id_categorie = c.id_categorie
+        INNER JOIN espace_partage e ON e.id_espace = cg.id_espace
+        LEFT JOIN est_lu el ON a.id_article = el.id_article
+        INNER JOIN contient_des cd ON cd.id_espace = e.id_espace
+        INNER JOIN utilisateur u ON u.id_utilisateur = cd.id_utilisateur
+        WHERE u.id_utilisateur = ? AND el.id_article IS NULL
+        ORDER BY date_pub DESC LIMIT 100 OFFSET ?");
+
+        $stmt->bind_param("ii", $id_utilisateur, $numero_page);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        $mysqli->close();
+        return $res;
+    }
+
+    static function getArticlesFavoris(int $id_utilisateur, int $numero_page): array
+    {
+        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
+
+        $stmt = $mysqli->prepare("SELECT a.*, f.*
+        FROM article a
+        INNER JOIN flux_rss f ON a.id_flux = f.id_flux
+        INNER JOIN contient c ON c.id_flux = f.id_flux
+        INNER JOIN categorie cg ON cg.id_categorie = c.id_categorie
+        INNER JOIN ajout_archive aa ON aa.id_article = a.id_article
+        INNER JOIN espace_partage e ON e.id_espace = cg.id_espace
+        LEFT JOIN est_lu el ON a.id_article = el.id_article
+        INNER JOIN contient_des cd ON cd.id_espace = e.id_espace
+        INNER JOIN utilisateur u ON u.id_utilisateur = cd.id_utilisateur
+        WHERE u.id_utilisateur = ? AND el.id_article IS NULL
+        ORDER BY date_pub DESC LIMIT 100 OFFSET ?");
+
+        $stmt->bind_param("ii", $id_utilisateur, $numero_page);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        $mysqli->close();
+        return $res;
+    }
+
 }

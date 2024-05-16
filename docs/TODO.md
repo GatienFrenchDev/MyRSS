@@ -2,7 +2,7 @@
 
 ## Grosses taches
 
-- fix pagination quand espace ou catégorie juste en `actif` (et donc variable `arborescence` pas vraiment à jour)
+- ✅ ~~fix pagination quand espace ou catégorie juste en `actif` (et donc variable `arborescence` pas vraiment à jour)~~ (problème réglé en supprimant les boutons de pagination lorsque une catégorie active)
 
 - système de vérification par email lors de la création du compte (générer un uuid puis faire un lien du style /valider?id_utilisateur=xxxx&uuid=xxxxxx)
 https://www.php.net/manual/en/function.mail.php
@@ -19,7 +19,13 @@ https://sql.sh/cours/limit~~ **Fini le 21/04 par Gatien**
 
 - ✅ ~~lorsque l'on clique sur `Ajouter un flux` que l'on se positionne directement dans le répoirtoire courant (faire référence à la variable globale `arborescence` et aller sur la page `choix-content.php` avec en query `?id_espace=xx&id_categorie=xx`)~~
   
-- ajouter l'arborescence complète en haut de la page `/ajout-content`
+- 👎 ~~ajouter le chemin complet en haut de la page `/ajout-content` (sera certainement pas fait car risque de ne pas être très joli en cas de chemin absolu trop long)~~
+
+- changer les endpoints GET en POST de manière à ce que ce soit cohérent
+
+- faire la page de recherche pour pouvoir faire des recherches avancées (on remplit un formulaire sur la page `recherche.php` et ensuite on a les résultats sur la page `resultat.php`)
+
+- bien vérifier à check que les parametres du style numero_page soit des nombres (avec function `ctype_digit()`)
 
 ## Points d'améliorations
 
@@ -92,3 +98,6 @@ http://www.google.com/s2/favicons?domain=univ-tours.fr
 
 https://www.youtube.com/feeds/videos.xml?channel_id=UC2edQ0WvtZnYFg-o1WyNSpg
 > Pour récup content d'une chaine YouTube
+
+https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&oc=11&q=SEARCH-HERE
+> Utiliser google news en tant que flux rss

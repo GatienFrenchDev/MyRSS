@@ -31,7 +31,7 @@ class Categorie{
     </div>
         `
         document.querySelector('div#arborescence').appendChild(DIVcategorie);
-        DIVcategorie.addEventListener('dblclick', async () => {
+        DIVcategorie.addEventListener('click', async () => {
             document.querySelectorAll("div.categorie-active").forEach(categorie => categorie.classList.remove("categorie-active"));
             Header.updateTitle(this.nom);
             arborescence.push({
@@ -54,18 +54,7 @@ class Categorie{
             ContainerArticle.addArticles(articles);
     
         })
-    
-        DIVcategorie.addEventListener('click', async () => {
-            document.querySelectorAll("div.categorie-active").forEach(categorie => categorie.classList.remove("categorie-active"));
-            document.querySelectorAll("div.dossier").forEach(dossier => dossier.classList.remove("categorie-active"));
-            DIVcategorie.classList.add("categorie-active");
-            Header.updateTitle(this.nom);
-            ContainerArticle.numero_page = 0;
-            const articles = await API.getArticlesFromCategorie(this.id_categorie, ContainerArticle.numero_page);
-            ContainerArticle.vider();
-            ContainerArticle.addArticles(articles);
-        })
-    
+      
         DIVcategorie.addEventListener('contextmenu', (e) => {
             e.stopPropagation();
             e.preventDefault();
@@ -74,12 +63,8 @@ class Categorie{
             context_menu.style.left = e.x + "px" ;
             context_menu.style.top = e.y + "px" ;
             ContextMenu.vider();
-            const item_collab = ContextMenu.addItem("Ajouter un collaborateur");
             const item_supprimer = ContextMenu.addItem("Supprimer la catégorie");
-            const item_renommer = ContextMenu.addItem("Renommer");
-            item_collab.addEventListener("click", () => {
-                document.location.href = `ajout-collab.php?id_categorie=${this.id_categorie}`;
-            })
+            const item_renommer = ContextMenu.addItem("Renommer la catégorie");
             item_supprimer.addEventListener("click", () => {
                 if(confirm(`Voulez vous vraiment supprimer la catégorie ${this.nom} et toutes ses sous-catégories ?`)){
                     API.supprimerCategorie(this.id_categorie);

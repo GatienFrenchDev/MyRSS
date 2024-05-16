@@ -74,7 +74,7 @@ class Arborescence{
         <p>Retour</p>
     </div>
         `
-        div.addEventListener('dblclick', async () => {
+        div.addEventListener('click', async () => {
 
             // cas où on est à la racine(n=0)
             if (arborescence.length == 0) {

@@ -69,12 +69,6 @@ if (!isset($_POST["categorie"])) {
 $id_utilisateur = $_SESSION["id_utilisateur"];
 $id_categorie = $_POST["categorie"];
 
-// Cas où l'url passé en paramètre n'est pas valide
-if (!filter_var($url, FILTER_VALIDATE_URL)) {
-    http_response_code(400);
-    die(json_encode(["error" => "url parameter is not a valid url"]));
-}
-
 // Cas où la catégorie passé en paramètre n'appartient pas à l'utilisateur
 if (!CategorieModel::categorieAppartientA($id_utilisateur, $id_categorie)) {
     http_response_code(403);
@@ -112,6 +106,19 @@ if ($type_flux == "yt") {
         $id_flux = FluxModel::ajouterFluxRSSindb($url, $type_flux);
         CategorieModel::addRSSFluxToCategorie($id_flux, $id_categorie);
     }
+}
+
+// Cas où le flux rss est un sujet google news
+else if($type_flux == "google-news"){
+    $url = "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&oc=11&q=".urlencode($url);
+    $id_flux = null;
+    if(FluxModel::isFluxRSSindb($url)){
+        $id_flux = FluxModel::getIDFromURL($url);
+    }
+    else{
+        $id_flux = FluxModel::ajouterFluxRSSindb($url, $type_flux);
+    }
+    CategorieModel::addRSSFluxToCategorie($id_flux, $id_categorie);
 }
 
 // Cas où le flux RSS est un flux RSS natif

@@ -1,0 +1,7 @@
+body{
+    grid-template-columns: 96px auto;
+}
+
+div.container{
+    height: 100vh;
+}

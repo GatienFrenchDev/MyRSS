@@ -84,6 +84,11 @@ div.categorie-active{
     background-color: #e9e8f9;
 }
 
+div.categorie-active>div>svg>path{
+    stroke-width: 2.5px;
+    stroke: #3a2ea8;
+}
+
 div.categorie>div {
     align-items: center;
     width: 100%;

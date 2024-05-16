@@ -34,3 +34,59 @@ div#article-reader>p{
     color: rgb(26, 26, 26);
     line-height: 21px;
 }
+
+div#container-actions{
+    margin-bottom: 20px;
+}
+
+div#container-actions>button{
+    width: 150px;
+    font-weight: 450;
+    cursor: pointer;
+    /* background-color: white; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    border: 1px solid rgb(208, 215, 222);
+    color: rgb(26, 26, 26);
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+}
+
+div#container-actions>button>svg>path{
+    transition: all 0.2s ease-in-out;
+}
+/* 
+div#container-actions>button:hover{
+    border: 1px solid #50e250;
+    color: #50e250;
+}
+
+div#container-actions>button:hover>svg>path{
+    stroke: #50e250;
+} */
+
+div#container-actions>button.starred:hover{
+    border: 1px solid red;
+    color: red;
+}
+
+div#container-actions>button.starred:hover>svg>path{
+    stroke: red;
+}
+
+div#container-actions>button.starred{
+    border : 1px solid rgb(91 78 207 / 30%);
+    background-color: #5b4ecf3b;
+}
+
+
+
+div#container-actions>button:hover{
+    background-color: rgb(250, 250, 250);
+}
+
+div#container-actions>button>svg{
+    margin-right: 6px;
+}

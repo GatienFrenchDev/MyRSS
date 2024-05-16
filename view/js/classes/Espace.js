@@ -81,11 +81,11 @@ class Espace {
 </div>
     `
         document.querySelector('div#arborescence').appendChild(DIVespace);
-        DIVespace.addEventListener('dblclick', async () => {
+        DIVespace.addEventListener('click', async () => {
             document.querySelectorAll("div.categorie-active").forEach(categorie => categorie.classList.remove("categorie-active"));
             espace_actif = { "id_espace": this.id_espace, "nom": this.nom };
             Header.updateTitle(this.nom);
-            arborescence.push({ "id": parseInt(this.id_espace), "nom": this.nom });
+            arborescence = [{ "id": parseInt(this.id_espace), "nom": this.nom }];
 
             const categories = await API.getCategoriesFromEspace(this.id_espace);
             Arborescence.vider()
@@ -149,17 +149,6 @@ class Espace {
             })
         })
 
-        DIVespace.addEventListener('click', async () => {
-            document.querySelectorAll("div.categorie-active").forEach(categorie => categorie.classList.remove("categorie-active"));
-            espace_actif = { "id_espace": this.id_espace, "nom": this.nom };
-            document.querySelectorAll("div.dossier").forEach(dossier => dossier.classList.remove("categorie-active"));
-            DIVespace.classList.add("categorie-active");
-            Header.updateTitle(this.nom);
-            ContainerArticle.vider();
-            ContainerArticle.numero_page = 0;
-            const articles = await API.getArticlesFromEspace(this.id_espace, ContainerArticle.numero_page);
-            ContainerArticle.addArticles(articles);
-        })
         return DIVespace;
     }
 }

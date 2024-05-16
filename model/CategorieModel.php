@@ -245,7 +245,7 @@ class CategorieModel
     /**
      * Renvoie le nom de la catégorie
      */
-    static function getNom(int $id_categorie):string
+    static function getNom(int $id_categorie): string
     {
         $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
 
@@ -257,7 +257,7 @@ class CategorieModel
         $stmt->close();
         $mysqli->close();
 
-        if(count($res) == 0){
+        if (count($res) == 0) {
             return "";
         }
 

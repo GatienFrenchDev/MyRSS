@@ -11,5 +11,5 @@ $id_utilisateur = $_SESSION["id_utilisateur"];
 
 require_once "../model/UtilisateurModel.php";
 
-$articles = UtilisateurModel::getEspaces($id_utilisateur);
-die(json_encode(["espaces" => $articles]));
+$espaces = UtilisateurModel::getEspaces($id_utilisateur);
+die(json_encode(["espaces" => $espaces]));

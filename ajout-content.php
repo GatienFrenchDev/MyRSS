@@ -19,7 +19,7 @@ $types = [
     "yt" =>  [
         "titre" => "YouTube",
         "description" => "Entrez l'identifiant de la chaine YouTube",
-        "placeholder" => "https://www.youtube.com/@nobodyplaylists/",
+        "placeholder" => "https://www.youtube.com/@Apple",
         "type_input" => "url"
     ],
 
@@ -27,6 +27,13 @@ $types = [
         "titre" => "Catégorie",
         "description" => "Entrez le nom de la catégorie à créer",
         "placeholder" => "Actualités",
+        "type_input" => "text"
+    ],
+
+    "google-news" =>  [
+        "titre" => "Google News",
+        "description" => "Entrez votre recherche Google News",
+        "placeholder" => "Guerre Ukraine",
         "type_input" => "text"
     ],
 

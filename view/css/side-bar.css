@@ -54,6 +54,7 @@ div.side-bar>a>p{
 }
 
 div.ajout-flux{
+    cursor: pointer;
     height: 66px;
     padding: 12px 0;
     margin: 12px 0;

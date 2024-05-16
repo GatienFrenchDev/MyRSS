@@ -184,7 +184,8 @@ class API {
                 element["date_pub"],
                 element["url_article"],
                 element["nom"],
-                `http://www.google.com/s2/favicons?domain=${Tools.extractDomain(element["adresse_url"])}`
+                `http://www.google.com/s2/favicons?domain=${Tools.extractDomain(element["adresse_url"])}`,
+                true
             )
             articles.push(article);
         });
@@ -297,6 +298,68 @@ class API {
 
     static async supprimerFlux(id_flux, id_categorie){
         await fetch(`api/supprimer-flux.php?id_flux=${encodeURIComponent(id_flux)}&id_categorie=${encodeURIComponent(id_categorie)}`);
+    }
+
+    static async getArticlesNonLu(numero_page){
+        const request = await fetch(`api/get-articles-non-lu.php?numero_page=${numero_page}`, { method: 'GET' });
+        const json = await request.json();
+
+        let articles = [];
+
+        json["articles"].forEach(element => {
+            const article = new Article(
+                element["id_article"],
+                element["titre"],
+                element["description"],
+                element["date_pub"],
+                element["url_article"],
+                element["nom"],
+                `http://www.google.com/s2/favicons?domain=${Tools.extractDomain(element["adresse_url"])}`
+            )
+            articles.push(article);
+        });
+        return articles;
+    }
+
+    static async addToFavorites(id_article){
+        const data = new FormData();
+        data.append("id_article", id_article);
+        await fetch(`api/add-to-favorites.php`, {
+            method: "POST",
+            body: data
+        });
+    }
+
+    /**
+     * 
+     * @param {Number} id_article 
+     * @returns {Boolean}
+     */
+    static async articleDansFavoris(id_article){
+        const request = await fetch(`api/est-dans-favoris.php?id_article=${id_article}`, { method: 'GET' });
+        const json = await request.json();
+        return json["res"];
+    }
+
+    static async getArticlesFavoris(numero_page){
+        const request = await fetch(`api/get-articles-favoris.php?numero_page=${numero_page}`, { method: 'GET' });
+        const json = await request.json();
+
+        let articles = [];
+
+        json["articles"].forEach(element => {
+            const article = new Article(
+                element["id_article"],
+                element["titre"],
+                element["description"],
+                element["date_pub"],
+                element["url_article"],
+                element["nom"],
+                `http://www.google.com/s2/favicons?domain=${Tools.extractDomain(element["adresse_url"])}`
+            )
+            articles.push(article);
+        });
+        return articles;
     }
 
 

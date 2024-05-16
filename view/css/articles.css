@@ -146,12 +146,25 @@ div#container_pagination{
 }
 
 div#container_pagination>button{
-    border-radius: 50%;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 24px;
+    width: 24px;
     padding: 5px;
     cursor: pointer;
     border: 1px solid black;
+    background-color: white;
 }
 
 div#container_pagination>span{
+    border-radius: 4px;
+    height: 24px;
+    width: 24px;
     font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
 }
