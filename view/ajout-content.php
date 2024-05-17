@@ -15,7 +15,7 @@
     <?php
     createSideBar(0);
     ?>
-    <div class="container">
+    <div class="container" style="padding: 0;">
 
         <div class="top-bar">
             <a href="<?= $url_btn_retour ?>">

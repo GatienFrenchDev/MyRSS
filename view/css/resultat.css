@@ -1,0 +1,24 @@
+body{
+    grid-template-columns: 96px auto;
+}
+
+div.container{
+    overflow-y: scroll;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+    box-sizing: border-box;
+    padding: 50px 200px;
+}
+
+section{
+    margin-top: 30px;
+}
+
+article{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 40px;
+}

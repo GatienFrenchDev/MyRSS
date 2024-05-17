@@ -82,8 +82,14 @@ class ArticleModel
             $requete_sql .= " AND a.date_pub < " . $ts;
         }
 
+        if($query["tri"] == "asc"){
+            $requete_sql .= " ORDER BY date_pub ASC LIMIT 100 OFFSET ?";
+        }
+        else{
+            $requete_sql .= " ORDER BY date_pub DESC LIMIT 100 OFFSET ?";
+        }
 
-        $requete_sql .= " ORDER BY date_pub DESC LIMIT 100 OFFSET ?";
+
 
         $texte = $query["text"] == null ? "":$query["text"];
         $texte = "%$texte%";

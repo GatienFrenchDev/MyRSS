@@ -3,6 +3,7 @@ div.onglet-bottom>span>svg>path{
 }
 
 div.side-bar{
+    user-select: none;
     height: 100%;
     background: #eeeff0;
     display: flex;

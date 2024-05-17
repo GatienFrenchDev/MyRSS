@@ -7,13 +7,9 @@ div.container{
 }
 
 div.container>div{
-    padding: 30px;
+    padding: 50px;
 }
 
 h1{
     margin-bottom: 10px;  
-}
-
-b{
-    user-select: text;
 }

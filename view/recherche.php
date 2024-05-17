@@ -31,6 +31,11 @@
                 <input type="checkbox" name="article-lu" id="article-lu" checked>
                 <label for="article-non-lu">Article non lu</label>
                 <input type="checkbox" name="article-non-lu" id="article-non-lu" checked>
+                <label for="tri">Trier par ordre</label>
+                <select name="tri" id="tri">
+                    <option value="desc">Décroissant</option>
+                    <option value="asc">Croissant</option>
+                </select>
             </span>
             <input type="submit" value="Valider" id="valider">
         </form>

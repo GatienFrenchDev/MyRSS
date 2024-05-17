@@ -53,17 +53,7 @@
 
         <div class="top">
 
-            <div class="search-bar">
-                <!-- <div class="container">
-                    
-                </div> -->
-                <svg xmlns:xlink="http://www.w3.org/1999/xlink" class="icon search-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21 21L15.0001 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="#A3A3A3" stroke-width="2px" stroke-linecap="round" stroke-linejoin="round" fill="none">
-                    </path>
-                </svg>
-                <p>Recherche...</p>
-
-            </div>
+            <img src="/docs/img/logo_troover.svg" height="35" alt="logo troover">
 
         </div>
 
@@ -123,13 +113,13 @@
                 Tous les posts
             </span>
         </div>
-
+<!-- 
         <div class="filtres">
             <svg xmlns:xlink="http://www.w3.org/1999/xlink" class="icon filter-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M6 12H18M3 6H21M9 18H15" stroke="#707070" stroke-width="2px" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
             </svg>
             <span>Filtres</span>
-        </div>
+        </div> -->
 
         <div id="container-articles">
         </div>

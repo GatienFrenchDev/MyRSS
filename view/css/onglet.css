@@ -1,4 +1,5 @@
 div.onglet {
+    user-select: none;
     width: 324px;
     background-color: #eeeff0;
     border-right: 1px solid #e4e6e7;

@@ -17,7 +17,6 @@ div#article-reader>h1:hover{
 }
 
 div#article-banner{
-    user-select: text;
     display: flex;
     align-items: center;
     gap: .5vw;
@@ -27,7 +26,6 @@ div#article-banner{
 }
 
 div#article-reader>p{
-    user-select: text;
     letter-spacing: -0.05px;
     font-weight: 400;
     font-size: 14px;
@@ -77,8 +75,13 @@ div#container-actions>button.starred:hover>svg>path{
 }
 
 div#container-actions>button.starred{
-    border : 1px solid rgb(91 78 207 / 30%);
-    background-color: #5b4ecf3b;
+    color: white;
+    border : 1px solid #807e93;
+    background-color: #5b4ecf;
+}
+
+div#container-actions>button.starred>svg>path{
+    stroke: white;
 }
 
 

@@ -26,7 +26,7 @@ span{
     gap: 20px;
 }
 
-input{
+input, select{
     border: 1px solid black;
 }
 
@@ -38,7 +38,7 @@ input#text{
     padding: 5px;
 }
 
-input#debut, input#fin{
+input#debut, input#fin, select{
     padding: 5px;
 }
 
@@ -48,10 +48,10 @@ input#valider{
     padding: 5px;
     font-size: 20px;
     font-weight: 450;
-    transition: all .5s ease-in-out;
+    transition: all .2s ease-in-out;
 }
 
 input#valider:hover{
-    border: 1px solid #41cf41;
-    color: #41cf41;
+    border: 1px solid #2c942c;
+    color: #2c942c;
 }

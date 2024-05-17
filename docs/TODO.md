@@ -27,6 +27,12 @@ https://sql.sh/cours/limit~~ **Fini le 21/04 par Gatien**
 
 - bien vérifier à check que les parametres du style numero_page soit des nombres (avec function `ctype_digit()`)
 
+- améliorer UI dans `scripts/fetch-all-fluxs.php`
+
+- lorsque l'on ajoute un flux, l'interroger pour ajouter les articles dans la db
+
+- faire systeme de notif en bas à gauche de l'écran pour afficher des notifs du style : "Flux ajouté avec succés, Invitation envoyé avec succés, ..."
+
 ## Points d'améliorations
 
 ### `/`

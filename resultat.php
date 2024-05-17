@@ -28,7 +28,7 @@ require_once "./model/ArticleModel.php";
 
 $articles = ArticleModel::rechercheAvancee($query, $id_utilisateur);
 
-print_r($articles); 
+$mot_recherche = isset($_GET["text"])?urldecode($_GET["text"]):"";
 
 require_once "view/components/side-bar.php";
 require_once "view/resultat.php";
