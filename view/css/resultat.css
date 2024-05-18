@@ -22,3 +22,31 @@ article{
     gap: 5px;
     margin-top: 40px;
 }
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+section#navigation{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3vw;
+}
+
+section#navigation>a{
+    cursor: pointer;
+    font-weight: 450;
+    transition: all .2s ease-in-out;
+}
+
+section#navigation>a:hover{
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 17px;
+}

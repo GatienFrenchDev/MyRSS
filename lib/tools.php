@@ -113,3 +113,10 @@ function getArticlesFromRSSFlux(int $id_flux, string $url): array
 
     return $articles;
 }
+
+/**
+ * Retourne vrai si la chaine de caractère est bien au format yyyy-mm-dd
+ */
+function correctFormatForFormDate(string $str):bool{
+    return date("Y-m-d", strtotime($str)) == $str;
+}
