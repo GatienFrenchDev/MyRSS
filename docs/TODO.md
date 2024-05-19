@@ -14,7 +14,7 @@ https://www.php.net/manual/fr/function.uniqid.php
 
 - changer les endpoints GET en POST de manière à ce que ce soit cohérent
 
-- bien vérifier à check que les parametres du style numero_page soit des nombres (avec function `ctype_digit()`)
+- bien vérifier à check que les parametres du style numero_page soit des nombres (avec function `ctype_digit()`) (vérifier également les longueurs des entrées)
 
 - améliorer UI dans `scripts/fetch-all-fluxs.php`
 

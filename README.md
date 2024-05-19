@@ -4,7 +4,7 @@
 ![MySQL](./docs/img/mysql.svg)
 ![JS](./docs/img/js.svg)
 
-## Outil collaboratif de gestion de flux RSS
+## Lecteur de flux RSS avancé et collaboratif
 
 Un projet développé à Tours, France.
 

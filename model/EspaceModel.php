@@ -90,8 +90,8 @@ class EspaceModel
         $mysqli = require "../includes/database.inc.php";
 
 
-        $stmt = $mysqli->prepare("INSERT INTO espace_partage (nom) VALUES (?)");
-        $stmt->bind_param("s", $nom);
+        $stmt = $mysqli->prepare("INSERT INTO espace_partage (nom, id_proprietaire) VALUES (?, ?)");
+        $stmt->bind_param("si", $nom, $id_utilisateur);
         $stmt->execute();
         $id_espace = $mysqli->insert_id;
         $stmt->close();
@@ -127,5 +127,39 @@ class EspaceModel
         }
 
         return $res[0]["nom"];
+    }
+
+    /**
+     * Retourne vrai seulement si l'espace a été créé par l'utilisateur
+     */
+    static function estProprio(int $id_utilisateur, int $id_espace): bool
+    {
+        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
+
+        $stmt = $mysqli->prepare("SELECT COUNT(id_espace) FROM espace_partage WHERE id_espace = ? AND id_proprietaire = ?");
+        $stmt->bind_param("ii", $id_espace, $id_utilisateur);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+        $stmt->close();
+        $mysqli->close();
+
+        return count($res) > 0;
+    }
+
+    /**
+     * Permet de faire quitter l'espace à un user.
+     * NOTE : ne supprime pas l'espace, l'user n'est juste plus associé à cette espace.
+     * A utiliser théoriquement seulement lorsqu'un user veut quitter un espace au quel il avait été invité
+     */
+    static function quitterEspace(int $id_utilisateur, int $id_espace): void
+    {
+        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
+
+        $stmt = $mysqli->prepare("DELETE FROM contient_des WHERE id_utilisateur = ? AND id_espace = ?");
+        $stmt->bind_param("ii", $id_utilisateur, $id_espace);
+        $stmt->execute();
+        $stmt->close();
+        $mysqli->close();
     }
 }

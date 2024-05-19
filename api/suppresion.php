@@ -37,7 +37,7 @@ if (isset($_GET["id_categorie"])) {
 
 $id_espace = $_GET["id_espace"];
 
-if (!EspaceModel::espaceAppartientA($id_utilisateur, $id_espace)) {
+if (!EspaceModel::estProprio($id_utilisateur, $id_espace)) {
     http_response_code(403);
     die(json_encode(["error" => "espace does not belong to you"]));
     exit;

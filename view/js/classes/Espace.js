@@ -4,11 +4,13 @@ class Espace {
      * @param {String} nom 
      * @param {Number} id_espace 
      * @param {Number} nb_non_lu 
+     * @param {Boolean} est_proprietaire 
      */
-    constructor(nom, id_espace, nb_non_lu) {
+    constructor(nom, id_espace, nb_non_lu, est_proprietaire) {
         this.nom = nom;
         this.id_espace = id_espace;
-        this.nb_non_lu =nb_non_lu;
+        this.nb_non_lu = nb_non_lu;
+        this.est_proprietaire = est_proprietaire;
     }
 
     /**
@@ -77,7 +79,7 @@ class Espace {
 </svg>
     </span>
     <p>${this.nom}</p>
-    <p class="side-info">${this.nb_non_lu==0?"":this.nb_non_lu}</p>
+    <p class="side-info">${this.nb_non_lu == 0 ? "" : this.nb_non_lu}</p>
 </div>
     `
         document.querySelector('div#arborescence').appendChild(DIVespace);
@@ -105,9 +107,49 @@ class Espace {
             ContextMenu.afficher(e.x, e.y)
             ContextMenu.vider();
             const item_collab = ContextMenu.addItem("Ajouter un collaborateur");
-            const item_quitter = ContextMenu.addItem("Quiter l'espace");
-            const item_supprimer = ContextMenu.addItem("Supprimer l'espace");
-            const item_renommer = ContextMenu.addItem("Renommer l'espace");
+
+            /*
+            Ajout du bouton `Supprimer l'espace` et `Renommer l'espace` si l'espace a été créé par l'user.
+            Sinon on ajoute le bouton `Quitter l'espace`.
+            */
+            if(this.est_proprietaire){
+
+                const item_supprimer = ContextMenu.addItem("Supprimer l'espace");
+                const item_renommer = ContextMenu.addItem("Renommer l'espace");
+
+                item_renommer.addEventListener("click", async () => {
+                    let nom = "";
+                    while (nom == "") {
+                        nom = window.prompt("Entrez le nouveau nom de l'espace");
+                        if (nom === null) {
+                            return;
+                        }
+                        if (nom.length > 32) {
+                            window.alert("Nom de l'espace trop long (max 32 caractères)");
+                            nom = "";
+                        }
+                    }
+                    await API.renameEspace(this.id_espace, nom);
+                    document.querySelector(`#${DIVespace.id}>div>p`).innerText = nom;
+                })
+
+                item_supprimer.addEventListener("click", () => {
+                    if (confirm(`Voulez vous vraiment supprimer l'espace ${this.nom} ?`)) {
+                        API.supprimerEspace(this.id_espace);
+                        DIVespace.remove();
+                    };
+                });
+            }
+            else{
+                const item_quitter = ContextMenu.addItem("Quitter l'espace");
+                item_quitter.addEventListener("click", () => {
+                    if (confirm(`Voulez vous vraiment quitter l'espace ${this.nom} ?`)) {
+                        API.quitterEspace(this.id_espace);
+                        DIVespace.remove();
+                    };
+                });
+            }
+
             item_collab.addEventListener("click", async () => {
                 let email_a_inviter = "";
                 while (email_a_inviter == "") {
@@ -116,36 +158,12 @@ class Espace {
                         return;
                     }
                     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if(!regex.test(email_a_inviter)){
+                    if (!regex.test(email_a_inviter)) {
                         window.alert("Veuillez saisir un email valide");
                         email_a_inviter = "";
                     }
                 }
                 await API.inviterEmailaUnEspace(this.id_espace, email_a_inviter);
-            })
-            item_quitter.addEventListener("click", () => {
-                window.alert("pas encore dispo");
-            })
-            item_supprimer.addEventListener("click", () => {
-                if (confirm(`Voulez vous vraiment supprimer l'espace ${this.nom} ?`)) {
-                    API.supprimerEspace(this.id_espace);
-                    DIVespace.remove();
-                };
-            })
-            item_renommer.addEventListener("click", async () => {
-                let nom = "";
-                while (nom == "") {
-                    nom = window.prompt("Entrez le nouveau nom de l'espace");
-                    if (nom === null) {
-                        return;
-                    }
-                    if (nom.length > 32) {
-                        window.alert("Nom de l'espace trop long (max 32 caractères)");
-                        nom = "";
-                    }
-                }
-                await API.renameEspace(this.id_espace, nom);
-                document.querySelector(`#${DIVespace.id}>div>p`).innerText = nom;
             })
         })
 

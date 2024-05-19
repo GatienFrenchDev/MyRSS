@@ -26,4 +26,4 @@ if(!InvitationModel::invitationAppartientA($id_utilisateur, $id_invitation)){
 }
 
 InvitationModel::accepterInvitation($id_invitation);
-header("Location: ../index.php");
+header("Location: /");

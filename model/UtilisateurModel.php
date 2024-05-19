@@ -9,6 +9,7 @@ class UtilisateurModel
         $stmt = $mysqli->prepare("SELECT 
         e.nom, 
         e.id_espace,
+        e.id_proprietaire = ? AS est_proprietaire,
         COUNT(DISTINCT a.id_article) AS nb_non_lu
     FROM 
         espace_partage e
@@ -30,7 +31,7 @@ class UtilisateurModel
     GROUP BY 
         e.id_espace;");
 
-        $stmt->bind_param("i", $id_utilisateur);
+        $stmt->bind_param("ii", $id_utilisateur, $id_utilisateur);
         $stmt->execute();
         $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $stmt->close();

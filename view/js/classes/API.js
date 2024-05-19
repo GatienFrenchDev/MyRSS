@@ -151,13 +151,15 @@ class API {
     static async getEspaces() {
         const request = await fetch(`api/get-all-espaces.php`, { method: 'GET' });
         const json = await request.json();
+
         let espaces = [];
 
         json["espaces"].forEach(element => {
             const espace = new Espace(
                 element["nom"],
                 element["id_espace"],
-                element["nb_non_lu"]
+                element["nb_non_lu"],
+                element["est_proprietaire"] == 1
             )
             espaces.push(espace);
         });
@@ -268,6 +270,10 @@ class API {
      */
     static async supprimerEspace(id_espace) {
         await fetch(`api/suppresion.php?id_espace=${id_espace}`);
+    }
+
+    static async quitterEspace(id_espace){
+        await fetch(`api/quitter-espace.php?id_espace=${id_espace}`);
     }
 
     /**
