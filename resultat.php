@@ -33,7 +33,7 @@ require_once "./lib/tools.php";
 
 // vérifie que le parametre `debut` soit bien au format yyyy-mm-dd si il est défini
 if(isset($_GET["debut"])){
-    if(!correctFormatForFormDate($_GET["debut"])){
+    if(!correctFormatForFormDate($_GET["debut"]) && $_GET["debut"] != ""){
         http_response_code(400);
         header("Location: recherche");
         exit;
@@ -42,7 +42,7 @@ if(isset($_GET["debut"])){
 
 // vérifie que le parametre `fin` soit bien au format yyyy-mm-dd si il est défini
 if(isset($_GET["fin"])){
-    if(!correctFormatForFormDate($_GET["fin"])){
+    if(!correctFormatForFormDate($_GET["fin"]) && $_GET["fin"] != ""){
         http_response_code(400);
         header("Location: recherche");
         exit;

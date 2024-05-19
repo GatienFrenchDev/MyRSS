@@ -7,6 +7,7 @@
 
 
 $i = 0;
+$t0 = time();
 
 require_once "../model/FluxModel.php";
 require_once "../model/ArticleModel.php";
@@ -17,8 +18,13 @@ require_once "../classes/Article.php";
 echo "<h1> Récupération des flux RSS </h1>";
 echo "<p> Ce  script interroge tous les flux rss répertoriés dans la db et ajoute les nouveaux articles à la db.</p>";
 
+
+$liste_flux = FluxModel::getAllRSSFlux();
+
 // Pour chaque flux rss stocké dans la db
-foreach(FluxModel::getAllRSSFlux() as $sourceRSS){
+foreach($liste_flux as $sourceRSS){
+
+    $t1 = time();
 
     echo "<h2>" . $sourceRSS["nom"] . "</h2>";
 
@@ -33,9 +39,10 @@ foreach(FluxModel::getAllRSSFlux() as $sourceRSS){
         $dernier_url_en_date = $dernier_article->getUrlArticle();
     }
 
+    echo "<ul>";
+
     foreach($articles as $article){
-        print_r($article->getTitre());
-        print_r("<br>");
+        print_r("<li>".$article->getTitre()."</li>");
         if($article->getUrlArticle() == $dernier_url_en_date){
             print_r("<b>Dernier article trouvé !</b>");
             break;
@@ -43,6 +50,10 @@ foreach(FluxModel::getAllRSSFlux() as $sourceRSS){
         $i++;
         ArticleModel::insertArticleIntoDB($article, $sourceRSS["id_flux"]);
     }
+
+    echo "</ul>";
+    echo "<br><i>" . time()-$t1 ."s pour ce flux</i>";
 }
 
 echo "<br><code>".$i." nouveaux articles ajoutés !</code>";
+echo "<br><b>Temps total écoulé : " . time()-$t0 . "s</b>";

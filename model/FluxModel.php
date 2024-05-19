@@ -113,10 +113,12 @@ class FluxModel
     static function getAllRSSFlux(): array
     {
         $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
-        $sql = "SELECT nom, id_flux, adresse_url FROM flux_rss";
-        $res = $mysqli->query($sql)->fetch_all(MYSQLI_ASSOC);
-        $mysqli->close();
+        
+        $stmt = $mysqli->prepare("SELECT nom, id_flux, adresse_url FROM flux_rss");
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         return $res;
+
     }
 
     static function getDernierUrlArticle(int $id_flux): Article | null

@@ -212,14 +212,9 @@ class UtilisateurModel
         $stmt = $mysqli->prepare("SELECT a.*, f.*
         FROM article a
         INNER JOIN flux_rss f ON a.id_flux = f.id_flux
-        INNER JOIN contient c ON c.id_flux = f.id_flux
-        INNER JOIN categorie cg ON cg.id_categorie = c.id_categorie
         INNER JOIN ajout_archive aa ON aa.id_article = a.id_article
-        INNER JOIN espace_partage e ON e.id_espace = cg.id_espace
-        LEFT JOIN est_lu el ON a.id_article = el.id_article
-        INNER JOIN contient_des cd ON cd.id_espace = e.id_espace
-        INNER JOIN utilisateur u ON u.id_utilisateur = cd.id_utilisateur
-        WHERE u.id_utilisateur = ? AND el.id_article IS NULL
+        INNER JOIN utilisateur u ON u.id_utilisateur = aa.id_utilisateur
+        WHERE u.id_utilisateur = ? AND aa.id_archive = 1
         ORDER BY date_pub DESC LIMIT 100 OFFSET ?");
 
         $stmt->bind_param("ii", $id_utilisateur, $numero_page);
@@ -228,6 +223,26 @@ class UtilisateurModel
         $stmt->close();
         $mysqli->close();
         return $res;
+    }
+
+    /**
+     * Renvoie le nombre de favoris total d'un utilisateur
+     */
+    static function getNombresFavoris(int $id_utilisateur):int{
+        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
+
+        $stmt = $mysqli->prepare("SELECT COUNT(a.id_article) as nb_articles
+        FROM article a
+        INNER JOIN ajout_archive aa ON aa.id_article = a.id_article
+        INNER JOIN utilisateur u ON u.id_utilisateur = aa.id_utilisateur
+        WHERE u.id_utilisateur = ? AND aa.id_archive = 1");
+
+        $stmt->bind_param("i", $id_utilisateur);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        $mysqli->close();
+        return $res[0]["nb_articles"];
     }
 
 }
