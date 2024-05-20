@@ -30,7 +30,7 @@ function extractMainDomain(string $url): string | null
  * de YouTube.
  * Nécessite une clé d'API à définir dans la constante intitulée `API_KEY`
  * 
- * @author gatien.gillot@etu.univ-tours.fr
+ * @author myrss@gatiendev.fr
  * @param username - le username de la chaine Youtube. ( eg. `nobodyplaylists`)
  * @return channelID - l'identifiant de la chaine youtube correspondante (eg. `UCsBjURrPoezykLs9EqgamOA`),
  *                     `null` si aucune chaine YouTube trouvée.

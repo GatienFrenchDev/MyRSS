@@ -229,7 +229,8 @@ class UtilisateurModel
     /**
      * Renvoie le nombre de favoris total d'un utilisateur
      */
-    static function getNombresFavoris(int $id_utilisateur):int{
+    static function getNombresFavoris(int $id_utilisateur): int
+    {
         $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
 
         $stmt = $mysqli->prepare("SELECT COUNT(a.id_article) as nb_articles
@@ -246,4 +247,22 @@ class UtilisateurModel
         return $res[0]["nb_articles"];
     }
 
+    /**
+     * Renvoi le hash de connexion et l'id appartenant à l'utilisateur
+     */
+    static function getHashAndID(string $email): false|array
+    {
+        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
+
+        $stmt = $mysqli->prepare("SELECT hash_password, id_utilisateur FROM utilisateur WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        $mysqli->close();
+        if (count($res) > 0) {
+            return $res[0];
+        }
+        return false;
+    }
 }

@@ -33,7 +33,7 @@
 
         <?php if(!$user_existe_db) : ?>
             <p class="probleme-formulaire">
-            Heureux de vous rencontrer ! Cet e-mail n'existe pas dans notre système. <a href="inscription.php">Vous souhaitez créer un compte ?</a>
+            Heureux de vous rencontrer ! Cet e-mail n'existe pas dans notre système. <a href="inscription">Vous souhaitez créer un compte ?</a>
             </p>
         <?php endif; ?>
 
@@ -41,13 +41,13 @@
 
         <?php if ($user_invalid_password) : ?>
             <p class="probleme-formulaire">
-            Mot de passe incorrect. Vous l'avez oublié?&nbsp;<a href="reset-mdp.php">Vous pouvez le réinitialiser ici.</a>
+            Mot de passe incorrect. Vous l'avez oublié?&nbsp;<a href="reset-mdp">Vous pouvez le réinitialiser ici.</a>
             </p>
         <?php endif; ?>
 
         <input type="submit" value="Connexion">
 
-        <p onclick="window.alert('Pas encore disponible. Veuillez nous contacter à gatien.gillot@etu.univ-tours.fr')">Mot de passe oublié?</p>
+        <p onclick="window.alert('Pas encore disponible. Veuillez nous contacter à myrss@gatiendev.fr')">Mot de passe oublié?</p>
 
     </form>
 

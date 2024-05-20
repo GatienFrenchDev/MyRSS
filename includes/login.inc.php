@@ -5,34 +5,49 @@ session_start();
 $user_invalid_password = false;
 $user_existe_db = true;
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    return;
+}
 
-    $mysqli = require "includes/database.inc.php";
+if (!isset($_POST["email"])) {
+    http_response_code(400);
+    die("missing email parameter");
+}
 
-    $sql = sprintf("SELECT * FROM utilisateur WHERE email = '%s'", $mysqli->real_escape_string($_POST["email"]));
+if (!isset($_POST["password"])) {
+    http_response_code(400);
+    die("missing password parameter");
+}
 
-    $res = $mysqli->query($sql);
+$email = $_POST["email"];
+$password = $_POST["password"];
+$ip = $_SERVER['REMOTE_ADDR'];
 
-    $user = $res->fetch_assoc();
+require_once "./model/UtilisateurModel.php";
+require_once "./lib/SimpleAntiBruteForce.php";
 
-    if ($user) {
 
-        if (password_verify($_POST["password"], $user["hash_password"])) {
+if(!SimpleAntiBruteForce::isAuthorized($ip, $email)){
+    http_response_code(429);
+    die("Trop de tentatives de connexion... Par mesure de sécurite, vous êtes bloqué pour 5 minutes");
+}
+	
 
-            session_start();
+$user_details = UtilisateurModel::getHashAndID($email);
 
-            session_regenerate_id();
+if (!$user_details) {
+    $user_existe_db = false;
+    return;
+}
 
-            $_SESSION["id_utilisateur"] = $user["id_utilisateur"];
+if (password_verify($password, $user_details["hash_password"])) {
+    session_regenerate_id();
 
-            header("Location: /");
-            exit;
-        }
-    } else {
-        $user_existe_db = false;
-    }
+    $_SESSION["id_utilisateur"] = $user_details["id_utilisateur"];
 
-    if ($user_existe_db) {
-        $user_invalid_password = true;
-    }
+    header("Location: /");
+    exit;
+} else {
+    $user_invalid_password = true;
+    SimpleAntiBruteForce::addFailedAttempt($ip, $email);
 }

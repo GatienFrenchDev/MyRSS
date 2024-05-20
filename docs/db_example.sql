@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 20 mai 2024 à 14:40
+-- Généré le : lun. 20 mai 2024 à 21:52
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -2672,6 +2672,28 @@ CREATE TABLE `notification` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `user_failed_logins`
+--
+
+CREATE TABLE `user_failed_logins` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `attempted_at` int(11) NOT NULL,
+  `ip_adress` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Déchargement des données de la table `user_failed_logins`
+--
+
+INSERT INTO `user_failed_logins` (`id`, `email`, `attempted_at`, `ip_adress`) VALUES
+(90, 'john@example.com', 1716233967, '::1'),
+(91, 'john@example.com', 1716234417, '::1'),
+(92, 'john@example.com', 1716234455, '::1');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `utilisateur`
 --
 
@@ -2784,6 +2806,12 @@ ALTER TABLE `notification`
   ADD KEY `id_utilisateur` (`id_utilisateur`);
 
 --
+-- Index pour la table `user_failed_logins`
+--
+ALTER TABLE `user_failed_logins`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
@@ -2835,6 +2863,12 @@ ALTER TABLE `invitation`
 --
 ALTER TABLE `notification`
   MODIFY `id_notification` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT pour la table `user_failed_logins`
+--
+ALTER TABLE `user_failed_logins`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- AUTO_INCREMENT pour la table `utilisateur`

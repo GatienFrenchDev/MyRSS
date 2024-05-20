@@ -1,1 +1,1 @@
-<p style="position: absolute; bottom: 2vh; right: 2vw;opacity: .5;text-align: right;font-size: 16px;">Version en cours de développement<br>Pour tout problème, merci de contacter gatien.gillot@etu.univ-tours.fr</code></p>
+<p style="position: absolute; bottom: 2vh; right: 2vw;opacity: .5;text-align: right;font-size: 16px;">Version en cours de développement<br>Pour tout problème, merci de contacter myrss@gatiendev.fr</code></p>
