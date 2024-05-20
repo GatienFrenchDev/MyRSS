@@ -14,8 +14,9 @@ class Article {
      * @param {String} nom_source - Le nom de la source de l'article.
      * @param {String} url_image - L'URL de l'image associée à l'article.
      * @param {boolean} est_lu - Indique si l'article a été lu ou non.
+     * @param {boolean} est_traite - Indique si l'article a été noté comme traité.
      */
-    constructor(id_article, titre, description, date_pub, url_article, nom_source, url_image, est_lu) {
+    constructor(id_article, titre, description, date_pub, url_article, nom_source, url_image, est_lu, est_traite) {
         this.id_article = id_article;
         this.titre = titre;
         this.description = description;
@@ -24,6 +25,7 @@ class Article {
         this.nom_source = nom_source;
         this.url_image = url_image;
         this.est_lu = est_lu;
+        this.est_traite = est_traite;
     }
 
     /**
@@ -48,8 +50,13 @@ class Article {
         bordure.classList.add("bordure");
 
         if (!this.est_lu) {
-            article.classList.add("article-non-lu")
+            article.classList.add("article-non-lu");
         }
+
+        if(this.est_traite){
+            article.classList.add("est-traite");
+        }
+
         article.classList.add("article");
         article.classList.add(`article-${this.id_article}`);
 
@@ -110,7 +117,7 @@ class Article {
             }
             API.setArticleNonLu(this.id_article, espace_actif["id_espace"]);
             article.classList.add("article-non-lu");
-        })
+        });
 
         return article;
     }

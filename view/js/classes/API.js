@@ -20,7 +20,8 @@ class API {
                 element["url_article"],
                 element["nom"],
                 `http://www.google.com/s2/favicons?domain=${Tools.extractDomain(element["adresse_url"])}`,
-                element["est_lu"]==1
+                element["est_lu"]==1,
+                element["est_traite"]==1
             )
             articles.push(article);
         });
@@ -330,7 +331,18 @@ class API {
     static async addToFavorites(id_article){
         const data = new FormData();
         data.append("id_article", id_article);
-        await fetch(`api/add-to-favorites.php`, {
+        data.append("id_collection", 1);
+        await fetch(`api/add-or-remove-to-collection.php`, {
+            method: "POST",
+            body: data
+        });
+    }
+
+    static async addToTraite(id_article, id_espace){
+        const data = new FormData();
+        data.append("id_article", id_article);
+        data.append("id_espace", id_espace);
+        await fetch(`api/add-or-remove-to-traite.php`, {
             method: "POST",
             body: data
         });
@@ -342,10 +354,23 @@ class API {
      * @returns {Boolean}
      */
     static async articleDansFavoris(id_article){
-        const request = await fetch(`api/est-dans-favoris.php?id_article=${id_article}`, { method: 'GET' });
+        const request = await fetch(`api/est-dans-collection.php?id_article=${id_article}&id_collection=1`, { method: 'GET' });
         const json = await request.json();
         return json["res"];
     }
+
+    /**
+     * Renvoie vrai si l'article est noté comme traité dans cet espace
+     * @param {Number} id_article 
+     * @param {Number} id_espace 
+     * @returns {Boolean}
+     */
+    static async articleDansTraite(id_article, id_espace){
+        const request = await fetch(`api/est-traite.php?id_article=${id_article}&id_espace=${id_espace}`, { method: 'GET' });
+        const json = await request.json();
+        return json["res"];
+    }
+
 
     static async getArticlesFavoris(numero_page){
         const request = await fetch(`api/get-articles-favoris.php?numero_page=${numero_page}`, { method: 'GET' });

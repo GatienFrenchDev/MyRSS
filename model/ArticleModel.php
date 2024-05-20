@@ -2,17 +2,15 @@
 
 class ArticleModel
 {
-    static function setArticleLu(int $id_article, int $id_espace): int
+    static function setArticleLu(int $id_article, int $id_espace): void
     {
         $mysqli = require "../includes/database.inc.php";
 
         $stmt = $mysqli->prepare("INSERT INTO est_lu (id_article, id_espace) VALUES (?, ?)");
         $stmt->bind_param("ii", $id_article, $id_espace);
         $stmt->execute();
-        $id_flux = $mysqli->insert_id;
         $stmt->close();
         $mysqli->close();
-        return $id_flux;
     }
 
     static function setArticleNonLu(int $id_article, int $id_espace): void
@@ -24,6 +22,50 @@ class ArticleModel
         $stmt->execute();
         $stmt->close();
         $mysqli->close();
+    }
+
+    static function marquerCommeTraite(int $id_article, int $id_espace): bool
+    {
+        $mysqli = require "../includes/database.inc.php";
+
+        $stmt = $mysqli->prepare("INSERT INTO est_traite (id_article, id_espace) VALUES (?, ?)");
+        $stmt->bind_param("ii", $id_article, $id_espace);
+        $res = true;
+        try {
+            $stmt->execute();
+        } catch (Exception $e) {
+            $res = false;
+        }
+        $stmt->close();
+        $mysqli->close();
+        return $res;
+    }
+
+    static function removeFromTraite(int $id_article, int $id_espace): void
+    {
+        $mysqli = require "../includes/database.inc.php";
+
+        $stmt = $mysqli->prepare("DELETE FROM est_traite WHERE id_article = ? AND id_espace = ?");
+        $stmt->bind_param("ii", $id_article, $id_espace);
+        $stmt->execute();
+        $stmt->close();
+        $mysqli->close();
+    }
+
+    /**
+     * Renvoi vrai si l'article est noté comme traité dans cet espace.
+     */
+    static function articleEstTraite(int $id_article, int $id_espace): bool
+    {
+        $mysqli = require "../includes/database.inc.php";
+
+        $stmt = $mysqli->prepare("SELECT id_article FROM est_traite WHERE id_article = ? AND id_espace = ?");
+        $stmt->bind_param("ii", $id_article, $id_espace);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        $mysqli->close();
+        return count($res) > 0;
     }
 
     static function insertArticleIntoDB(Article $article, int $id_flux): int
@@ -64,37 +106,36 @@ class ArticleModel
         INNER JOIN utilisateur u ON u.id_utilisateur = cd.id_utilisateur
         WHERE u.id_utilisateur = ? AND (a.titre LIKE ? OR a.description LIKE ?)";
 
-        if(isset($query["article-lu"]) && !isset($query["article-non-lu"])){
+        if (isset($query["article-lu"]) && !isset($query["article-non-lu"])) {
             $requete_sql .= " AND el.id_article IS NOT NULL";
         }
-        if(!isset($query["article-lu"]) && isset($query["article-non-lu"])){
+        if (!isset($query["article-lu"]) && isset($query["article-non-lu"])) {
             $requete_sql .= " AND el.id_article IS NULL";
         }
 
-        if($query["debut"] != null){
+        if ($query["debut"] != null) {
             $ts = strtotime($query["debut"]);
             $requete_sql .= " AND a.date_pub > " . $ts;
         }
 
-        if($query["fin"] != null){
+        if ($query["fin"] != null) {
             $ts = strtotime($query["fin"]);
             $ts += 86400;
             $requete_sql .= " AND a.date_pub < " . $ts;
         }
 
-        if($query["tri"] == "asc"){
+        if ($query["tri"] == "asc") {
             $requete_sql .= " ORDER BY date_pub ASC LIMIT 100 OFFSET ?";
-        }
-        else{
+        } else {
             $requete_sql .= " ORDER BY date_pub DESC LIMIT 100 OFFSET ?";
         }
 
 
 
-        $texte = $query["text"] == null ? "":$query["text"];
+        $texte = $query["text"] == null ? "" : $query["text"];
         $texte = "%$texte%";
 
-        $offset = $query["numero-page"]*100;
+        $offset = $query["numero-page"] * 100;
 
         $stmt = $mysqli->prepare($requete_sql);
         $stmt->bind_param("issi", $id_utilisateur, $texte, $texte, $offset);

@@ -12,10 +12,16 @@ if (!isset($_GET["id_article"])) {
     exit;
 }
 
+if (!isset($_GET["id_collection"])) {
+    die(json_encode(["error" => "id_collection parameter needed"]));
+    exit;
+}
+
 
 $id_article = $_GET["id_article"];
+$id_collection = $_GET["id_collection"];
 $id_utilisateur = $_SESSION["id_utilisateur"];
 
-require_once "../model/ArchiveModel.php";
+require_once "../model/CollectionModel.php";
 
-die(json_encode(["res" => ArchiveModel::appartientAuxFavoris($id_utilisateur, $id_article)]));
+die(json_encode(["res" => CollectionModel::appartientA($id_utilisateur, $id_article, $id_collection)]));

@@ -43,11 +43,11 @@ class ArticleReader {
 
         const btn_add_to_favorites = BoutonAjoutFavoris.getHTML();
 
-        // pour savoir si l'article est dans les favoris
         const appartientAuFavoris = await API.articleDansFavoris(article.id_article);
+
         if(appartientAuFavoris){
             btn_add_to_favorites.classList.add("starred");
-            btn_add_to_favorites.children[1].innerText = "Retirer des favoris";
+            btn_add_to_favorites.children[1].innerText = "";
         }
 
         btn_add_to_favorites.addEventListener("click", async () => {
@@ -60,9 +60,51 @@ class ArticleReader {
             // cas où on a cliqué pour ajouter aux favoris
             else {
                 btn_add_to_favorites.classList.add("starred");
-                btn_add_to_favorites.children[1].innerText = "Retirer des favoris";
+                btn_add_to_favorites.children[1].innerText = "";
             }
-        })
+        });
+
+        /**
+         * Partie concernant le bouton ajouter aux articles traités
+         */
+        if(arborescence.length > 0){
+            if(typeof arborescence[0] !== "string"){
+
+                const btn_traite = BoutonArticleTraite.getHTML();
+                
+                const appartientAuTraite = await API.articleDansTraite(article.id_article, arborescence[0]["id"]);
+
+                if(appartientAuTraite){
+                    btn_traite.classList.add("starred");
+                    btn_traite.children[1].innerText = "";
+                }
+
+                btn_traite.addEventListener("click", async () => {
+                    // le code HTML dans le container d'article
+                    const articleDOM = document.querySelector(`.article-${article.id_article}`);
+                    console.log(article.id_article)
+
+                    await API.addToTraite(article.id_article, arborescence[0]["id"]);
+                    if (btn_traite.classList.contains("starred")) {
+                        if(articleDOM != null){
+                            articleDOM.classList.remove("est-traite");
+                        }
+                        btn_traite.classList.remove("starred");
+                        btn_traite.children[1].innerText = "Marquer comme traité";
+                    }
+                    else {
+                        btn_traite.classList.add("starred");
+                        if(articleDOM != null){
+                            articleDOM.classList.add("est-traite");
+                        }
+                        btn_traite.children[1].innerText = "";
+                    }
+                });
+
+                container_actions.appendChild(btn_traite);
+
+            }
+        }
 
         container_actions.appendChild(btn_add_to_favorites);
 

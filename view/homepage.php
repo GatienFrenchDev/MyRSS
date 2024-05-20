@@ -23,6 +23,7 @@
     <script src="view/js/classes/BoutonAjoutDossier.js" defer></script>
     <script src="view/js/classes/BoutonAjoutFavoris.js" defer></script>
     <script src="view/js/classes/BoutonAjoutFlux.js" defer></script>
+    <script src="view/js/classes/BoutonArticleTraite.js" defer></script>
     <script src="view/js/classes/Categorie.js" defer></script>
     <script src="view/js/classes/ContainerArticle.js" defer></script>
     <script src="view/js/classes/ContextMenu.js" defer></script>

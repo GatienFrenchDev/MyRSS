@@ -213,9 +213,9 @@ class UtilisateurModel
         $stmt = $mysqli->prepare("SELECT a.*, f.*
         FROM article a
         INNER JOIN flux_rss f ON a.id_flux = f.id_flux
-        INNER JOIN ajout_archive aa ON aa.id_article = a.id_article
-        INNER JOIN utilisateur u ON u.id_utilisateur = aa.id_utilisateur
-        WHERE u.id_utilisateur = ? AND aa.id_archive = 1
+        INNER JOIN ajout_collection ac ON ac.id_article = a.id_article
+        INNER JOIN utilisateur u ON u.id_utilisateur = ac.id_utilisateur
+        WHERE u.id_utilisateur = ? AND ac.id_collection = 1
         ORDER BY date_pub DESC LIMIT 100 OFFSET ?");
 
         $stmt->bind_param("ii", $id_utilisateur, $numero_page);
@@ -234,9 +234,9 @@ class UtilisateurModel
 
         $stmt = $mysqli->prepare("SELECT COUNT(a.id_article) as nb_articles
         FROM article a
-        INNER JOIN ajout_archive aa ON aa.id_article = a.id_article
+        INNER JOIN ajout_collection ac ON ac.id_article = a.id_article
         INNER JOIN utilisateur u ON u.id_utilisateur = aa.id_utilisateur
-        WHERE u.id_utilisateur = ? AND aa.id_archive = 1");
+        WHERE u.id_utilisateur = ? AND ac.id_collection = 1");
 
         $stmt->bind_param("i", $id_utilisateur);
         $stmt->execute();

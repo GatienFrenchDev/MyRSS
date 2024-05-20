@@ -1,7 +1,5 @@
 <?php
-
 /*
-
 Description : retourne tous les articles inscrits sous cette catégorie
 
 Route :
@@ -10,7 +8,7 @@ Route :
 Method :
 - GET
 
-Parameters :
+Possible parameters :
 - id_categorie
 - id_espace
 - id_flux

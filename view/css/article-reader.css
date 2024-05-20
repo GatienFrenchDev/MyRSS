@@ -34,11 +34,14 @@ div#article-reader>p{
 }
 
 div#container-actions{
+    display: flex;
     margin-bottom: 20px;
+    gap: 10px;
 }
 
 div#container-actions>button{
-    width: 150px;
+    /* width: 150px; */
+    width: fit-content;
     font-weight: 450;
     cursor: pointer;
     /* background-color: white; */
@@ -51,6 +54,17 @@ div#container-actions>button{
     border-radius: 6px;
     transition: all 0.2s ease-in-out;
 }
+
+div#container-actions>button.starred{
+    color: white;
+    border : 1px solid #807e93;
+    background-color: #5b4ecf;
+}
+
+.starred>svg{
+    margin-right: 0 !important;
+}
+
 
 div#container-actions>button>svg>path{
     transition: all 0.2s ease-in-out;
@@ -70,18 +84,22 @@ div#container-actions>button.starred:hover{
     color: red;
 }
 
-div#container-actions>button.starred:hover>svg>path{
+/* Oui, la partie css ici est assez moyenne. Une petite pr pour fix ca n'est pas de refus */
+
+div#container-actions>button#btn-add-to-favorites.starred:hover>svg>path{
     stroke: red;
 }
 
-div#container-actions>button.starred{
-    color: white;
-    border : 1px solid #807e93;
-    background-color: #5b4ecf;
+div#container-actions>button#btn-add-to-processed.starred:hover>svg>path{
+    fill: red;
 }
 
-div#container-actions>button.starred>svg>path{
+div#container-actions>button#btn-add-to-favorites.starred>svg>path{
     stroke: white;
+}
+
+div#container-actions>button#btn-add-to-processed.starred>svg>path{
+    fill: white;
 }
 
 
@@ -93,3 +111,4 @@ div#container-actions>button:hover{
 div#container-actions>button>svg{
     margin-right: 6px;
 }
+
