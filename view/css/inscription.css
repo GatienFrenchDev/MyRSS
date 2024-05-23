@@ -39,7 +39,7 @@ div.login>span{
 
 div.login>a{
     text-decoration: none;
-    color: rgb(91, 78, 207);
+    color: var(--highlight-color);
     font-weight: 500;
 }
 
@@ -80,7 +80,7 @@ input[type="submit"]{
     margin-bottom: 20px;
     color: white;
     font-weight: 500;
-    background-color: rgb(91, 78, 207);
+    background-color: var(--highlight-color);
     cursor: pointer;
 }
 
@@ -92,6 +92,6 @@ form>p{
 
 form>p>a{
     text-decoration: none;
-    color: rgb(91, 78, 207);
+    color: var(--highlight-color);
 }
 

@@ -45,7 +45,7 @@ div.type>a:not(.non-disponible):hover{
 }
 
 div.type>a>svg{
-    background-color: #5b4ecf;
+    background-color: var(--highlight-color);
     border-radius: 4px;
     padding: 8px;
     margin-right: 12px;
@@ -125,7 +125,7 @@ form>h3{
 form>div{
     margin: 0;
     padding: 0;
-    border: 2px solid #5b4ecf;
+    border: 2px solid var(--highlight-color);
     border-radius: 2px;
     height: 42px;
     display: flex;
@@ -154,7 +154,7 @@ input:focus{
 #envoi{
     cursor: pointer;
     padding: 0 24px;
-    background-color: #5b4ecf;
+    background-color: var(--highlight-color);
     color: white;
     font-size: 16px;
 }

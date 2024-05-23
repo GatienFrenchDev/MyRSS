@@ -7,6 +7,7 @@
     <title>Connexion | MyRSS</title>
     <link rel="stylesheet" href="view/css/inscription.css">
     <link rel="stylesheet" href="view/css/font.css">
+    <link rel="stylesheet" href="view/css/colors.css">
     <link rel="stylesheet" href="view/css/login.css">
 </head>
 

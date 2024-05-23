@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="view/css/side-bar.css">
     <link rel="stylesheet" href="view/css/font.css">
     <link rel="stylesheet" href="view/css/compte.css">
+    <link rel="stylesheet" href="view/css/colors.css">
 </head>
 
 <body>

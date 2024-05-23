@@ -5,7 +5,7 @@ div.onglet-bottom>span>svg>path{
 div.side-bar{
     user-select: none;
     height: 100%;
-    background: #eeeff0;
+    background: var(--background-color);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -38,7 +38,7 @@ div.side-bar>a.actif>svg>path{
 }
 
 div.side-bar>a.actif{
-    background-color: #5b4ecf;
+    background-color: var(--highlight-color);
     color: white;
 }
 
@@ -47,7 +47,7 @@ div.side-bar>a:not(.actif):hover{
 }
 
 a.onglet:not(.actif):hover > svg>path{
-    fill: #5b4ecf;
+    fill: var(--highlight-color);
 }
 
 div.side-bar>a>p{
@@ -59,11 +59,11 @@ div.ajout-flux{
     height: 66px;
     padding: 12px 0;
     margin: 12px 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    border-top: 1px solid var(--border-color);
 }
 
 div.ajout-flux:hover > a>span{
-    background-color: #3a2ea8;
+    background-color: var(--highlight-text-color);
 }
 
 
@@ -82,7 +82,7 @@ div.ajout-flux>a>span{
     place-items: center;
     height: 32px;
     width: 32px;
-    background-color: #5b4ecf;
+    background-color: var(--highlight-color);
     border-radius: 50%;
 }
 

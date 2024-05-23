@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyRSS</title>
 
-    <link rel="stylesheet" href="view/css/style.css">
-    <link rel="stylesheet" href="view/css/side-bar.css">
-    <link rel="stylesheet" href="view/css/onglet.css">
     <link rel="stylesheet" href="view/css/articles.css">
-    <link rel="stylesheet" href="view/css/font.css">
-    <link rel="stylesheet" href="view/css/context-menu.css">
     <link rel="stylesheet" href="view/css/article-reader.css">
+    <link rel="stylesheet" href="view/css/colors.css">
+    <link rel="stylesheet" href="view/css/context-menu.css">
+    <link rel="stylesheet" href="view/css/font.css">
+    <link rel="stylesheet" href="view/css/onglet.css">
+    <link rel="stylesheet" href="view/css/side-bar.css">
+    <link rel="stylesheet" href="view/css/style.css">
 
     <script src="view/js/lib/moment.js" defer></script>
 
@@ -33,12 +34,6 @@
     <script src="view/js/classes/Tools.js" defer></script>
 
     <script src="view/js/main.js" defer></script>
-
-    <!-- <script src="view/js/app.js" defer></script>
-    <script src="view/js/classes/API_old.js" defer></script>
-    <script src="view/js/context-menu.js" defer></script>
-    <script src="view/js/espace.js" defer></script>
-    <script src="view/js/categorie.js" defer></script> -->
 </head>
 
 <body>

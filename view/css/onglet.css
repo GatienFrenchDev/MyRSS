@@ -1,7 +1,7 @@
 div.onglet {
     user-select: none;
     width: 324px;
-    background-color: #eeeff0;
+    background-color: var(--background-color);
     border-right: 1px solid #e4e6e7;
     border-left: 1px solid #e4e6e7;
 }
@@ -76,18 +76,18 @@ div.categories>div>div>svg{
     stroke: rgb(163, 163, 163);
 }
 div.categories>div.categorie-active>div>svg{
-    stroke: rgb(91, 78, 207);
+    stroke: var(--highlight-color);
 }
 
 div.categorie-active{
-    color: #3a2ea8;
+    color: var(--highlight-text-color);
     font-weight: 500;
     background-color: #e9e8f9;
 }
 
 div.categorie-active>div>svg>path{
     stroke-width: 2.5px;
-    stroke: #3a2ea8;
+    stroke: var(--highlight-text-color);
 }
 
 div.categorie>div {
@@ -100,14 +100,11 @@ div.categorie>div>svg {
     margin-right: 15px;
 }
 
-/* div.categorie>div>svg>path{
-    background-color: rgb(91, 78, 207);
-} */
 
 p.side-info{
     padding: 1px 10px;
     border: 1px solid rgba(0, 0, 0, 0);
-    color: #3a2ea8;
+    color: var(--highlight-text-color);
     font-size: 12px;
     font-weight: bold;
     margin-left: auto;
@@ -147,7 +144,7 @@ div.dossier:hover >div>svg{
 }
 
 div.flux-actif{
-    color: #3a2ea8;
+    color: var(--highlight-text-color);
     background-color: #e9e8f9;
     font-weight: 500;
 }

@@ -14,3 +14,9 @@ RewriteRule ^([^\.]+)$ $1.php [NC,L]
 RedirectMatch 403 ^/docs/.*$
 RedirectMatch 403 ^/lib/.*$
 RedirectMatch 403 ^/model/.*$
+
+# Supprime l'accès au fichier .env
+<Files .env>
+    Order allow,deny
+    Deny from all
+</Files>

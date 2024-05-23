@@ -1,0 +1,12 @@
+:root{
+
+    --border-color : #00000014;
+    --highlight-color: #5b4ecf;
+    --highlight-text-color: #3a2ea8;
+    --background-color: #eeeff0;
+
+    /* Boutons */
+    --btn-background-color: #f0f0f0;
+    --btn-border-color: #d0d7de;
+    --btn-hover-background-color: #fafafa;
+}

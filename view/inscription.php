@@ -7,6 +7,7 @@
     <title>Inscription | MyRSS</title>
     <link rel="stylesheet" href="view/css/inscription.css">
     <link rel="stylesheet" href="view/css/font.css">
+    <link rel="stylesheet" href="view/css/colors.css">
 </head>
 
 <body>

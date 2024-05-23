@@ -12,31 +12,15 @@ div.article-header{
     font-weight: 500;
     height: 68px;
     padding-left: 16px;
-    border-right: 1px solid rgba(0, 0, 0, 0.08);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-div.filtres{
-    height: 24px;
-    padding-left: 8px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    border-right: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-div.filtres>span{
-    margin-left: 4px;
-    color: #4d4d4d;
-    font-weight: 500;
-    font-size: 12px;
+    border-right: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
 }
 
 div#container-articles{
     height: 100%;
     overflow: scroll;
     overflow-x: hidden;
-    border-right: 1px solid rgba(0, 0, 0, 0.08);
+    border-right: 1px solid var(--border-color);
     height: 100%;
 }
 
@@ -46,8 +30,7 @@ div.article{
     justify-content: space-between;
     flex-direction: column;
     padding: 8px 12px 6px 12px;
-    /* height: 106px; */
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid var(--border-color);
 }
 
 span.bordure{
@@ -55,7 +38,7 @@ span.bordure{
     height: 100%;
     left: 0;
     width: 3px;
-    background-color: rgb(91, 78, 207);
+    background-color: var(--highlight-color);
     top: 0;
     opacity: 0;
 }
@@ -86,7 +69,7 @@ div.est-traite.article-actif > div > span.titre {
 }
 
 div.article-actif > div > span.titre{
-    color: #3a2ea8;
+    color: var(--highlight-text-color);
     font-weight: 500;
 }
 
@@ -144,7 +127,7 @@ span.non-lu{
     right: 10px;
     bottom: 10px;
     border-radius: 50%;
-    background-color: rgb(91, 78, 207);
+    background-color: var(--highlight-color);
     height: 8px;
     width: 8px;
     opacity: 0;

@@ -26,10 +26,10 @@ form>h1{
 }
 
 form>div.recherche{
-    background-color: rgb(91, 78, 207);;
+    background-color: var(--highlight-color);
     padding: 2px;
     border-radius: 8px;
-    border: 1px solid rgb(91, 78, 207);
+    border: 1px solid var(--highlight-color);
     display: flex;
     margin: 0;
 }
@@ -52,7 +52,7 @@ input:focus{
 
 form>div.recherche>input[type="submit"]{
     height: 44px;
-    background-color: rgb(91, 78, 207);
+    background-color: var(--highlight-color);
     color: white;
     font-size: 16px;
     padding: 11px 24px;
