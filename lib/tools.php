@@ -5,7 +5,6 @@
  */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/model/FluxModel.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/lib/Feed.php";
 
 function extractMainDomain(string $url): string | null
 {
@@ -69,59 +68,72 @@ function getUsernameFromYouTubeUrl($url)
 }
 
 /**
- * Interroge le flux RSS et renvoie tous les articles dans une liste.
+ * Interroge le flux RSS et renvoie une liste contenant tous les articles.
  */
 function getArticlesFromRSSFlux(int $id_flux, string $url): array
 {
-    $rss = null;
+
+    require_once "../classes/Article.php";
+
     $articles = [];
 
-    if (str_starts_with($url, "https://www.youtube.com/feeds/videos.xml?channel_id=")) {
-        $videos = [];
-
-        $xml = new DOMDocument();
-        $xml->load($url);
-
-        FluxModel::updateNomFromFlux($id_flux, $xml->getElementsByTagName("title")->item(0)->nodeValue);
-
-        foreach ($xml->getElementsByTagName("entry") as $node) {
-            $titre = $node->getElementsByTagName('title')->item(0)->nodeValue;
-            $titre = substr($titre, 0, 255);
-            $description = $node->getElementsByTagName('description')->item(0)->nodeValue;
-            $description = substr($description, 0, 255);
-            $lien = $node->getElementsByTagName('link')->item(0)->getAttribute('href');
-            $date_pub = (int) strtotime($node->getElementsByTagName('published')->item(0)->nodeValue);
-            $videos[] = new Article($titre, $description, $lien, $date_pub);
-        }
-
-        return $videos;
-    }
-
-    try {
-        $rss = Feed::loadRss($url);
-    } catch (\Throwable $th) {
+    $xml = new DOMDocument();
+    
+    if(!$xml->load($url)){
         return $articles;
     }
 
-    FluxModel::updateNomFromFlux($id_flux, $rss->title);
+    if (count($xml->getElementsByTagName("channel")) == 0) {
+        return $articles;
+    }
 
-    foreach ($rss->item as $item) {
-        $ts = intval($item->timestamp);
-        if ($ts > time()) {
-            $ts = time();
+    if (count($xml->getElementsByTagName("title")) == 0) {
+        return $articles;
+    }
+
+    FluxModel::updateNomFromFlux($id_flux, $xml->getElementsByTagName("title")->item(0)->nodeValue);
+
+    // cas d'un flux YouTube
+    if (str_starts_with($url, "https://www.youtube.com/feeds/videos.xml?channel_id=")) {
+
+        foreach ($xml->getElementsByTagName("entry") as $node) {
+            $titre = $node->getElementsByTagName('title')->item(0)->nodeValue;
+            $description = $node->getElementsByTagName('description')->item(0)->nodeValue;
+            $lien = $node->getElementsByTagName('link')->item(0)->getAttribute('href');
+            $date_pub = (int) strtotime($node->getElementsByTagName('published')->item(0)->nodeValue);
+            $articles[] = new Article($titre, $description, $lien, $date_pub);
         }
-        if ($ts < 946681200) {
-            $ts = 946681200;
+
+    // cas d'un flux rss générique
+    } else {
+        foreach ($xml->getElementsByTagName("item") as $node) {
+            $titre = $node->getElementsByTagName('title')->item(0)->nodeValue;
+            $lien = $node->getElementsByTagName('link')->item(0)->nodeValue;
+
+            $description = "";
+            $ts = 0;
+
+            if(count($node->getElementsByTagName('description')) > 0){
+                $description = $node->getElementsByTagName('description')->item(0)->nodeValue;
+            }
+
+            if(count($node->getElementsByTagName('pubDate')) > 0){
+                $ts = (int) strtotime($node->getElementsByTagName('pubDate')->item(0)->nodeValue);
+            }
+
+            if ($ts > time()) {
+                $ts = time();
+            }
+            if ($ts < 946681200) {
+                $ts = 946681200;
+            }
+
+            $articles[] = new Article(strip_tags($titre, "<br><b><i>"), strip_tags($description, "<br><b><i>"), $lien, $ts);
         }
-        $articles[] = new Article(
-            strip_tags($item->title, "<br><b><i>"),
-            strip_tags($item->description, "<br><b><i>"),
-            $item->link,
-            $ts
-        );
     }
 
     return $articles;
+
 }
 
 /**
