@@ -31,7 +31,7 @@ class EspaceModel
     static function renameEspace(int $id_espace, string $nom): void
     {
         $mysqli = require "../includes/database.inc.php";
-        $stmt = $mysqli->prepare("UPDATE espace_partage SET nom = ? WHERE id_espace = ?");
+        $stmt = $mysqli->prepare("UPDATE espace SET nom = ? WHERE id_espace = ?");
         $stmt->bind_param("si", $nom, $id_espace);
         $stmt->execute();
         $stmt->close();
@@ -41,7 +41,7 @@ class EspaceModel
     static function deleteEspace(int $id_espace): void
     {
         $mysqli = require "../includes/database.inc.php";
-        $stmt = $mysqli->prepare("DELETE FROM espace_partage WHERE id_espace = ?");
+        $stmt = $mysqli->prepare("DELETE FROM espace WHERE id_espace = ?");
         $stmt->bind_param("i", $id_espace);
         $stmt->execute();
         $stmt->close();
@@ -71,7 +71,7 @@ class EspaceModel
     /**
      * Permet de vérifier si l'espace appartient ou non à l'utilisateur.
      */
-    static function espaceAppartientA(int $id_user, int $id_espace): bool
+    static function appartientA(int $id_user, int $id_espace): bool
     {
         $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
 
@@ -92,7 +92,7 @@ class EspaceModel
         $mysqli = require "../includes/database.inc.php";
 
 
-        $stmt = $mysqli->prepare("INSERT INTO espace_partage (nom, id_proprietaire) VALUES (?, ?)");
+        $stmt = $mysqli->prepare("INSERT INTO espace (nom, id_proprietaire) VALUES (?, ?)");
         $stmt->bind_param("si", $nom, $id_utilisateur);
         $stmt->execute();
         $id_espace = $mysqli->insert_id;
@@ -116,7 +116,7 @@ class EspaceModel
     {
         $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
 
-        $stmt = $mysqli->prepare("SELECT nom FROM espace_partage WHERE id_espace = ?");
+        $stmt = $mysqli->prepare("SELECT nom FROM espace WHERE id_espace = ?");
         $stmt->bind_param("i", $id_espace);
         $stmt->execute();
         $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -138,7 +138,7 @@ class EspaceModel
     {
         $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
 
-        $stmt = $mysqli->prepare("SELECT COUNT(id_espace) FROM espace_partage WHERE id_espace = ? AND id_proprietaire = ?");
+        $stmt = $mysqli->prepare("SELECT COUNT(id_espace) FROM espace WHERE id_espace = ? AND id_proprietaire = ?");
         $stmt->bind_param("ii", $id_espace, $id_utilisateur);
         $stmt->execute();
         $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -163,5 +163,32 @@ class EspaceModel
         $stmt->execute();
         $stmt->close();
         $mysqli->close();
+    }
+
+    /**
+     * Retoure TOUS les articles contenu dans un espace
+     */
+    static function getAllArticles(int $id_espace): array
+    {
+        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
+
+        $stmt = $mysqli->prepare("SELECT a.id_article, a.titre, a.description, a.url_article, a.date_pub AS date_publication, f.nom AS nom_flux, f.adresse_url AS adresse_flux,
+    CASE WHEN el.id_article IS NOT NULL THEN 1 ELSE 0 END AS est_lu,
+    CASE WHEN et.id_article IS NOT NULL THEN 1 ELSE 0 END AS est_traite
+    FROM article a
+    INNER JOIN flux_rss f ON a.id_flux = f.id_flux
+    INNER JOIN contient c ON c.id_flux = f.id_flux
+    LEFT JOIN est_lu el ON a.id_article = el.id_article
+    LEFT JOIN est_traite et ON a.id_article = et.id_article
+    INNER JOIN categorie cat ON cat.id_categorie = c.id_categorie
+    WHERE cat.id_espace = ? AND cat.id_parent IS NULL ORDER BY date_pub DESC");
+        $stmt->bind_param("i", $id_espace);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+        $stmt->close();
+        $mysqli->close();
+
+        return $res;
     }
 }

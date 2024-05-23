@@ -10,8 +10,6 @@ https://www.php.net/manual/fr/function.uniqid.php
 
 - système de reset de mdp par email
 
-- marquer un article comme traité (fonctionne par espace partagé)
-
 - changer les endpoints GET en POST de manière à ce que ce soit cohérent
 
 - bien vérifier à check que les parametres du style numero_page soit des nombres (avec function `ctype_digit()`) (vérifier également les longueurs des entrées)
@@ -19,6 +17,8 @@ https://www.php.net/manual/fr/function.uniqid.php
 - améliorer UI dans `scripts/fetch-all-fluxs.php`
 
 - lorsque l'on ajoute un flux, l'interroger pour ajouter les articles dans la db
+
+- faire système de tags (afficher les tags présent de l'article dans l'ArticleReader)
 
 - faire systeme de notif en bas à gauche de l'écran pour afficher des notifs du style : "Flux ajouté avec succés, Invitation envoyé avec succés, ..."
 

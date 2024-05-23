@@ -393,6 +393,4 @@ class API {
         return articles;
     }
 
-
-
 }

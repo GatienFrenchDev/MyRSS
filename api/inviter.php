@@ -25,7 +25,7 @@ $email = $_GET["email"];
 require_once "../model/EspaceModel.php";
 require_once "../model/InvitationModel.php";
 
-if(!EspaceModel::espaceAppartientA($id_utilisateur, $id_espace)){
+if(!EspaceModel::appartientA($id_utilisateur, $id_espace)){
     http_response_code(403);
     die(json_encode(["error" => "espace does not belong to you"]));
 }

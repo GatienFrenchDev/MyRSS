@@ -20,17 +20,19 @@ class FluxModel
         return $res[0]["nb_non_lu"];
     }
 
-    static function getArticlesFromFlux(int $id_flux): array
+    static function getArticlesFromFlux(int $id_flux, int $numero_page): array
     {
         $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
+
+        $numero_page *= 100;
 
         $stmt = $mysqli->prepare("SELECT a.*, f.*, 
         CASE WHEN el.id_article IS NOT NULL THEN 1 ELSE 0 END AS est_lu
         FROM article a
         INNER JOIN flux_rss f ON a.id_flux = f.id_flux
         LEFT JOIN est_lu el ON a.id_article = el.id_article
-        WHERE a.id_flux = ? ORDER BY date_pub DESC LIMIT 100");
-        $stmt->bind_param("i", $id_flux);
+        WHERE a.id_flux = ? ORDER BY date_pub DESC LIMIT 100 OFFSET ?");
+        $stmt->bind_param("ii", $id_flux, $numero_page);
         $stmt->execute();
         $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
@@ -113,12 +115,11 @@ class FluxModel
     static function getAllRSSFlux(): array
     {
         $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
-        
+
         $stmt = $mysqli->prepare("SELECT nom, id_flux, adresse_url FROM flux_rss");
         $stmt->execute();
         $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         return $res;
-
     }
 
     static function getDernierUrlArticle(int $id_flux): Article | null
@@ -161,7 +162,7 @@ class FluxModel
     static function getFluxDetailsFromId(int $id_flux): array
     {
         $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
-    
+
         $stmt = $mysqli->prepare("SELECT * FROM flux_rss WHERE id_flux = ?");
         $stmt->bind_param("i", $id_flux);
         $stmt->execute();
@@ -172,5 +173,25 @@ class FluxModel
             return $res[0];
         }
         return [];
+    }
+
+    static function getAllArticles(int $id_flux): array
+    {
+        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
+
+        $stmt = $mysqli->prepare("SELECT a.id_article, a.titre, a.description, a.url_article, a.date_pub AS date_publication, f.nom AS nom_flux, f.adresse_url AS adresse_flux,
+        CASE WHEN el.id_article IS NOT NULL THEN 1 ELSE 0 END AS est_lu
+        FROM article a
+        INNER JOIN flux_rss f ON a.id_flux = f.id_flux
+        LEFT JOIN est_lu el ON a.id_article = el.id_article
+        WHERE a.id_flux = ? ORDER BY date_pub DESC");
+        $stmt->bind_param("i", $id_flux);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+        $stmt->close();
+        $mysqli->close();
+
+        return $res;
     }
 }

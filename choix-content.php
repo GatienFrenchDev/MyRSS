@@ -28,7 +28,7 @@ if (!ctype_digit($id_espace)) {
 }
 
 // on s'assure que l'espace appartient à la personne
-if (!EspaceModel::espaceAppartientA($id_utilisateur, $id_espace)) {
+if (!EspaceModel::appartientA($id_utilisateur, $id_espace)) {
     http_response_code(403);
     die(json_encode(["error" => "this espace does not belong to you"]));
 }
@@ -44,7 +44,7 @@ if (isset($_GET["id_categorie"])) {
     }
 
     // on s'assure que la catégorie appartient à la personne
-    if (!CategorieModel::categorieAppartientA($id_utilisateur, $id_categorie)) {
+    if (!CategorieModel::appartientA($id_utilisateur, $id_categorie)) {
         http_response_code(403);
         die(json_encode(["error" => "id_categorie does not belong to you"]));
     }

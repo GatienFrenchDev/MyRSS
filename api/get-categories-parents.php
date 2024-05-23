@@ -25,7 +25,7 @@ if ($id_categorie < 0) {
     die(json_encode(["categories" => $espaces]));
 }
 
-if (!CategorieModel::categorieAppartientA($id_utilisateur, $id_categorie)) {
+if (!CategorieModel::appartientA($id_utilisateur, $id_categorie)) {
     http_response_code(403);
     die(json_encode(["error" => "id_categorie does not belong to you"]));
 }

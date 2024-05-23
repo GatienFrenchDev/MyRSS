@@ -41,7 +41,7 @@ if ($type_flux == "categorie") {
 
     if(isset($_POST["categorie"])){
         $id_categorie = $_POST["categorie"];
-        if(!CategorieModel::categorieAppartientA($id_utilisateur, $id_categorie)){
+        if(!CategorieModel::appartientA($id_utilisateur, $id_categorie)){
             http_response_code(401);
             die(json_encode(["error" => "this category does not belong to you"]));
         }
@@ -49,7 +49,7 @@ if ($type_flux == "categorie") {
     }
     else{
         $id_espace = $_POST["espace"];
-        if(!EspaceModel::espaceAppartientA($id_utilisateur, $id_espace)){
+        if(!EspaceModel::appartientA($id_utilisateur, $id_espace)){
             http_response_code(401);
             die(json_encode(["error" => "this espace does not belong to you"]));
         }
@@ -70,7 +70,7 @@ $id_utilisateur = $_SESSION["id_utilisateur"];
 $id_categorie = $_POST["categorie"];
 
 // Cas où la catégorie passé en paramètre n'appartient pas à l'utilisateur
-if (!CategorieModel::categorieAppartientA($id_utilisateur, $id_categorie)) {
+if (!CategorieModel::appartientA($id_utilisateur, $id_categorie)) {
     http_response_code(403);
     die(json_encode(["error" => "id_categorie does not belong to you"]));
 }

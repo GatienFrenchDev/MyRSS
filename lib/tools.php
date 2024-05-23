@@ -1,12 +1,11 @@
 <?php
+
 /**
  * Ensemble de fonctions "boite à outils" du projet.
  */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/model/FluxModel.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/lib/Feed.php";
-
-define("API_KEY", "xxxxxxxxxxxxxxxxxxx");
 
 function extractMainDomain(string $url): string | null
 {
@@ -28,16 +27,19 @@ function extractMainDomain(string $url): string | null
 /**
  * Permet de récupérer l'identifiant d'une chaine YouTube en utilisant l'API
  * de YouTube.
- * Nécessite une clé d'API à définir dans la constante intitulée `API_KEY`
+ * Nécessite une clé d'API à définir dans la constante intitulée `YTB_API_KEY` dans le fichier .env
  * 
- * @author myrss@gatiendev.fr
- * @param username - le username de la chaine Youtube. ( eg. `nobodyplaylists`)
- * @return channelID - l'identifiant de la chaine youtube correspondante (eg. `UCsBjURrPoezykLs9EqgamOA`),
+ * @author GatienFrenchDev <contact@gatiendev.fr>
+ * @param username - username de la chaine Youtube. ( eg. `nobodyplaylists`)
+ * @return channelID - identifiant de la chaine youtube correspondante (eg. `UCsBjURrPoezykLs9EqgamOA`),
  *                     `null` si aucune chaine YouTube trouvée.
  */
 function getIDFromYoutubeChannel(string $username): string | null
 {
-    $res = file_get_contents(sprintf("https://youtube.googleapis.com/youtube/v3/channels?part=id&forHandle=%s&key=%s", urlencode($username), constant("API_KEY")));
+
+    $env = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/.env");
+
+    $res = file_get_contents(sprintf("https://youtube.googleapis.com/youtube/v3/channels?part=id&forHandle=%s&key=%s", urlencode($username), $env["YTB_API_KEY"]));
     $json = json_decode($res, true);
 
     if (isset($json["items"])) {
@@ -46,7 +48,12 @@ function getIDFromYoutubeChannel(string $username): string | null
     return null;
 }
 
-function getUsernameFromYouTubeUrl($url) {
+/**
+ * Permet d'extraire le nom d'utilisateur d'une url d'une chaine YouTube.
+ * e.g. : getUsernameFromYouTubeUrl(`https://www.youtube.com/@code`) == "code"
+ */
+function getUsernameFromYouTubeUrl($url)
+{
     // Extraire le chemin de l'URL
     $path = parse_url($url, PHP_URL_PATH);
 
@@ -54,13 +61,16 @@ function getUsernameFromYouTubeUrl($url) {
     preg_match('/\/@([^\/]+)/', $path, $matches);
 
     // Vérifier si un match a été trouvé
-    if(isset($matches[1])) {
+    if (isset($matches[1])) {
         return $matches[1];
     } else {
         return false; // Aucun nom d'utilisateur trouvé
     }
 }
 
+/**
+ * Interroge le flux RSS et renvoie tous les articles dans une liste.
+ */
 function getArticlesFromRSSFlux(int $id_flux, string $url): array
 {
     $rss = null;
@@ -74,7 +84,7 @@ function getArticlesFromRSSFlux(int $id_flux, string $url): array
 
         FluxModel::updateNomFromFlux($id_flux, $xml->getElementsByTagName("title")->item(0)->nodeValue);
 
-        foreach($xml->getElementsByTagName("entry") as $node){
+        foreach ($xml->getElementsByTagName("entry") as $node) {
             $titre = $node->getElementsByTagName('title')->item(0)->nodeValue;
             $titre = substr($titre, 0, 255);
             $description = $node->getElementsByTagName('description')->item(0)->nodeValue;
@@ -117,6 +127,7 @@ function getArticlesFromRSSFlux(int $id_flux, string $url): array
 /**
  * Retourne vrai si la chaine de caractère est bien au format yyyy-mm-dd
  */
-function correctFormatForFormDate(string $str):bool{
+function correctFormatForFormDate(string $str): bool
+{
     return date("Y-m-d", strtotime($str)) == $str;
 }

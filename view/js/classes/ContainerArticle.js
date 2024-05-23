@@ -2,6 +2,7 @@ class ContainerArticle {
 
     static container = document.querySelector("div#container-articles");
     static numero_page = 0;
+    static fluxOnFocus = null;
 
     static vider() {
         this.container.innerHTML = "";
@@ -43,6 +44,9 @@ class ContainerArticle {
                 else if (arborescence.length == 1) {
                     articles = await API.getArticlesFromEspace(arborescence[0]["id"], this.numero_page - 1);
                 }
+                else if (this.fluxOnFocus !== null){
+                    articles = await API.getArticlesFromFlux(this.fluxOnFocus.id_flux, this.numero_page - 1);
+                }
                 else if (arborescence.length > 1) {
                     articles = await API.getArticlesFromCategorie(arborescence.slice(-1)[0]["id"], this.numero_page - 1);
                 }
@@ -68,6 +72,9 @@ class ContainerArticle {
             }
             else if (arborescence.length == 1) {
                 articles = await API.getArticlesFromEspace(arborescence[0]["id"], this.numero_page + 1);
+            }
+            else if (this.fluxOnFocus !== null){
+                articles = await API.getArticlesFromFlux(this.fluxOnFocus.id_flux, this.numero_page + 1);
             }
             else if (arborescence.length > 1) {
                 articles = await API.getArticlesFromCategorie(arborescence.slice(-1)[0]["id"], this.numero_page + 1);

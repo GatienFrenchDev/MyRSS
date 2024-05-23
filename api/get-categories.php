@@ -17,7 +17,7 @@ if (isset($_GET["id_espace"])) {
 
     require_once "../model/EspaceModel.php";
 
-    if (!EspaceModel::espaceAppartientA($id_utilisateur, $id_espace)) {
+    if (!EspaceModel::appartientA($id_utilisateur, $id_espace)) {
         die(json_encode(["error" => "espace does not belong to you"]));
     }
     die(json_encode(["categories" => EspaceModel::getCategoriesFromEspace($id_espace)]));
@@ -29,7 +29,7 @@ if (isset($_GET["id_categorie"])) {
 
     require_once "../model/CategorieModel.php";
 
-    if (!CategorieModel::categorieAppartientA($id_utilisateur, $id_categorie)) {
+    if (!CategorieModel::appartientA($id_utilisateur, $id_categorie)) {
         die(json_encode(["error" => "categorie does not belong to you"]));
     }
     die(json_encode(["categories" => CategorieModel::getSubCategories($id_categorie)]));

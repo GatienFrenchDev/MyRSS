@@ -25,7 +25,7 @@ class CategorieModel
         return $res[0]["nb_non_lu"];
     }
 
-    static function getArticlesInsideCategorie(int $id_cateogrie, int $numero_page): array
+    static function getArticlesInsideCategorie(int $id_categorie, int $numero_page): array
     {
         $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
 
@@ -38,7 +38,28 @@ class CategorieModel
         INNER JOIN contient c ON c.id_flux = f.id_flux
         LEFT JOIN est_lu el ON a.id_article = el.id_article
         WHERE c.id_categorie = ? ORDER BY date_pub DESC LIMIT 100 OFFSET ?");
-        $stmt->bind_param("ii", $id_cateogrie, $numero_page);
+        $stmt->bind_param("ii", $id_categorie, $numero_page);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+        $stmt->close();
+        $mysqli->close();
+
+        return $res;
+    }
+
+    static function getAllArticles(int $id_categorie): array
+    {
+        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
+
+        $stmt = $mysqli->prepare("SELECT a.id_article, a.titre, a.description, a.url_article, a.date_pub AS date_publication, f.nom AS nom_flux, f.adresse_url AS adresse_flux,
+            CASE WHEN el.id_article IS NOT NULL THEN 1 ELSE 0 END AS est_lu
+            FROM article a
+            INNER JOIN flux_rss f ON a.id_flux = f.id_flux
+            INNER JOIN contient c ON c.id_flux = f.id_flux
+            LEFT JOIN est_lu el ON a.id_article = el.id_article
+            WHERE c.id_categorie = ? ORDER BY date_pub DESC");
+        $stmt->bind_param("i", $id_categorie);
         $stmt->execute();
         $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
@@ -226,7 +247,7 @@ class CategorieModel
         $mysqli->close();
     }
 
-    static function categorieAppartientA(int $id_user, int $id_categorie): bool
+    static function appartientA(int $id_user, int $id_categorie): bool
     {
         $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
 

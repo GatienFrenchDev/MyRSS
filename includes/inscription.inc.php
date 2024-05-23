@@ -54,7 +54,7 @@ $id_user = $mysqli->insert_id;
 $stmt->close();
 
 // Lie l'espace partagé crée à l'user
-$sql = "INSERT INTO espace_partage (nom) VALUES (?)";
+$sql = "INSERT INTO espace (nom) VALUES (?)";
 $stmt = $mysqli->stmt_init();
 $stmt->prepare($sql);
 $nom_espace = "Espace de " . $prenom;

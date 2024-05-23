@@ -44,28 +44,28 @@ $id_utilisateur = $_SESSION["id_utilisateur"];
 if (isset($_GET["id_categorie"])) {
     $id_categorie = $_GET["id_categorie"];
     
-    if(!CategorieModel::categorieAppartientA($id_utilisateur, $id_categorie)){
+    if(!CategorieModel::appartientA($id_utilisateur, $id_categorie)) {
         die(json_encode(["error" => "categorie does not belong to you"]));
     }
 
     die(json_encode(["articles" => CategorieModel::getArticlesInsideCategorie($id_categorie, $numero_page)]));
 }
 
-else if (isset($_GET["id_espace"])){
+else if (isset($_GET["id_espace"])) {
     $id_espace = $_GET["id_espace"];
     
-    if(!EspaceModel::espaceAppartientA($id_utilisateur, $id_espace)){
+    if(!EspaceModel::appartientA($id_utilisateur, $id_espace)) {
         die(json_encode(["error" => "espace does not belong to you"]));
     }
 
     die(json_encode(["articles" => EspaceModel::getArticlesInsideEspace($id_espace, $numero_page)]));
 }
 
-else if (isset($_GET["id_flux"])){
+else if (isset($_GET["id_flux"])) {
     $id_flux = $_GET["id_flux"];
-    die(json_encode(["articles" => FluxModel::getArticlesFromFlux($id_flux)]));
+    die(json_encode(["articles" => FluxModel::getArticlesFromFlux($id_flux, $numero_page)]));
 }
 
-else{
+else {
     die(json_encode(["articles" => UtilisateurModel::getAllArticles($id_utilisateur, $numero_page)]));
 }

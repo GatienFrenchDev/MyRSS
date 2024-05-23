@@ -37,7 +37,7 @@ MyRSS est basé sur PHP 8.2 et MariaDB 10.4 (testé également sous Ubuntu 24.04
 - Téléchargez le code source de ce dépôt (bouton vert en haut à droite sur le dépôt, intitulé `<> Code`, puis `Download ZIP`).
 - Placez la totalité des fichiers contenu dans le dossier `MyRSS-Main` de l'archive dans le dossier `C:/xampp/htdocs`, en ayant préalablement vidé le contenu du dossier.
 - Accédez à l'adresse `http://localhost/phpmyadmin`, créer une base de données intitulée `myrss` puis allez dans l'onglet `Importer` et importez le fichier nommé `/docs/db_example.sql` présent dans le dépôt.
-- Remplacez dans le fichier `lib/tools.php:3` les `xxxxx` par votre clé d'API YouTube pour que l'ajout de chaines YouTube en tant que flux fonctionne (voir https://console.cloud.google.com/apis/api/youtube.googleapis.com/credentials si besoin de créer une clé d'API).
+- Remplacez dans le fichier `lib/tools.php:3` les `xxxxx` par votre clé d'API YouTube pour que l'ajout de chaines YouTube en tant que flux fonctionne (Pour vous procurer une clé d'API YouTube vous pouvez vous rendre sur [Google Cloud Platform](https://console.cloud.google.com/apis/api/youtube.googleapis.com/credentials)).
 - Le site web devrait maintenant fonctionner sans problème ! Un compte de test est déjà crée dans la base de données avec les identifiants suivants :
 ```
 mail : john@example.com

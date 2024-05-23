@@ -12,7 +12,7 @@ class UtilisateurModel
         e.id_proprietaire = ? AS est_proprietaire,
         COUNT(DISTINCT a.id_article) AS nb_non_lu
     FROM 
-        espace_partage e
+        espace e
     INNER JOIN 
         contient_des cd ON e.id_espace = cd.id_espace
     INNER JOIN 
@@ -54,7 +54,7 @@ class UtilisateurModel
        INNER JOIN flux_rss f ON a.id_flux = f.id_flux
        INNER JOIN contient c ON c.id_flux = f.id_flux
        INNER JOIN categorie cg ON cg.id_categorie = c.id_categorie
-       INNER JOIN espace_partage e ON e.id_espace = cg.id_espace
+       INNER JOIN espace e ON e.id_espace = cg.id_espace
        INNER JOIN contient_des cd ON cd.id_espace = e.id_espace
        INNER JOIN utilisateur u ON u.id_utilisateur = cd.id_utilisateur
        WHERE u.id_utilisateur = ?
@@ -74,7 +74,7 @@ class UtilisateurModel
 
         $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/includes/database.inc.php");
 
-        $stmt = $mysqli->prepare("SELECT c.* FROM categorie c INNER JOIN espace_partage ep ON ep.id_espace = c.id_espace INNER JOIN contient_des cd ON cd.id_espace = ep.id_espace WHERE cd.id_utilisateur = ?");
+        $stmt = $mysqli->prepare("SELECT c.* FROM categorie c INNER JOIN espace ep ON ep.id_espace = c.id_espace INNER JOIN contient_des cd ON cd.id_espace = ep.id_espace WHERE cd.id_utilisateur = ?");
         $stmt->bind_param("i", $id_utilisateur);
         $stmt->execute();
         $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -166,7 +166,7 @@ class UtilisateurModel
         $stmt = $mysqli->prepare("SELECT e.nom AS nom_espace, i.id_invitation, i.id_utilisateur_inviteur
         FROM utilisateur u
         INNER JOIN invitation i ON i.id_utilisateur=u.id_utilisateur
-        INNER JOIN espace_partage e ON e.id_espace = i.id_espace
+        INNER JOIN espace e ON e.id_espace = i.id_espace
         WHERE i.id_utilisateur = ?");
         $stmt->bind_param("i", $id_utilisateur);
         $stmt->execute();
@@ -191,7 +191,7 @@ class UtilisateurModel
         INNER JOIN flux_rss f ON a.id_flux = f.id_flux
         INNER JOIN contient c ON c.id_flux = f.id_flux
         INNER JOIN categorie cg ON cg.id_categorie = c.id_categorie
-        INNER JOIN espace_partage e ON e.id_espace = cg.id_espace
+        INNER JOIN espace e ON e.id_espace = cg.id_espace
         LEFT JOIN est_lu el ON a.id_article = el.id_article
         INNER JOIN contient_des cd ON cd.id_espace = e.id_espace
         INNER JOIN utilisateur u ON u.id_utilisateur = cd.id_utilisateur

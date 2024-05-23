@@ -58,19 +58,19 @@ class Categorie{
         DIVcategorie.addEventListener('contextmenu', (e) => {
             e.stopPropagation();
             e.preventDefault();
-            const context_menu = document.getElementById('context-menu');
-            context_menu.style.display = "grid";
-            context_menu.style.left = e.x + "px" ;
-            context_menu.style.top = e.y + "px" ;
             ContextMenu.vider();
+            ContextMenu.afficher(e.x, e.y)
+
             const item_supprimer = ContextMenu.addItem("Supprimer la catégorie");
+            const item_export = ContextMenu.addItem("Exporter tous les articles");
             const item_renommer = ContextMenu.addItem("Renommer la catégorie");
             item_supprimer.addEventListener("click", () => {
                 if(confirm(`Voulez vous vraiment supprimer la catégorie ${this.nom} et toutes ses sous-catégories ?`)){
                     API.supprimerCategorie(this.id_categorie);
                     DIVcategorie.remove();
                 };
-            })
+            });
+
             item_renommer.addEventListener("click", async () => {
                 let nom = "";
                 while(nom == "") {
@@ -85,7 +85,11 @@ class Categorie{
                 }
                 await API.renameCategorie(this.id_categorie, nom);
                 document.querySelector(`#${DIVcategorie.id}>div>p`).innerText = nom;
-            })
+            });
+
+            item_export.addEventListener("click", async () => {
+                window.open(`api/download.php?id_categorie=${this.id_categorie}`, '_blank').focus();
+            });
         })
 
         return DIVcategorie;

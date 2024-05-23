@@ -99,14 +99,16 @@ class Espace {
             ContainerArticle.vider();
             ContainerArticle.addArticles(articles);
 
-        })
+        });
 
         DIVespace.addEventListener('contextmenu', (e) => {
             e.stopPropagation();
             e.preventDefault();
-            ContextMenu.afficher(e.x, e.y)
             ContextMenu.vider();
+            ContextMenu.afficher(e.x, e.y)
+            
             const item_collab = ContextMenu.addItem("Ajouter un collaborateur");
+            const item_export = ContextMenu.addItem("Exporter tous les articles");
 
             /*
             Ajout du bouton `Supprimer l'espace` et `Renommer l'espace` si l'espace a été créé par l'user.
@@ -131,7 +133,7 @@ class Espace {
                     }
                     await API.renameEspace(this.id_espace, nom);
                     document.querySelector(`#${DIVespace.id}>div>p`).innerText = nom;
-                })
+                });
 
                 item_supprimer.addEventListener("click", () => {
                     if (confirm(`Voulez vous vraiment supprimer l'espace ${this.nom} ?`)) {
@@ -164,8 +166,12 @@ class Espace {
                     }
                 }
                 await API.inviterEmailaUnEspace(this.id_espace, email_a_inviter);
-            })
-        })
+            });
+
+            item_export.addEventListener("click", async () => {
+                window.open(`api/download.php?id_espace=${this.id_espace}`, '_blank').focus();
+            });
+        });
 
         return DIVespace;
     }

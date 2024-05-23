@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 20 mai 2024 à 21:52
+-- Généré le : jeu. 23 mai 2024 à 13:44
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -2518,20 +2518,20 @@ INSERT INTO `contient_des` (`id_utilisateur`, `id_espace`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `espace_partage`
+-- Structure de la table `espace`
 --
 
-CREATE TABLE `espace_partage` (
+CREATE TABLE `espace` (
   `id_espace` int(11) NOT NULL,
   `nom` varchar(50) DEFAULT NULL,
   `id_proprietaire` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `espace_partage`
+-- Déchargement des données de la table `espace`
 --
 
-INSERT INTO `espace_partage` (`id_espace`, `nom`, `id_proprietaire`) VALUES
+INSERT INTO `espace` (`id_espace`, `nom`, `id_proprietaire`) VALUES
 (11, 'Sciences', 1),
 (15, 'Sport', 1),
 (28, 'Actualités', 1),
@@ -2687,9 +2687,18 @@ CREATE TABLE `user_failed_logins` (
 --
 
 INSERT INTO `user_failed_logins` (`id`, `email`, `attempted_at`, `ip_adress`) VALUES
-(90, 'john@example.com', 1716233967, '::1'),
 (91, 'john@example.com', 1716234417, '::1'),
-(92, 'john@example.com', 1716234455, '::1');
+(92, 'john@example.com', 1716234455, '::1'),
+(93, 'john@example.com', 1716234801, '::1'),
+(94, 'john@example.com', 1716234802, '::1'),
+(95, 'john@example.com', 1716234802, '::1'),
+(96, 'john@example.com', 1716234802, '::1'),
+(97, 'john@example.com', 1716234803, '::1'),
+(98, 'john@example.com', 1716234803, '::1'),
+(99, 'john@example.com', 1716234803, '::1'),
+(100, 'john@example.com', 1716234804, '::1'),
+(101, 'john@example.com', 1716234804, '::1'),
+(102, 'john@example.com', 1716234804, '::1');
 
 -- --------------------------------------------------------
 
@@ -2763,9 +2772,9 @@ ALTER TABLE `contient_des`
   ADD KEY `contient_des_ibfk_2` (`id_espace`);
 
 --
--- Index pour la table `espace_partage`
+-- Index pour la table `espace`
 --
-ALTER TABLE `espace_partage`
+ALTER TABLE `espace`
   ADD PRIMARY KEY (`id_espace`);
 
 --
@@ -2841,9 +2850,9 @@ ALTER TABLE `collection`
   MODIFY `id_collection` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT pour la table `espace_partage`
+-- AUTO_INCREMENT pour la table `espace`
 --
-ALTER TABLE `espace_partage`
+ALTER TABLE `espace`
   MODIFY `id_espace` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
@@ -2868,7 +2877,7 @@ ALTER TABLE `notification`
 -- AUTO_INCREMENT pour la table `user_failed_logins`
 --
 ALTER TABLE `user_failed_logins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT pour la table `utilisateur`
@@ -2898,7 +2907,7 @@ ALTER TABLE `article`
 -- Contraintes pour la table `categorie`
 --
 ALTER TABLE `categorie`
-  ADD CONSTRAINT `categorie_ibfk_1` FOREIGN KEY (`id_espace`) REFERENCES `espace_partage` (`id_espace`) ON DELETE CASCADE,
+  ADD CONSTRAINT `categorie_ibfk_1` FOREIGN KEY (`id_espace`) REFERENCES `espace` (`id_espace`) ON DELETE CASCADE,
   ADD CONSTRAINT `categorie_ibfk_2` FOREIGN KEY (`id_parent`) REFERENCES `categorie` (`id_categorie`) ON DELETE CASCADE;
 
 --
@@ -2913,14 +2922,14 @@ ALTER TABLE `contient`
 --
 ALTER TABLE `contient_des`
   ADD CONSTRAINT `contient_des_ibfk_1` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateur` (`id_utilisateur`) ON DELETE CASCADE,
-  ADD CONSTRAINT `contient_des_ibfk_2` FOREIGN KEY (`id_espace`) REFERENCES `espace_partage` (`id_espace`) ON DELETE CASCADE;
+  ADD CONSTRAINT `contient_des_ibfk_2` FOREIGN KEY (`id_espace`) REFERENCES `espace` (`id_espace`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `est_lu`
 --
 ALTER TABLE `est_lu`
   ADD CONSTRAINT `est_lu_ibfk_1` FOREIGN KEY (`id_article`) REFERENCES `article` (`id_article`) ON DELETE CASCADE,
-  ADD CONSTRAINT `est_lu_ibfk_2` FOREIGN KEY (`id_espace`) REFERENCES `espace_partage` (`id_espace`) ON DELETE CASCADE,
+  ADD CONSTRAINT `est_lu_ibfk_2` FOREIGN KEY (`id_espace`) REFERENCES `espace` (`id_espace`) ON DELETE CASCADE,
   ADD CONSTRAINT `est_lu_ibfk_3` FOREIGN KEY (`id_article`) REFERENCES `article` (`id_article`);
 
 --
@@ -2928,13 +2937,13 @@ ALTER TABLE `est_lu`
 --
 ALTER TABLE `est_traite`
   ADD CONSTRAINT `est_traite_ibfk_1` FOREIGN KEY (`id_article`) REFERENCES `article` (`id_article`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `est_traite_ibfk_2` FOREIGN KEY (`id_espace`) REFERENCES `espace_partage` (`id_espace`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `est_traite_ibfk_2` FOREIGN KEY (`id_espace`) REFERENCES `espace` (`id_espace`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `invitation`
 --
 ALTER TABLE `invitation`
-  ADD CONSTRAINT `invitation_ibfk_1` FOREIGN KEY (`id_espace`) REFERENCES `espace_partage` (`id_espace`) ON DELETE CASCADE,
+  ADD CONSTRAINT `invitation_ibfk_1` FOREIGN KEY (`id_espace`) REFERENCES `espace` (`id_espace`) ON DELETE CASCADE,
   ADD CONSTRAINT `invitation_ibfk_2` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateur` (`id_utilisateur`) ON DELETE CASCADE,
   ADD CONSTRAINT `invitation_ibfk_3` FOREIGN KEY (`id_utilisateur_inviteur`) REFERENCES `utilisateur` (`id_utilisateur`) ON DELETE CASCADE ON UPDATE CASCADE;
 

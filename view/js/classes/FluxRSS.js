@@ -23,15 +23,18 @@ class FluxRSS {
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M3 12C3 10.8954 3.89543 10 5 10C6.10457 10 7 10.8954 7 12C7 13.1046 6.10457 14 5 14C3.89543 14 3 13.1046 3 12Z" fill="#707070"></path>
             </svg>
         </div>`;
-        DIVFlux.addEventListener('click', async () => {
-            const articles = await API.getArticlesFromFlux(this.id_flux, 0);
-            ContainerArticle.numero_page = 0;
-            document.querySelectorAll(".flux-actif").forEach(article => {
-                article.classList.remove("flux-actif");
-            })
+        DIVFlux.addEventListener('click', async () => {            
+            document.querySelectorAll(".flux-actif").forEach(article => { article.classList.remove("flux-actif") });
             DIVFlux.classList.add("flux-actif");
+            
+            ContainerArticle.fluxOnFocus = this;
+
+            const articles = await API.getArticlesFromFlux(this.id_flux, 0);
+
+            ContainerArticle.numero_page = 0;
             ContainerArticle.vider();
             ContainerArticle.addArticles(articles);
+
             Header.updateTitle(this.nom);
         });
 

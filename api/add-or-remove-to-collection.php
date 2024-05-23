@@ -4,17 +4,14 @@ session_start();
 
 if (!isset($_SESSION["id_utilisateur"])) {
     die(json_encode(["error" => "authentification required"]));
-    exit;
 }
 
 if (!isset($_POST["id_article"])) {
     die(json_encode(["error" => "id_article parameter needed"]));
-    exit;
 }
 
 if (!isset($_POST["id_collection"])) {
     die(json_encode(["error" => "id_collection parameter needed"]));
-    exit;
 }
 
 $id_article = $_POST["id_article"];

@@ -76,6 +76,10 @@ class Arborescence{
         `
         div.addEventListener('click', async () => {
 
+            if(ContainerArticle.fluxOnFocus !== null){
+                ContainerArticle.fluxOnFocus = null;
+            }
+
             // cas où on est à la racine(n=0)
             if (arborescence.length == 0) {
                 return;
