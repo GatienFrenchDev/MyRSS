@@ -37,7 +37,19 @@ MyRSS est basé sur PHP 8.2 et MariaDB 10.4 (testé également sous Ubuntu 24.04
 - Téléchargez le code source de ce dépôt (bouton vert en haut à droite sur le dépôt, intitulé `<> Code`, puis `Download ZIP`).
 - Placez la totalité des fichiers contenu dans le dossier `MyRSS-Main` de l'archive dans le dossier `C:/xampp/htdocs`, en ayant préalablement vidé le contenu du dossier.
 - Accédez à l'adresse `http://localhost/phpmyadmin`, créer une base de données intitulée `myrss` puis allez dans l'onglet `Importer` et importez le fichier nommé `/docs/db_example.sql` présent dans le dépôt.
-- Renseigner dans le fichier `.env` les identifiants de la base de données MySQL ainsi que votre clé API YouTube (Pour vous procurer une clé d'API YouTube vous pouvez vous rendre sur Google Cloud Platform en passant par [ce lien](https://console.cloud.google.com/apis/api/youtube.googleapis.com/credentials)).
+- Renseigner dans le fichier `.env` les identifiants de la base de données MySQL ainsi que votre clé API YouTube (Pour vous procurer une clé d'API YouTube Data API v3
+ vous pouvez vous rendre sur Google Cloud Platform en passant par [ce lien](https://console.cloud.google.com/apis/api/youtube.googleapis.com/credentials)). 
+ 
+ Voici un exemple de fichier .env configuré
+```
+DB_HOST="127.0.0.1"
+DB_NAME="myrss"
+DB_USERNAME="user"
+DB_PASSWORD="sUp3rP@ssw0rd!"
+
+YTB_API_KEY="AZitayCXaqXkl3f9MOPH3UL7fQn-pfBi56xe6k"
+```
+
 - Le site web devrait maintenant fonctionner sans problème ! Un compte de test est déjà crée dans la base de données avec les identifiants suivants :
 ```
 mail : john@example.com
@@ -54,7 +66,9 @@ pass : password
 
 ## Structure du projet
 
-MyRSS essaye de se baser sur une architecture MVC.
+La structure de **MyRSS** est organisée selon une architecture MVC (Modèle-Vue-Contrôleur), ce qui permet une séparation claire des responsabilités entre les différentes parties de l'application. Cette organisation facilite le développement, la maintenance et l'évolution du projet. Voici un aperçu détaillé des différents répertoires et de leur contenu :
+
+
 
 ```
 .
@@ -75,15 +89,20 @@ MyRSS essaye de se baser sur une architecture MVC.
         └───lib         # Librairies tierces utilisés dans le JS
 ```
 
-## MCD et MLD du projet
+## Modèle Conceptuel des Données (MCD) et Modèle Logique des Données (MLD)
+
+La section suivante présente les modèles de données utilisés dans l'application web MyRSS. Ces modèles sont essentiels pour comprendre la structure de la base de données et les relations entre les différentes entités.
+
+### Modèle Conceptuel des Données (MCD)
+Le MCD décrit de manière abstraite les entités et leurs relations, sans se soucier de la manière dont elles seront implémentées dans la base de données. Il s'agit d'une représentation graphique des concepts clés et de leurs interactions dans le système. Le MCD de MyRSS a été réalisé à l'aide du logiciel Looping.
 
 ![MCD](./docs/img/mcd.jpg)
-MCD réalisé avec le logiciel Looping (voir section crédits)
 
+### Modèle Logique des Données (MLD)
+Le MLD (Modèle Logique des Données) détaille de manière précise et spécifique la structure de la base de données, en traduisant les concepts abstraits du MCD (Modèle Conceptuel des Données) en termes concrets de tables, de colonnes et de contraintes. Il s'agit d'une représentation technique qui définit comment les données seront stockées, organisées et interconnectées dans le système de gestion de base de données. Le MLD de MyRSS a été réalisé sur le site https://drawsql.app.
 
 ![MLD](./docs/img/mld.png)
 
-MLD réalisé avec le site `https://drawsql.app`. Le MLD est accesible en version online à l'adresse https://drawsql.app/teams/gatiendev/diagrams/myrss
 
 ## Crédits
 - https://github.com/Ileriayo/markdown-badges : fournisseur des badges présents dans le readme
