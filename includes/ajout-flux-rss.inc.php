@@ -110,7 +110,20 @@ if ($type_flux == "yt") {
 
 // Cas où le flux rss est un sujet google news
 else if($type_flux == "google-news"){
-    $url = "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&oc=11&q=".urlencode($url);
+    $url = "https://news.google.com/rss/search?hl=fr&gl=FR&ceid=FR%3Afr&oc=11&q=ukraine?gl=FR&ceid=FR%253Afr&hl=fr&q=".urlencode($url);
+    $id_flux = null;
+    if(FluxModel::isFluxRSSindb($url)){
+        $id_flux = FluxModel::getIDFromURL($url);
+    }
+    else{
+        $id_flux = FluxModel::ajouterFluxRSSindb($url, $type_flux);
+    }
+    CategorieModel::addRSSFluxToCategorie($id_flux, $id_categorie);
+}
+
+// Cas où le flux rss est un sujet bing news
+else if($type_flux == "bing-news"){
+    $url = "https://www.bing.com/news/search?q=".urlencode($url)."%20loc%3aFR&qft=sortbydate%3d%221%22&format=RSS";
     $id_flux = null;
     if(FluxModel::isFluxRSSindb($url)){
         $id_flux = FluxModel::getIDFromURL($url);

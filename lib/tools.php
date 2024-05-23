@@ -78,8 +78,8 @@ function getArticlesFromRSSFlux(int $id_flux, string $url): array
     $articles = [];
 
     $xml = new DOMDocument();
-    
-    if(!$xml->load($url)){
+
+    if (!$xml->load($url)) {
         return $articles;
     }
 
@@ -91,7 +91,16 @@ function getArticlesFromRSSFlux(int $id_flux, string $url): array
         return $articles;
     }
 
-    FluxModel::updateNomFromFlux($id_flux, $xml->getElementsByTagName("title")->item(0)->nodeValue);
+    
+    $titre = $xml->getElementsByTagName("title")->item(0)->nodeValue;
+    
+    // pour supprimer le `loc:FR - BingActualités` du titre du flux bing news
+    if (str_starts_with($url, "https://www.bing.com/news/search")) {
+        $titre = str_replace("loc:FR - BingActualités", "", $titre);
+        $titre = $titre . " - Bing News";
+    }
+
+    FluxModel::updateNomFromFlux($id_flux, $titre);
 
     // cas d'un flux YouTube
     if (str_starts_with($url, "https://www.youtube.com/feeds/videos.xml?channel_id=")) {
@@ -103,21 +112,23 @@ function getArticlesFromRSSFlux(int $id_flux, string $url): array
             $date_pub = (int) strtotime($node->getElementsByTagName('published')->item(0)->nodeValue);
             $articles[] = new Article($titre, $description, $lien, $date_pub);
         }
+    }
 
     // cas d'un flux rss générique
-    } else {
+    else {
         foreach ($xml->getElementsByTagName("item") as $node) {
             $titre = $node->getElementsByTagName('title')->item(0)->nodeValue;
+
             $lien = $node->getElementsByTagName('link')->item(0)->nodeValue;
 
             $description = "";
             $ts = 0;
 
-            if(count($node->getElementsByTagName('description')) > 0){
+            if (count($node->getElementsByTagName('description')) > 0) {
                 $description = $node->getElementsByTagName('description')->item(0)->nodeValue;
             }
 
-            if(count($node->getElementsByTagName('pubDate')) > 0){
+            if (count($node->getElementsByTagName('pubDate')) > 0) {
                 $ts = (int) strtotime($node->getElementsByTagName('pubDate')->item(0)->nodeValue);
             }
 
@@ -133,7 +144,6 @@ function getArticlesFromRSSFlux(int $id_flux, string $url): array
     }
 
     return $articles;
-
 }
 
 /**

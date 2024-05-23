@@ -37,6 +37,13 @@ $types = [
         "type_input" => "text"
     ],
 
+    "bing-news" =>  [
+        "titre" => "Bing News",
+        "description" => "Entrez votre recherche Bing News",
+        "placeholder" => "Microsoft Copilot",
+        "type_input" => "text"
+    ]
+
 ];
 
 if(!isset($_GET["id_espace"])){
