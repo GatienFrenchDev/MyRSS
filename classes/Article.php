@@ -6,12 +6,14 @@ class Article{
     private string $titre;
     private string $description;
     private string $url_article;
+    private string $url_image;
 
-    public function __construct(string $titre, string $description, string $url_article, int $article_timestamp) {
+    public function __construct(string $titre, string $description, string $url_article, int $article_timestamp, string $url_image) {
         $this->article_timestamp = $article_timestamp;
         $this->titre = substr($titre, 0, 255);
         $this->description = substr($description, 0, 255);
         $this->url_article = substr($url_article, 0, 512);
+        $this->url_image = substr($url_image, 0, 512);
     }
 
     public function getTitre():string{
@@ -28,6 +30,10 @@ class Article{
 
     public function getTimestamp():int{
         return $this->article_timestamp;
+    }
+
+    public function getUrlImage():string{
+        return $this->url_image;
     }
 
 }

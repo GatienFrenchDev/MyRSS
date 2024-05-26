@@ -32,11 +32,13 @@ class CategorieModel
         $numero_page *= 100;
 
         $stmt = $mysqli->prepare("SELECT a.*, f.*, 
-        CASE WHEN el.id_article IS NOT NULL THEN 1 ELSE 0 END AS est_lu
+        CASE WHEN el.id_article IS NOT NULL THEN 1 ELSE 0 END AS est_lu,
+        CASE WHEN et.id_article IS NOT NULL THEN 1 ELSE 0 END AS est_traite
         FROM article a
         INNER JOIN flux_rss f ON a.id_flux = f.id_flux
         INNER JOIN contient c ON c.id_flux = f.id_flux
         LEFT JOIN est_lu el ON a.id_article = el.id_article
+        LEFT JOIN est_traite et ON a.id_article = et.id_article
         WHERE c.id_categorie = ? ORDER BY date_pub DESC LIMIT 100 OFFSET ?");
         $stmt->bind_param("ii", $id_categorie, $numero_page);
         $stmt->execute();

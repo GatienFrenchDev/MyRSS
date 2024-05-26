@@ -31,7 +31,18 @@ div#article-reader>p{
     font-size: 14px;
     color: rgb(26, 26, 26);
     line-height: 21px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+    align-items: center;
 }
+
+div#article-reader>p>img{
+    /* max-width: 600px; */
+    max-width: 100%;
+}
+
 
 div#container-actions{
     display: flex;

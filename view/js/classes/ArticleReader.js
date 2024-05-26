@@ -26,7 +26,7 @@ class ArticleReader {
         // logo de la source
         const img_component = document.createElement("img");
         img_component.id = "article-image-source";
-        img_component.src = article.url_image;
+        img_component.src = article.url_favicon;
 
         // nom de la source
         const nom_source_component = document.createElement("span");
@@ -113,6 +113,12 @@ class ArticleReader {
         const description_component = document.createElement("p");
         description_component.innerHTML = article.description;
 
+        if(article.url_image != ""){
+            const img_illustration = document.createElement("img");
+            img_illustration.src = article.url_image;
+            description_component.appendChild(img_illustration);
+        }
+        
         const iframe = document.createElement("iframe");
 
         // ajout de l'iframe de la video youtube

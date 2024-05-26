@@ -110,7 +110,7 @@ function getArticlesFromRSSFlux(int $id_flux, string $url): array
             $description = $node->getElementsByTagName('description')->item(0)->nodeValue;
             $lien = $node->getElementsByTagName('link')->item(0)->getAttribute('href');
             $date_pub = (int) strtotime($node->getElementsByTagName('published')->item(0)->nodeValue);
-            $articles[] = new Article($titre, $description, $lien, $date_pub);
+            $articles[] = new Article($titre, $description, $lien, $date_pub, "");
         }
     }
 
@@ -122,6 +122,7 @@ function getArticlesFromRSSFlux(int $id_flux, string $url): array
             $lien = $node->getElementsByTagName('link')->item(0)->nodeValue;
 
             $description = "";
+            $url_image = "";
             $ts = 0;
 
             if (count($node->getElementsByTagName('description')) > 0) {
@@ -132,6 +133,14 @@ function getArticlesFromRSSFlux(int $id_flux, string $url): array
                 $ts = (int) strtotime($node->getElementsByTagName('pubDate')->item(0)->nodeValue);
             }
 
+            if (count($node->getElementsByTagName('content')) > 0) {
+                $url_image = $node->getElementsByTagName('content')->item(0)->getAttribute('url');
+            }
+
+            if (count($node->getElementsByTagName('enclosure')) > 0) {
+                $url_image = $node->getElementsByTagName('enclosure')->item(0)->getAttribute('url');
+            }
+
             if ($ts > time()) {
                 $ts = time();
             }
@@ -139,7 +148,7 @@ function getArticlesFromRSSFlux(int $id_flux, string $url): array
                 $ts = 946681200;
             }
 
-            $articles[] = new Article(strip_tags($titre, "<br><b><i>"), strip_tags($description, "<br><b><i>"), $lien, $ts);
+            $articles[] = new Article(strip_tags($titre, "<br><b><i>"), strip_tags($description, "<br><b><i>"), $lien, $ts, $url_image);
         }
     }
 

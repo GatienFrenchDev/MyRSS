@@ -12,20 +12,22 @@ class Article {
      * @param {Number} date_pub - La date de publication de l'article en timestamp UNIX
      * @param {String} url_article - L'URL de l'article.
      * @param {String} nom_source - Le nom de la source de l'article.
-     * @param {String} url_image - L'URL de l'image associée à l'article.
+     * @param {String} url_favicon - L'URL de l'icone associée à la source de l'article.
      * @param {boolean} est_lu - Indique si l'article a été lu ou non.
      * @param {boolean} est_traite - Indique si l'article a été noté comme traité.
+     * @param {String} url_image - l'URL de l'image de l'article, si il en existe une
      */
-    constructor(id_article, titre, description, date_pub, url_article, nom_source, url_image, est_lu, est_traite) {
+    constructor(id_article, titre, description, date_pub, url_article, nom_source, url_favicon, est_lu, est_traite, url_image) {
         this.id_article = id_article;
         this.titre = titre;
         this.description = description;
         this.date_pub = date_pub;
         this.url_article = url_article;
         this.nom_source = nom_source;
-        this.url_image = url_image;
+        this.url_favicon = url_favicon;
         this.est_lu = est_lu;
         this.est_traite = est_traite;
+        this.url_image = url_image;
     }
 
     /**
@@ -72,7 +74,7 @@ class Article {
 
         banner.classList.add("banner");
 
-        image.src = this.url_image;
+        image.src = this.url_favicon;
         image.height = 16;
         image.width = 16;
 

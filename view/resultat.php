@@ -4,42 +4,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Recherche | MyRSS</title>
+    <title>Recherche | MyRSS</title>
+
+    <link rel="stylesheet" href="view/css/articles.css">
+    <link rel="stylesheet" href="view/css/article-reader.css">
     <link rel="stylesheet" href="view/css/colors.css">
-    <link rel="stylesheet" href="view/css/style.css">
-    <link rel="stylesheet" href="view/css/side-bar.css">
+    <link rel="stylesheet" href="view/css/context-menu.css">
     <link rel="stylesheet" href="view/css/font.css">
+    <link rel="stylesheet" href="view/css/onglet.css">
+    <link rel="stylesheet" href="view/css/side-bar.css">
+    <link rel="stylesheet" href="view/css/style.css">
+
     <link rel="stylesheet" href="view/css/resultat.css">
+
+    <script src="view/js/lib/moment.js" defer></script>
+
+    <script src="view/js/classes/API.js" defer></script>
+    <script src="view/js/classes/ArticleReader.js" defer></script>
+    <script src="view/js/classes/Article.js" defer></script>
+    <script src="view/js/classes/BoutonAjoutFavoris.js" defer></script>
+    <script src="view/js/classes/ContainerArticle.js" defer></script>
+    <script src="view/js/classes/Tools.js" defer></script>
+
+    <script src="view/js/recherche.js" defer></script>
+
 </head>
 
 <body>
+
+    <div id="context-menu">
+    </div>
+
     <?php
     createSideBar(3);
     ?>
-    <div class="container">
 
-        <h1>Résultat</h1>
-        <span><?= count($articles) > 1 ? (count($articles)<100?count($articles) . " articles trouvés":"+ 100 articles trouvés") : (count($articles) . " article trouvé") ?></span>
 
-        <section>
-            <?php foreach ($articles as $article) { ?>
-                <article>
-                    <h3><a href="<?= $article["url_article"] ?>" target="_blank"><?= $article["titre"] ?></a></h3>
-                    <p style="font-size: 14px;">Publié le <?= date("d/m/Y" ,$article["date_pub"]) ?> par <?= $article["nom"] ?></p>
-                    <p><?= $article["description"] ?></p>
-                </article>
 
-            <?php } ?>
-        </section>
+    <div class="articles">
 
-        <?php if(count($articles) >= 100 || $numero_page != 0){ ?>
-        <section id="navigation">
-            <a <?= $parametre_href_url_page_precedente ?>>précédent</a>
-            <a <?= $parametre_href_url_page_suivante ?>>suivant</a>
-        </section>
-        <?php } ?>
+        <div class="article-header">
+            <span>
+                Résultat de la recherche
+            </span>
+        </div>
+
+        <div id="container-articles">
+        </div>
 
     </div>
+
+    <div id="article-reader">
+    </div>
+
 </body>
 
 </html>

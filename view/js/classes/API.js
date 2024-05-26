@@ -21,7 +21,8 @@ class API {
                 element["nom"],
                 `http://www.google.com/s2/favicons?domain=${Tools.extractDomain(element["adresse_url"])}`,
                 element["est_lu"]==1,
-                element["est_traite"]==1
+                element["est_traite"]==1,
+                element["url_image"]
             )
             articles.push(article);
         });
@@ -113,7 +114,9 @@ class API {
                 element["url_article"],
                 element["nom"],
                 `http://www.google.com/s2/favicons?domain=${Tools.extractDomain(element["adresse_url"])}`,
-                element["est_lu"]==1
+                element["est_lu"]==1,
+                element["est_traite"]==1,
+                element["url_image"]
             )
             articles.push(article);
         });
@@ -139,7 +142,9 @@ class API {
                     element["url_article"],
                     element["nom"],
                     `http://www.google.com/s2/favicons?domain=${Tools.extractDomain(element["adresse_url"])}`,
-                    element["est_lu"]==1
+                    element["est_lu"]==1,
+                    element["est_traite"]==1,
+                    element["url_image"]
                 )
                 articles.push(article);
             });
@@ -188,7 +193,9 @@ class API {
                 element["url_article"],
                 element["nom"],
                 `http://www.google.com/s2/favicons?domain=${Tools.extractDomain(element["adresse_url"])}`,
-                true
+                true,
+                false,
+                element["url_image"]
             )
             articles.push(article);
         });
@@ -321,7 +328,10 @@ class API {
                 element["date_pub"],
                 element["url_article"],
                 element["nom"],
-                `http://www.google.com/s2/favicons?domain=${Tools.extractDomain(element["adresse_url"])}`
+                `http://www.google.com/s2/favicons?domain=${Tools.extractDomain(element["adresse_url"])}`,
+                false,
+                false,
+                element["url_image"]
             )
             articles.push(article);
         });
@@ -386,7 +396,34 @@ class API {
                 element["date_pub"],
                 element["url_article"],
                 element["nom"],
-                `http://www.google.com/s2/favicons?domain=${Tools.extractDomain(element["adresse_url"])}`
+                `http://www.google.com/s2/favicons?domain=${Tools.extractDomain(element["adresse_url"])}`,
+                false,
+                false,
+                element["url_image"]
+            )
+            articles.push(article);
+        });
+        return articles;
+    }
+
+    static async getArticlesFromRecherche(query){
+        const request = await fetch(`api/recherche.php?${query}`, { method: 'GET' });
+        const json = await request.json();
+
+        let articles = [];
+
+        json["articles"].forEach(element => {
+            const article = new Article(
+                element["id_article"],
+                element["titre"],
+                element["description"],
+                element["date_pub"],
+                element["url_article"],
+                element["nom"],
+                `http://www.google.com/s2/favicons?domain=${Tools.extractDomain(element["adresse_url"])}`,
+                true,
+                false,
+                element["url_image"]
             )
             articles.push(article);
         });

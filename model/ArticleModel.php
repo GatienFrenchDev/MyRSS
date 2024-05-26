@@ -76,10 +76,11 @@ class ArticleModel
         $description = $article->getDescription();
         $date_pub = $article->getTimestamp();
         $url_article = $article->getUrlArticle();
+        $url_image = $article->getUrlImage();
         $current_ts = time();
 
-        $stmt = $mysqli->prepare("INSERT INTO article (titre, description, date_pub, id_flux, url_article, date_ajout) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssiisi", $titre, $description, $date_pub, $id_flux, $url_article, $current_ts);
+        $stmt = $mysqli->prepare("INSERT INTO article (titre, description, date_pub, id_flux, url_article, date_ajout, url_image) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssiisis", $titre, $description, $date_pub, $id_flux, $url_article, $current_ts, $url_image);
         try {
             $stmt->execute();
         } catch (mysqli_sql_exception $e) {
