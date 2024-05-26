@@ -98,7 +98,7 @@ Le MCD décrit de manière abstraite les entités et leurs relations, sans se so
 ![MCD](./docs/img/mcd.jpg)
 
 ### Modèle Logique des Données (MLD)
-Le MLD (Modèle Logique des Données) détaille de manière précise et spécifique la structure de la base de données, en traduisant les concepts abstraits du MCD (Modèle Conceptuel des Données) en termes concrets de tables, de colonnes et de contraintes. Il s'agit d'une représentation technique qui définit comment les données seront stockées, organisées et interconnectées dans le système de gestion de base de données. Le MLD de MyRSS a été réalisé sur le site https://drawsql.app.
+Le MLD (Modèle Logique des Données) détaille de manière précise et spécifique la structure de la base de données, en traduisant les concepts abstraits du MCD (Modèle Conceptuel des Données) en termes concrets de tables, de colonnes et de contraintes. Il s'agit d'une représentation technique qui définit comment les données seront stockées, organisées et interconnectées dans le système de gestion de base de données. Le MLD de MyRSS a été réalisé sur le site https://drawsql.app et est accesible en ligne à [cette adresse](https://drawsql.app/teams/gatiendev/diagrams/myrss).
 
 ![MLD](./docs/img/mld.png)
 
