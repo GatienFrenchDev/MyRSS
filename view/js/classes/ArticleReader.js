@@ -43,6 +43,8 @@ class ArticleReader {
 
         const btn_add_to_favorites = BoutonAjoutFavoris.getHTML();
 
+        const btn_show_tags = BoutonAfficherTags.getHTML();
+
         const appartientAuFavoris = await API.articleDansFavoris(article.id_article);
 
         if(appartientAuFavoris){
@@ -82,7 +84,6 @@ class ArticleReader {
                 btn_traite.addEventListener("click", async () => {
                     // le code HTML dans le container d'article
                     const articleDOM = document.querySelector(`.article-${article.id_article}`);
-                    console.log(article.id_article)
 
                     await API.addToTraite(article.id_article, arborescence[0]["id"]);
                     if (btn_traite.classList.contains("starred")) {
@@ -107,7 +108,15 @@ class ArticleReader {
         }
 
         container_actions.appendChild(btn_add_to_favorites);
+        container_actions.appendChild(btn_show_tags);
 
+        const container_tags = document.createElement("div");
+        container_tags.classList.add("hidden");
+        container_tags.id = "container-tags";
+        const tags = await API.getCollections();
+        for(let i  = 0; i < tags.length; i++){
+            container_tags.appendChild(new TagItem(tags[i]["id_collection"], tags[i]["nom"]).getHTML());
+        }
 
         // description de l'article
         const description_component = document.createElement("p");
@@ -141,6 +150,7 @@ class ArticleReader {
         article_component.appendChild(banner_component);
 
         article_component.appendChild(container_actions);
+        article_component.appendChild(container_tags);
 
         article_component.appendChild(description_component);
 

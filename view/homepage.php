@@ -31,6 +31,8 @@
     <script src="view/js/classes/Espace.js" defer></script>
     <script src="view/js/classes/FluxRSS.js" defer></script>
     <script src="view/js/classes/Header.js" defer></script>
+    <script src="view/js/classes/BoutonAfficherTags.js" defer></script>
+    <script src="view/js/classes/TagItem.js" defer></script>
     <script src="view/js/classes/Tools.js" defer></script>
 
     <script src="view/js/main.js" defer></script>
@@ -109,13 +111,6 @@
                 Tous les posts
             </span>
         </div>
-<!-- 
-        <div class="filtres">
-            <svg xmlns:xlink="http://www.w3.org/1999/xlink" class="icon filter-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6 12H18M3 6H21M9 18H15" stroke="#707070" stroke-width="2px" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
-            </svg>
-            <span>Filtres</span>
-        </div> -->
 
         <div id="container-articles">
         </div>

@@ -36,7 +36,7 @@ class CollectionModel
     /**
      * Renvoie `true` si l'utilisateur a ajouté cet article à ses favoris
      */
-    static function appartientA($id_utilisateur, $id_article, $id_collection): bool
+    static function appartientA(int $id_utilisateur, int $id_article, int $id_collection): bool
     {
         $mysqli = require "../includes/database.inc.php";
 
@@ -47,5 +47,23 @@ class CollectionModel
         $stmt->close();
         $mysqli->close();
         return count($res) > 0;
+    }
+
+    static function getCollections(int $id_utilisateur, int $id_article):array{
+
+        $mysqli = require "../includes/database.inc.php";
+
+
+        // $stmt = $mysqli->prepare("SELECT c.*,
+        // CASE WHEN ac.id_article IS NOT NULL THEN 1 ELSE 0 END AS est_ajoute,
+        // FROM collection c
+        // LEFT JOIN ajout_collection ac ON ac.id_collection = c.id_collection
+        // WHERE c.id_createur = ?");
+        $stmt->bind_param("i", $id_utilisateur);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        $mysqli->close();
+        return $res;
     }
 }

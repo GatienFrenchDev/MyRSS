@@ -67,6 +67,10 @@ div#container-actions>button{
     transition: all 0.2s ease-in-out;
 }
 
+div#container-actions>button>svg>path{
+    stroke-width: 2px;
+}
+
 div#container-actions>button.starred{
     color: white;
     border : 1px solid #807e93;
@@ -122,5 +126,39 @@ div#container-actions>button:hover{
 
 div#container-actions>button>svg{
     margin-right: 6px;
+}
+
+div#container-tags{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+div#container-tags.hidden{
+    display: none;
+}
+
+div#container-tags>button{
+    padding-left: 4px;
+    cursor: pointer;
+    border: 1px solid var(--btn-border-color);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 450;
+}
+
+div#container-tags>button>span{
+    padding: 4px;
+    background-color: var(--border-color);
+}
+
+div#container-tags>button.non-select{
+    font-weight: 400;
+    padding: 4px;
+}
+
+div#container-tags>button.non-select>span{
+    display: none;
 }
 

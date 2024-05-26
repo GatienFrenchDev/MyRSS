@@ -430,4 +430,10 @@ class API {
         return articles;
     }
 
+    static async getCollections(id_article){
+        const request = await fetch(`api/get-collections.php?id_article=${id_article}`, { method: 'GET' });
+        const json = await request.json();
+        return json["collections"];
+    }
+
 }
