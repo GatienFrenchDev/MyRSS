@@ -25,6 +25,9 @@
     <script src="view/js/classes/BoutonAjoutFavoris.js" defer></script>
     <script src="view/js/classes/ContainerArticle.js" defer></script>
     <script src="view/js/classes/Tools.js" defer></script>
+    <script src="view/js/classes/BoutonAfficherTags.js" defer></script>
+    <script src="view/js/classes/TagItem.js" defer></script>
+
 
     <script src="view/js/recherche.js" defer></script>
 

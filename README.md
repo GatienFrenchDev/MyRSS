@@ -28,6 +28,16 @@ MyRSS s'appuie sur plusieurs projets open source pour fonctionner efficacement :
 
 MyRSS est basé sur PHP 8.2 et MariaDB 10.4 (testé également sous Ubuntu 24.04 avec PHP 8.3.6 et MySQL 8.0.36-2ubuntu3)
 
+## Apercu
+
+Voici quelques captures d'écran provenant du site.
+
+![dashboard](./docs/img/dashboard.png)
+
+![recherche](./docs/img/recherche.png)
+
+![ajout-contenu](./docs/img/ajout-contenu.png)
+
 ## Déploiement local sous Windows pour environnement de développement
 
 - Téléchargez d'abord [XAMPP](https://www.apachefriends.org/fr/index.html) avec les modules `Apache` et `MySQL` (l'installation par défaut suffira).
