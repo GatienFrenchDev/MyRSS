@@ -49,17 +49,31 @@ class CollectionModel
         return count($res) > 0;
     }
 
-    static function getCollections(int $id_utilisateur, int $id_article):array{
+    static function getCollections(int $id_utilisateur, int $id_article): array
+    {
 
         $mysqli = require "../includes/database.inc.php";
 
 
-        // $stmt = $mysqli->prepare("SELECT c.*,
-        // CASE WHEN ac.id_article IS NOT NULL THEN 1 ELSE 0 END AS est_ajoute,
-        // FROM collection c
-        // LEFT JOIN ajout_collection ac ON ac.id_collection = c.id_collection
-        // WHERE c.id_createur = ?");
-        $stmt->bind_param("i", $id_utilisateur);
+        $stmt = $mysqli->prepare("SELECT 
+        c.id_collection,
+        c.nom,
+        CASE 
+            WHEN ac.id_article IS NOT NULL THEN 1
+            ELSE 0
+        END AS article_in_collection
+    FROM 
+        collection c
+    LEFT JOIN 
+        ajout_collection ac 
+        ON c.id_collection = ac.id_collection 
+        AND ac.id_article = ?
+    WHERE 
+        c.id_createur = ?
+    ORDER BY 
+    article_in_collection DESC;
+    ");
+        $stmt->bind_param("ii", $id_article, $id_utilisateur);
         $stmt->execute();
         $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $stmt->close();

@@ -436,4 +436,19 @@ class API {
         return json["collections"];
     }
 
+    /**
+     * 
+     * @param {Number} id_article 
+     * @param {Number} id_collection 
+     */
+    static async addArticleToCollection(id_article, id_collection){
+        const data = new FormData();
+        data.append("id_article", id_article);
+        data.append("id_collection", id_collection);
+        await fetch(`api/add-or-remove-to-collection.php`, {
+            method: "POST",
+            body: data
+        });
+    }
+
 }

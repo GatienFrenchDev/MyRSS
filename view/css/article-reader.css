@@ -51,20 +51,18 @@ div#container-actions{
 }
 
 div#container-actions>button{
-    /* width: 150px; */
     width: fit-content;
     font-weight: 450;
     cursor: pointer;
-    /* background-color: white; */
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 5px;
     border: 1px solid var(--btn-border-color);
     background-color: var(--btn-background-color);
-    color: rgb(26, 26, 26);
+    color: #1a1a1a;
     border-radius: 6px;
-    transition: all 0.2s ease-in-out;
+    transition: all .2s ease-in-out;
 }
 
 div#container-actions>button>svg>path{
@@ -128,6 +126,14 @@ div#container-actions>button>svg{
     margin-right: 6px;
 }
 
+button#btn-show-tags{
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 30px !important;
+    height: 30px !important;
+}
+
 div#container-tags{
     display: flex;
     gap: 10px;
@@ -139,26 +145,19 @@ div#container-tags.hidden{
 }
 
 div#container-tags>button{
-    padding-left: 4px;
     cursor: pointer;
+    border-radius: 12px;
+    padding: 5px 10px;
     border: 1px solid var(--btn-border-color);
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-weight: 450;
-}
-
-div#container-tags>button>span{
-    padding: 4px;
-    background-color: var(--border-color);
-}
-
-div#container-tags>button.non-select{
     font-weight: 400;
-    padding: 4px;
+    transition: all .2s ease-in-out;
+    background-color: var(--btn-hover-background-color);
 }
 
-div#container-tags>button.non-select>span{
-    display: none;
+div#container-tags>button.select{
+    font-weight: 450;
+    border: 1px solid #5b4ecf;
+    color: var(--highlight-text-color);
+
 }
 

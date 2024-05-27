@@ -11,6 +11,7 @@ class ArticleReader {
 
         // titre
         const titre_component = document.createElement("h1");
+        titre_component.id = article.id_article;
         titre_component.innerText = article.titre;
         titre_component.addEventListener("click", () => {
             window.open(
@@ -113,9 +114,9 @@ class ArticleReader {
         const container_tags = document.createElement("div");
         container_tags.classList.add("hidden");
         container_tags.id = "container-tags";
-        const tags = await API.getCollections();
+        const tags = await API.getCollections(article.id_article);
         for(let i  = 0; i < tags.length; i++){
-            container_tags.appendChild(new TagItem(tags[i]["id_collection"], tags[i]["nom"]).getHTML());
+            container_tags.appendChild(new TagItem(tags[i]["id_collection"], tags[i]["nom"], tags[i]["article_in_collection"] == 1).getHTML());
         }
 
         // description de l'article
