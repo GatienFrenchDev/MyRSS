@@ -26,7 +26,7 @@ $params = parse_url($_SERVER["REQUEST_URI"]);
 parse_str($params["query"], $query);
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/src/model/ArticleModel.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/src/lib/tools.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/lib/tools.php";
 
 // vérifie que le parametre `debut` soit bien au format yyyy-mm-dd si il est défini
 if(isset($_GET["debut"])){
