@@ -1,4 +1,4 @@
-# Guide d'installation de MyRSS pour Ubuntu
+# Guide d'installation pour Ubuntu
 
 Guide d'installation testé avec **Ubuntu Server 24.04** et **PHP 8.5**
 
