@@ -23,6 +23,5 @@ if(!ctype_digit($numero_page)){
     exit;
 }
 
-
-require_once "view/components/side-bar.php";
-require_once "view/resultat.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/views/components/side-bar.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/views/resultat.php";

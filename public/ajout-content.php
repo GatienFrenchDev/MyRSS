@@ -4,7 +4,7 @@ session_start();
 
 if (!isset($_SESSION["id_utilisateur"])) {
     http_response_code(401);
-    header("Location: login.php");
+    header("Location: login");
     exit;
 }
 
@@ -71,15 +71,15 @@ $nom_type = $_GET["type"];
 $url_btn_retour = is_null($id_categorie)?"choix-content.php?id_espace=".$id_espace:"choix-content.php?id_espace=".$id_espace."&id_categorie=".$id_categorie;
 
 
-require_once "model/UtilisateurModel.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/src/model/UtilisateurModel.php";
 
 
 if (array_key_exists($nom_type, $types)) {
     $type = $types[$nom_type];
-    require_once "view/components/side-bar.php";
-    require_once "view/ajout-content.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/views/components/side-bar.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/views/ajout-content.php";
 } else {
     http_response_code(400);
-    header("Location : index.php");
+    header("Location : /");
     exit;
 }

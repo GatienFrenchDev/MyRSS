@@ -10,11 +10,7 @@ https://www.php.net/manual/fr/function.uniqid.php
 
 - système de reset de mdp par email
 
-- dockeriser l'application
-
 - mettre en place CI/CD (avec https://semaphoreci.com/ ?)
-
-- créer fichier CONTRIBUTING.md
 
 - changer les endpoints GET en POST de manière à ce que ce soit cohérent
 
@@ -27,6 +23,8 @@ https://www.php.net/manual/fr/function.uniqid.php
 - lorsque l'on ajoute un flux, l'interroger pour ajouter les articles dans la db
 
 - faire systeme de notif en bas à gauche de l'écran pour afficher des notifs du style : "Flux ajouté avec succés, Invitation envoyé avec succés, ..."
+
+- optimiser nombre de requetes a la db
 
 ## Points d'améliorations
 
@@ -48,8 +46,6 @@ https://www.postman.com/
 
 - mettre code reponse php sur chaque retour API
 https://fr.wikipedia.org/wiki/Liste_des_codes_HTTP
-
-- mettre tout le code en anglais (pas de variables, commentaires, nom de fonctions, etc en francais)
 
 - changer le type de balise représentant un article (au lieu que l'article soit une `<div>`, l'article doit être un `<article>`)
 https://developer.mozilla.org/fr/docs/Web/HTML/Element/article

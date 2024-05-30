@@ -7,15 +7,13 @@ if (!isset($_SESSION["id_utilisateur"])) {
     exit;
 }
 
-require_once("model/UtilisateurModel.php");
+require_once $_SERVER['DOCUMENT_ROOT'] . "/src/model/UtilisateurModel.php";
 
 $id_utilisateur = $_SESSION["id_utilisateur"];
 
 $invitations = UtilisateurModel::getInvitations($id_utilisateur);
 $notifications = UtilisateurModel::getNotifications($id_utilisateur);
 
-require_once("view/components/side-bar.php");
-require_once("view/notifications.php");
-require_once("view/components/version-beta.php");
-
-
+require_once $_SERVER['DOCUMENT_ROOT'] . "/views/components/side-bar.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/views/notifications.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/views/components/version-beta.php";

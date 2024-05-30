@@ -8,5 +8,5 @@ if (!isset($_SESSION["id_utilisateur"])) {
     exit;
 }
 
-require_once "view/components/side-bar.php";
-require_once "view/recherche.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/views/components/side-bar.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/views/recherche.php";

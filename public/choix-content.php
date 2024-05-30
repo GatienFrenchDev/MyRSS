@@ -11,8 +11,10 @@ $nom = "non définie";
 
 $id_utilisateur = $_SESSION["id_utilisateur"];
 
-require_once "model/EspaceModel.php";
-require_once "model/CategorieModel.php";
+
+require_once $_SERVER['DOCUMENT_ROOT'] . "/src/model/EspaceModel.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/src/model/CategorieModel.php";
+
 
 if (!isset($_GET["id_espace"])) {
     http_response_code(400);
@@ -55,9 +57,6 @@ if (isset($_GET["id_categorie"])) {
     // chaine de charactere que l'on vient mettre dans les balises `<a>`. eg : `id_categorie=13` ou alors `id_espace=11`
     $parametre_balise = "id_categorie=" . $id_categorie . "&id_espace=" . $id_espace;
 
-    require_once "view/components/side-bar.php";
-
-    require_once "view/choix-content.php";
 } else {
 
     $nom = EspaceModel::getNom($id_espace);
@@ -65,7 +64,7 @@ if (isset($_GET["id_categorie"])) {
     // chaine de charactere que l'on vient mettre dans les balises `<a>`. eg : `id_categorie=13` ou alors `id_espace=11`
     $parametre_balise = "id_espace=" . $id_espace;
 
-    require_once "view/components/side-bar.php";
-
-    require_once "view/choix-content.php";
 }
+
+require_once $_SERVER['DOCUMENT_ROOT'] . "/views/components/side-bar.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/views/choix-content.php";
