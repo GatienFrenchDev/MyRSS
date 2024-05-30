@@ -1,9 +1,9 @@
 # 📰 MyRSS
 
-![Docker](./docs/img/docker.svg)
 ![PHP](./docs/img/php.svg)
 ![MySQL](./docs/img/mysql.svg)
 ![JS](./docs/img/js.svg)
+![Docker](./docs/img/docker.svg)
 
 ## Lecteur de flux RSS avancé et collaboratif
 
@@ -30,7 +30,7 @@ MyRSS s'appuie sur plusieurs projets open source pour fonctionner efficacement :
 MyRSS est basé sur PHP 8.2 et MariaDB 10.4 (testé également sous Ubuntu 24.04 avec PHP 8.3.6 et MySQL 8.0.36-2ubuntu3)
 
 ## Déploiment de MyRSS
-- [Guide d'installation pour Docker](./docs/installation_guide_docker.md) (recommandé)
+- [Guide d'installation pour Docker](./docs/installation_guide_docker.md)
 - [Guide d'installation pour XAMPP](./docs/installation_guide_xampp.md)
 - [Guide d'installation pour Ubuntu](./docs/installation_guide_ubuntu.md)
 
@@ -39,26 +39,25 @@ MyRSS est basé sur PHP 8.2 et MariaDB 10.4 (testé également sous Ubuntu 24.04
 La structure de **MyRSS** est organisée selon une architecture MVC (Modèle-Vue-Contrôleur), ce qui permet une séparation claire des responsabilités entre les différentes parties de l'application. Cette organisation facilite le développement, la maintenance et l'évolution du projet. Voici un aperçu détaillé des différents répertoires et de leur contenu :
 
 
-
 ```
 .
 ├───docs            # Fichiers utiles à la documentation du projet
 │   ├───img
 │   └───mcd
-└───src
-    ├───api         # Endpoints API appelés depuis le JS côté client
-    ├───classes
-    ├───includes    # Fichiers PHP appelés lors de l’envoi de formulaire
-    ├───lib         # Librairies PHP utiles au projet
-    ├───model       # Regroupement des fonctions interrogeant la db
-    ├───scripts     # Script à executer pour récupérer les derniers articles
-    ├───tests
-    └───view        # Templates HTML
-        ├───components  # Composants HTML ré-utilisés
-        ├───css
-        └───js
-            ├───classes
-            └───lib     # Librairies tierces utilisés dans le JS
+├───lib             # Librairies PHP utiles au projet
+├───public
+│   ├───api         # Endpoints API appelés depuis le JS côté client
+│   ├───css
+│   └───js
+│       ├───classes
+│       └───lib     # Librairies tierces utilisés dans le JS
+├───scripts
+├───src
+│   ├───classes
+│   └───model       # Regroupement des fonctions interrogeant la db
+├───tests
+└───views           # Templates HTML
+    └───components  # Composants HTML ré-utilisés
 ```
 
 ## Modèle Conceptuel des Données (MCD) et Modèle Logique des Données (MLD)
@@ -74,6 +73,14 @@ Le MCD décrit de manière abstraite les entités et leurs relations, sans se so
 Le MLD (Modèle Logique des Données) détaille de manière précise et spécifique la structure de la base de données, en traduisant les concepts abstraits du MCD (Modèle Conceptuel des Données) en termes concrets de tables, de colonnes et de contraintes. Il s'agit d'une représentation technique qui définit comment les données seront stockées, organisées et interconnectées dans le système de gestion de base de données. Le MLD de MyRSS a été réalisé sur le site https://drawsql.app et est accesible en ligne à [cette adresse](https://drawsql.app/teams/gatiendev/diagrams/myrss).
 
 ![MLD](./docs/img/mld.png)
+
+## Contribution
+
+Toute contribution sur le projet est la bienvenue ! Vous trouverez tous les renseingments nécessaires dans le fichier [CONTRIBUTING.md](./CONTRIBUTING.md)
+
+## Licence
+
+**MyRSS** est distribué sous la [licence GPLv3](./LICENSE).
 
 
 ## Crédits
