@@ -22,6 +22,7 @@
     <script src="js/classes/API.js" defer></script>
     <script src="js/classes/ArticleReader.js" defer></script>
     <script src="js/classes/Article.js" defer></script>
+    <script src="js/classes/BoutonAjoutCollection.js" defer></script>
     <script src="js/classes/BoutonAjoutFavoris.js" defer></script>
     <script src="js/classes/ContainerArticle.js" defer></script>
     <script src="js/classes/Tools.js" defer></script>
