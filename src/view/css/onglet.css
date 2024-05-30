@@ -1,0 +1,207 @@
+div.onglet {
+    user-select: none;
+    width: 324px;
+    background-color: var(--background-color);
+    border-right: 1px solid #e4e6e7;
+    border-left: 1px solid #e4e6e7;
+}
+
+div.top {
+    border-bottom: 1px solid #e4e6e7;
+    position: relative;
+    height: 60px;
+    padding: 0 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.search-bar {
+    border: 1px solid #e4e6e7;
+    display: flex;
+    background-color: white;
+    border-radius: 16px;
+    height: 32px;
+    width: 90%;
+    display: flex;
+    align-items: center;
+}
+
+div.search-bar:hover {
+    cursor: text;
+}
+
+div.search-bar>svg {
+    height: 16px;
+    width: 16px;
+    margin-left: 20px;
+}
+
+div.search-bar>p {
+    font-size: 14px;
+    margin-left: 10px;
+    color: #707070;
+}
+
+div.retour{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+
+div.categories {
+    padding: 16px 8px;
+    border-bottom: 1px solid #e4e6e7;
+    font-size: 14px;
+}
+
+div.categorie {
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    padding: 8px 6px 8px 12px;
+    height: 20px;
+    border: 1px solid rgba(0, 0, 0, 0);
+}
+
+div.categorie:hover{
+    cursor: pointer;
+}
+
+div.categorie:not(.categorie-active):hover{
+    background-color: #e4e6e7;
+}
+div.categories>div>div>svg{
+    stroke: rgb(163, 163, 163);
+}
+div.categories>div.categorie-active>div>svg{
+    stroke: var(--highlight-color);
+}
+
+div.categorie-active{
+    color: var(--highlight-text-color);
+    font-weight: 500;
+    background-color: #e9e8f9;
+}
+
+div.categorie-active>div>svg>path{
+    stroke-width: 2.5px;
+    stroke: var(--highlight-text-color);
+}
+
+div.categorie>div {
+    align-items: center;
+    width: 100%;
+    display: flex;
+}
+
+div.categorie>div>svg {
+    margin-right: 15px;
+}
+
+
+p.side-info{
+    padding: 1px 10px;
+    border: 1px solid rgba(0, 0, 0, 0);
+    color: var(--highlight-text-color);
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: auto;
+}
+
+div#arborescence{
+    padding: 16px 8px 8px 8px;
+}
+
+div.dossier{
+    padding: 8px 6px 8px 12px;
+    height: 20px;
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 8px;
+}
+
+div.dossier:hover{
+    cursor: pointer;
+}
+
+div.dossier:not(.dossier-actif):hover{
+    background-color: #e4e6e7;
+}
+
+div.dossier>div{
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+div.dossier>div>svg{
+    opacity: 0;
+}
+
+div.dossier:hover >div>svg{
+    opacity: 1;
+}
+
+div.flux-actif{
+    color: var(--highlight-text-color);
+    background-color: #e9e8f9;
+    font-weight: 500;
+}
+
+/* div.dossier>div>svg{
+    border-radius: 4px;
+    padding: 1px;
+    border: 1px solid rgba(0, 0, 0, 0);
+}
+
+div.dossier>div>svg:hover{
+    background-color: rgb(238, 239, 240);
+    border: 1px solid rgb(204, 204, 204);
+} */
+
+div.dossier>div>span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    width: 20px;
+    margin-right: 12px;
+}
+
+div.dossier-actif{
+    background-color: #e9e8f9;
+}
+
+div.ajout-dossier{
+    opacity: 0;
+    padding: 6px 5px 6px 10px;
+    background-color: #e4e6e7;
+    height: 24px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    transition: all .25s ease-in-out;
+}
+
+
+div.ajout-dossier:hover{
+    cursor: pointer;
+    opacity: 1;
+}
+
+div.ajout-dossier>span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 22px;
+    width: 22px;
+    border: 1px dashed #707070;
+    border-radius: 8px;
+    margin-right: 12px;
+}
+
+div.ajout-dossier>span>svg>path{
+    fill: red;
+}

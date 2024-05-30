@@ -1,0 +1,175 @@
+div#article-reader{
+    overflow-y: scroll;
+    padding: 8vh 6vw 0 5vw;
+    display: flex;
+    width: auto;
+    flex-direction: column;
+}
+
+div#article-reader>h1{
+    font-size: 28px;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+
+div#article-reader>h1:hover{
+    text-decoration: underline;
+}
+
+div#article-banner{
+    display: flex;
+    align-items: center;
+    gap: .5vw;
+    font-size: 14px;
+    color: rgb(112, 112, 112);
+    margin-bottom: 3vh;
+}
+
+div#article-reader>p{
+    letter-spacing: -0.05px;
+    font-weight: 400;
+    font-size: 14px;
+    color: rgb(26, 26, 26);
+    line-height: 21px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+    align-items: center;
+}
+
+div#article-reader>p>img{
+    /* max-width: 600px; */
+    max-width: 100%;
+}
+
+
+div#container-actions{
+    display: flex;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+div#container-actions>button{
+    width: fit-content;
+    font-weight: 450;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    border: 1px solid var(--btn-border-color);
+    background-color: var(--btn-background-color);
+    color: #1a1a1a;
+    border-radius: 6px;
+    transition: all .2s ease-in-out;
+}
+
+div#container-actions>button>svg>path{
+    stroke-width: 2px;
+}
+
+div#container-actions>button.starred{
+    color: white;
+    border : 1px solid #807e93;
+    background-color: var(--highlight-color);
+}
+
+.starred>svg{
+    margin-right: 0 !important;
+}
+
+
+div#container-actions>button>svg>path{
+    transition: all 0.2s ease-in-out;
+}
+/* 
+div#container-actions>button:hover{
+    border: 1px solid #50e250;
+    color: #50e250;
+}
+
+div#container-actions>button:hover>svg>path{
+    stroke: #50e250;
+} */
+
+div#container-actions>button.starred:hover{
+    border: 1px solid red;
+    color: red;
+}
+
+/* Oui, la partie css ici est assez moyenne. Une petite pr pour fix ca n'est pas de refus */
+
+div#container-actions>button#btn-add-to-favorites.starred:hover>svg>path{
+    stroke: red;
+}
+
+div#container-actions>button#btn-add-to-processed.starred:hover>svg>path{
+    fill: red;
+}
+
+div#container-actions>button#btn-add-to-favorites.starred>svg>path{
+    stroke: white;
+}
+
+div#container-actions>button#btn-add-to-processed.starred>svg>path{
+    fill: white;
+}
+
+
+
+div#container-actions>button:hover{
+    background-color: var(--btn-hover-background-color);
+}
+
+div#container-actions>button>svg{
+    margin-right: 6px;
+}
+
+button#btn-show-tags{
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 30px !important;
+    height: 30px !important;
+}
+
+div#container-collections{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+div#container-collections.hidden{
+    display: none;
+}
+
+div#container-collections>button{
+    cursor: pointer;
+    border-radius: 12px;
+    padding: 5px 10px;
+    border: 1px solid var(--btn-border-color);
+    font-weight: 400;
+    transition: all .2s ease-in-out;
+    background-color: var(--btn-hover-background-color);
+}
+
+div#container-collections>button.select{
+    font-weight: 450;
+    border: 1px solid #5b4ecf;
+    color: var(--highlight-text-color);
+
+}
+
+button#ajout-tag{
+    opacity: 0;
+    transition: all .2s ease-in-out;
+}
+
+button#ajout-tag:hover{
+    opacity: 1;
+    display: block;
+    border-style: dashed;
+
+}
+

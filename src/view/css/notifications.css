@@ -1,0 +1,30 @@
+body{
+    box-sizing: border-box;
+    height: 100vh;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 96px auto;
+    font-family: 'Fira Sans';
+}
+
+.container{
+    height: 100vh;
+    box-sizing: border-box;
+    padding: 50px;
+}
+
+code{
+    all: revert;
+}
+
+article.notification{
+    width: 40vw;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+article.notification>h3, article.notification>p{
+    margin-bottom: 10px;
+}

@@ -1,5 +1,11 @@
 RewriteEngine On
 
+# Eviter les redirections infinies
+RewriteCond %{REQUEST_URI} !^/src/
+
+# Rediriger toutes les requêtes vers /src
+RewriteRule ^(.*)$ /src/$1 [L]
+
 # Désactive l'indexation des répertoires
 Options -Indexes
 
