@@ -1,5 +1,6 @@
 # 📰 MyRSS
 
+![Docker](./docs/img/docker.svg)
 ![PHP](./docs/img/php.svg)
 ![MySQL](./docs/img/mysql.svg)
 ![JS](./docs/img/js.svg)
@@ -28,7 +29,24 @@ MyRSS s'appuie sur plusieurs projets open source pour fonctionner efficacement :
 
 MyRSS est basé sur PHP 8.2 et MariaDB 10.4 (testé également sous Ubuntu 24.04 avec PHP 8.3.6 et MySQL 8.0.36-2ubuntu3)
 
-## Déploiment sous Docker
+## Déploiment à l'aide de Docker
+
+Une fois [Docker Dekstop](https://www.docker.com/products/docker-desktop/) installé sur votre machine, cloner le repository à l'aide de la commande suivante :
+```bash
+$ git clone https://github.com/gatienfrenchdev/myrss && cd myrss
+```
+
+Editer le fichier `.env` pour définier les identifiants et username de la base de données (la valeur `DB_HOST` doit rester à `host.docker.internal`).
+```bash
+$ cp env.example.docker .env && vi .env
+```
+
+Une fois cela fait, lancer docker compose à l'aide de la commande suivante :
+```
+$ docker compose up
+```
+
+MyRSS devrait desormais être accesible à l'adresse `http://localhost` !
 
 
 ## Déploiement local sous Windows pour environnement de développement
@@ -71,21 +89,23 @@ La structure de **MyRSS** est organisée selon une architecture MVC (Modèle-Vue
 
 ```
 .
-├───api                 # Endpoints API appelés depuis le JS côté client
-├───docs                # Fichiers utiles à la documentation du projet
-|   ├───img             
-│   └───mcd             
-├───includes            # Fichiers PHP appelés lors de l’envoi de formulaire
-├───lib                 # Librairies PHP utiles au projet
-├───model               # Regroupement des fonctions interrogeant la db
-├───scripts             # Script à executer pour récupérer les derniers articles
-├───tests               
-└───view                # Templates HTML
-    ├───components      # Composants HTML ré-utilisés
-    ├───css             
-    └───js              
-        ├───classes
-        └───lib         # Librairies tierces utilisés dans le JS
+├───docs            # Fichiers utiles à la documentation du projet
+│   ├───img
+│   └───mcd
+└───src
+    ├───api         # Endpoints API appelés depuis le JS côté client
+    ├───classes
+    ├───includes    # Fichiers PHP appelés lors de l’envoi de formulaire
+    ├───lib         # Librairies PHP utiles au projet
+    ├───model       # Regroupement des fonctions interrogeant la db
+    ├───scripts     # Script à executer pour récupérer les derniers articles
+    ├───tests
+    └───view        # Templates HTML
+        ├───components  # Composants HTML ré-utilisés
+        ├───css
+        └───js
+            ├───classes
+            └───lib     # Librairies tierces utilisés dans le JS
 ```
 
 ## Modèle Conceptuel des Données (MCD) et Modèle Logique des Données (MLD)
