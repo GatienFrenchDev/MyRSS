@@ -11,7 +11,7 @@ $t0 = time();
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/src/model/FluxModel.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/src/model/ArticleModel.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/src//lib/tools.phpp";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/src/lib/tools.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/src/classes/Article.php";
 
 

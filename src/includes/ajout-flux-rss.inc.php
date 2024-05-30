@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . "/src//lib/tools.phpp";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/src/lib/tools.php";
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/src/model/CategorieModel.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/src/model/EspaceModel.php";
