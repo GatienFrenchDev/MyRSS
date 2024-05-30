@@ -2,8 +2,6 @@
 
 Guide d'installation testé avec **Ubuntu Server 24.04** et **PHP 8.5**
 
-_A l'heure actuelle, le guide ne permet de charger le fichier `php.ini` (qui permet de supprimer les extensions .php dans l'URL). Cela pose donc problème pour le bon fonctionnement du site. Le problème devrait être réglé à un moment, toute contribution est la bienvenue._
-
 ## Installation d'Apache, PHP et MySQL
 Pour installer Apache, PHP et MySQL.
 
@@ -56,6 +54,36 @@ Reload privilege tables now? [Y/n]
 ```
 Nous allons accepter ce rechargement en appuyant sur `y`.
 
+## Configuration du serveur Apache
+Nous allons devoir apporter quelques modifications à Apache pour que les URLs ne portent pas l'extension `.php`.
+
+On vient tout d'abord activer `mod_rewrite` à l'aide de cette commande :
+```bash
+$ sudo a2enmod rewrite
+```
+
+Et ensuite, on vient apporter quelques modifications dans le fichier de configuration Apache.
+```bash
+$ sudo vi /etc/apache2/sites-available/000-default.conf
+```
+On va venir ajouter la balise `<Directory>` dans la balise `<VirtualHost>` :
+```
+<VirtualHost *:80>
+    <Directory /var/www/html>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+    
+    . . .
+</VirtualHost>
+```
+
+Une fois ces modifications éffectuées, on peut relancer `apache2` à l'aide de cette commande :
+```bash
+$ sudo systemctl restart apache2
+```
+
 ## Installation du code source sur Apache
 On va donc maintenant installer la codebase dans le repertoire Apache.
 Pour cela on va tout d'abord cloner le repo :
@@ -65,7 +93,7 @@ $ cd /var/www/ && sudo rm html && sudo git clone https://github.com/GatienFrench
 
 On vient ensuite configurer le fichier `.env` avec les informations nécessaires.
 ```bash
-$ vim .env
+$ vi .env
 ```
 
 ## Importation de la base de données template dans MariaDB
