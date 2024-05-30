@@ -1,10 +1,12 @@
 <?php
 
+require_once $_SERVER['DOCUMENT_ROOT'] . "/src/classes/Database.php";
+
 class UtilisateurModel
 {
     static function getEspaces(int $id_utilisateur): array
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT 
         e.nom, 
@@ -45,7 +47,7 @@ class UtilisateurModel
      */
     static function getAllArticles(int $id_utilisateur, int $numero_page): array
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $numero_page *= 100;
 
@@ -72,7 +74,7 @@ class UtilisateurModel
     static function getAllCategoriesFromUser(int $id_utilisateur): array
     {
 
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT c.* FROM categorie c INNER JOIN espace ep ON ep.id_espace = c.id_espace INNER JOIN contient_des cd ON cd.id_espace = ep.id_espace WHERE cd.id_utilisateur = ?");
         $stmt->bind_param("i", $id_utilisateur);
@@ -91,7 +93,7 @@ class UtilisateurModel
      */
     static function getUserDetailsFromId(int $id_utilisateur): array
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT id_utilisateur, nom, prenom, email, date_inscription FROM utilisateur WHERE id_utilisateur = ?");
         $stmt->bind_param("i", $id_utilisateur);
@@ -112,7 +114,7 @@ class UtilisateurModel
      */
     static function userExist(int $id_utilisateur): bool
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT COUNT(id_utilisateur) as nb_user FROM utilisateur WHERE id_utilisateur = ?");
         $stmt->bind_param("i", $id_utilisateur);
@@ -129,7 +131,7 @@ class UtilisateurModel
      */
     static function getUserDetailsFromMail(string $mail): array
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT id_utilisateur, nom, prenom, email, date_inscription FROM utilisateur WHERE email = ?");
         $stmt->bind_param("s", $mail);
@@ -145,7 +147,7 @@ class UtilisateurModel
 
     static function getNotifications(int $id_utilisateur): array
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT * FROM notification WHERE id_utilisateur = ?");
         $stmt->bind_param("i", $id_utilisateur);
@@ -161,7 +163,7 @@ class UtilisateurModel
 
     static function getInvitations(int $id_utilisateur): array
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT e.nom AS nom_espace, i.id_invitation, i.id_utilisateur_inviteur
         FROM utilisateur u
@@ -184,7 +186,7 @@ class UtilisateurModel
      */
     static function getArticlesNonLu(int $id_utilisateur, int $numero_page): array
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT a.*, f.*
         FROM article a
@@ -208,7 +210,7 @@ class UtilisateurModel
 
     static function getArticlesFavoris(int $id_utilisateur, int $numero_page): array
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT a.*, f.*
         FROM article a
@@ -231,7 +233,7 @@ class UtilisateurModel
      */
     static function getNombresFavoris(int $id_utilisateur): int
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT COUNT(a.id_article) as nb_articles
         FROM article a
@@ -252,7 +254,7 @@ class UtilisateurModel
      */
     static function getHashAndID(string $email): false|array
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT hash_password, id_utilisateur FROM utilisateur WHERE email = ?");
         $stmt->bind_param("s", $email);
@@ -264,5 +266,42 @@ class UtilisateurModel
             return $res[0];
         }
         return false;
+    }
+
+    static function createUser(string $nom, string $prenom, string $email, string $hash_password): int
+    {
+        $mysqli = Database::connexion();
+
+        $current_timestamp = time();
+        $sql = "INSERT INTO utilisateur (nom, prenom, email, hash_password, date_inscription) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $mysqli->stmt_init();
+        $stmt->prepare($sql);
+        $stmt->bind_param("ssssi", $nom, $prenom, $email, $hash_password, $current_timestamp);
+        $stmt->execute();
+        $id_user = $mysqli->insert_id;
+        $stmt->close();
+
+        // Lie l'espace partagé crée à l'user
+        $sql = "INSERT INTO espace (nom, id_proprietaire) VALUES (?, ?)";
+        $stmt = $mysqli->stmt_init();
+        $stmt->prepare($sql);
+        $nom_espace = "Espace de " . $prenom;
+        $stmt->bind_param("si", $nom_espace, $id_user);
+        $stmt->execute();
+        $id_espace = $mysqli->insert_id;
+        $stmt->close();
+
+
+        // Crée un espace partagé pour l'user
+        $sql = "INSERT INTO contient_des (id_utilisateur, id_espace) VALUES (?, ?)";
+        $stmt = $mysqli->stmt_init();
+        $stmt->prepare($sql);
+        $stmt->bind_param("ii", $id_user, $id_espace);
+        $stmt->execute();
+
+        $stmt->close();
+        $mysqli->close();
+
+        return $id_user;
     }
 }

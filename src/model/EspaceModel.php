@@ -1,10 +1,12 @@
 <?php
 
+require_once $_SERVER['DOCUMENT_ROOT'] . "/src/classes/Database.php";
+
 class EspaceModel
 {
     static function getArticlesInsideEspace(int $id_espace, int $numero_page): array
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $numero_page *= 100;
 
@@ -30,7 +32,7 @@ class EspaceModel
 
     static function renameEspace(int $id_espace, string $nom): void
     {
-        $mysqli = require "../includes/database.inc.php";
+        $mysqli = Database::connexion();
         $stmt = $mysqli->prepare("UPDATE espace SET nom = ? WHERE id_espace = ?");
         $stmt->bind_param("si", $nom, $id_espace);
         $stmt->execute();
@@ -40,7 +42,7 @@ class EspaceModel
 
     static function deleteEspace(int $id_espace): void
     {
-        $mysqli = require "../includes/database.inc.php";
+        $mysqli = Database::connexion();
         $stmt = $mysqli->prepare("DELETE FROM espace WHERE id_espace = ?");
         $stmt->bind_param("i", $id_espace);
         $stmt->execute();
@@ -51,9 +53,9 @@ class EspaceModel
     static function getCategoriesFromEspace(int $id_espace): array
     {
 
-        require_once "../model/CategorieModel.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/src/model/CategorieModel.php";
 
-        $mysqli = require "../includes/database.inc.php";
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT * FROM categorie WHERE id_espace = ? AND id_parent IS NULL");
         $stmt->bind_param("i", $id_espace);
@@ -73,7 +75,7 @@ class EspaceModel
      */
     static function appartientA(int $id_user, int $id_espace): bool
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT * FROM contient_des WHERE id_utilisateur = ? AND id_espace = ?");
         $stmt->bind_param("ii", $id_user, $id_espace);
@@ -92,7 +94,7 @@ class EspaceModel
      */
     static function createNew(string $nom, int $id_utilisateur): int
     {
-        $mysqli = require "../includes/database.inc.php";
+        $mysqli = Database::connexion();
 
 
         $stmt = $mysqli->prepare("INSERT INTO espace (nom, id_proprietaire) VALUES (?, ?)");
@@ -115,7 +117,7 @@ class EspaceModel
      */
     static function getNom(int $id_espace): string
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT nom FROM espace WHERE id_espace = ?");
         $stmt->bind_param("i", $id_espace);
@@ -137,7 +139,7 @@ class EspaceModel
      */
     static function estProprio(int $id_utilisateur, int $id_espace): bool
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT COUNT(id_espace) FROM espace WHERE id_espace = ? AND id_proprietaire = ?");
         $stmt->bind_param("ii", $id_espace, $id_utilisateur);
@@ -157,7 +159,7 @@ class EspaceModel
      */
     static function quitterEspace(int $id_utilisateur, int $id_espace): void
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("DELETE FROM contient_des WHERE id_utilisateur = ? AND id_espace = ?");
         $stmt->bind_param("ii", $id_utilisateur, $id_espace);
@@ -171,7 +173,7 @@ class EspaceModel
      */
     static function getAllArticles(int $id_espace): array
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT a.id_article, a.titre, a.description, a.url_article, a.date_pub AS date_publication, f.nom AS nom_flux, f.adresse_url AS adresse_flux,
     CASE WHEN el.id_article IS NOT NULL THEN 1 ELSE 0 END AS est_lu,

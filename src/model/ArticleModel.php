@@ -1,10 +1,12 @@
 <?php
 
+require_once $_SERVER['DOCUMENT_ROOT'] . "/src/classes/Database.php";
+
 class ArticleModel
 {
     static function setArticleLu(int $id_article, int $id_espace): void
     {
-        $mysqli = require "../includes/database.inc.php";
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("INSERT INTO est_lu (id_article, id_espace) VALUES (?, ?)");
         $stmt->bind_param("ii", $id_article, $id_espace);
@@ -15,7 +17,7 @@ class ArticleModel
 
     static function setArticleNonLu(int $id_article, int $id_espace): void
     {
-        $mysqli = require "../includes/database.inc.php";
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("DELETE FROM est_lu WHERE id_article = ? AND id_espace = ?");
         $stmt->bind_param("ii", $id_article, $id_espace);
@@ -26,7 +28,7 @@ class ArticleModel
 
     static function marquerCommeTraite(int $id_article, int $id_espace): bool
     {
-        $mysqli = require "../includes/database.inc.php";
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("INSERT INTO est_traite (id_article, id_espace) VALUES (?, ?)");
         $stmt->bind_param("ii", $id_article, $id_espace);
@@ -43,7 +45,7 @@ class ArticleModel
 
     static function removeFromTraite(int $id_article, int $id_espace): void
     {
-        $mysqli = require "../includes/database.inc.php";
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("DELETE FROM est_traite WHERE id_article = ? AND id_espace = ?");
         $stmt->bind_param("ii", $id_article, $id_espace);
@@ -57,7 +59,7 @@ class ArticleModel
      */
     static function articleEstTraite(int $id_article, int $id_espace): bool
     {
-        $mysqli = require "../includes/database.inc.php";
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT id_article FROM est_traite WHERE id_article = ? AND id_espace = ?");
         $stmt->bind_param("ii", $id_article, $id_espace);
@@ -70,7 +72,7 @@ class ArticleModel
 
     static function insertArticleIntoDB(Article $article, int $id_flux): int
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $titre = $article->getTitre();
         $description = $article->getDescription();
@@ -94,7 +96,7 @@ class ArticleModel
 
     static function rechercheAvancee(array $query, int $id_utilisateur): array
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $requete_sql = "SELECT a.*, f.*
         FROM article a

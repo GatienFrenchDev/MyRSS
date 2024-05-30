@@ -1,13 +1,14 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . "/src" . "/model/FluxModel.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/src" . "/model/UtilisateurModel.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/src/model/FluxModel.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/src/model/UtilisateurModel.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/src/classes/Database.php";
 
 class CategorieModel
 {
     static function getNombreNonLuInsideCategorie(int $id_categorie): int
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT COUNT(a.id_article) AS nb_non_lu
         FROM article a
@@ -27,7 +28,7 @@ class CategorieModel
 
     static function getArticlesInsideCategorie(int $id_categorie, int $numero_page): array
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $numero_page *= 100;
 
@@ -52,7 +53,7 @@ class CategorieModel
 
     static function getAllArticles(int $id_categorie): array
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT a.id_article, a.titre, a.description, a.url_article, a.date_pub AS date_publication, f.nom AS nom_flux, f.adresse_url AS adresse_flux,
             CASE WHEN el.id_article IS NOT NULL THEN 1 ELSE 0 END AS est_lu
@@ -73,7 +74,7 @@ class CategorieModel
 
     static function renameCategorie(int $id_categorie, string $nom): void
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
         $stmt = $mysqli->prepare("UPDATE categorie SET nom = ? WHERE id_categorie = ?");
         $stmt->bind_param("si", $nom, $id_categorie);
         $stmt->execute();
@@ -83,7 +84,7 @@ class CategorieModel
 
     static function deleteCategorie(int $id_categorie): void
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
         $stmt = $mysqli->prepare("DELETE FROM categorie WHERE id_categorie = ?");
         $stmt->bind_param("i", $id_categorie);
         $stmt->execute();
@@ -93,7 +94,7 @@ class CategorieModel
 
     static function getFluxRSSInsideCategorie(int $id_categorie): array
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
 
         $stmt = $mysqli->prepare("SELECT f.*
@@ -116,7 +117,7 @@ class CategorieModel
 
     static function addRSSFluxToCategorie(int $id_flux, int $id_categorie): void
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("INSERT INTO contient (id_flux, id_categorie) VALUES (?, ?)");
         $stmt->bind_param("ii", $id_flux, $id_categorie);
@@ -129,7 +130,7 @@ class CategorieModel
     {
 
 
-        $mysqli = require "../includes/database.inc.php";
+        $mysqli = Database::connexion();
 
 
         $stmt = $mysqli->prepare("SELECT * FROM categorie WHERE id_parent = ?");
@@ -152,7 +153,7 @@ class CategorieModel
      */
     static function getParentsCategories(int $id_categorie): array
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         if (!isset($_SESSION["id_utilisateur"])) {
             return [];
@@ -217,7 +218,7 @@ class CategorieModel
     */
     static function pushNewCategorieToDB(string $nom, int $id_categorie_parent, int $id_espace): int
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         if ($id_categorie_parent <= 0) {
             $stmt = $mysqli->prepare("INSERT INTO categorie (nom, id_espace) VALUES (?, ?)");
@@ -240,7 +241,7 @@ class CategorieModel
 
     static function removeFluxFromCategorie(int $id_flux, int $id_categorie)
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("DELETE FROM contient WHERE id_flux = ? AND id_categorie = ?");
         $stmt->bind_param("ii", $id_flux, $id_categorie);
@@ -251,7 +252,7 @@ class CategorieModel
 
     static function appartientA(int $id_user, int $id_categorie): bool
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT * FROM categorie c INNER JOIN contient_des cd ON c.id_espace = cd.id_espace WHERE cd.id_utilisateur = ? AND c.id_categorie = ?");
         $stmt->bind_param("ii", $id_user, $id_categorie);
@@ -270,7 +271,7 @@ class CategorieModel
      */
     static function getNom(int $id_categorie): string
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT nom FROM categorie WHERE id_categorie = ?");
         $stmt->bind_param("i", $id_categorie);

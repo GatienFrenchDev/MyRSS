@@ -1,5 +1,7 @@
 <?php
 
+require_once $_SERVER['DOCUMENT_ROOT'] . "/src/classes/Database.php";
+
 class CollectionModel
 {
     /**
@@ -7,7 +9,7 @@ class CollectionModel
      */
     static function addToCollection(int $id_utilisateur, int $id_article, int $id_collection): bool
     {
-        $mysqli = require "../includes/database.inc.php";
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("INSERT INTO ajout_collection (id_utilisateur, id_article, id_collection) VALUES (?, ?, ?)");
         $stmt->bind_param("iii", $id_utilisateur, $id_article, $id_collection);
@@ -24,7 +26,7 @@ class CollectionModel
 
     static function removeFromCollection(int $id_utilisateur, int $id_article, int $id_collection): void
     {
-        $mysqli = require "../includes/database.inc.php";
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("DELETE FROM ajout_collection WHERE id_utilisateur = ? AND id_article = ? AND id_collection = ?");
         $stmt->bind_param("iii", $id_utilisateur, $id_article, $id_collection);
@@ -38,7 +40,7 @@ class CollectionModel
      */
     static function appartientA(int $id_utilisateur, int $id_article, int $id_collection): bool
     {
-        $mysqli = require "../includes/database.inc.php";
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT * FROM ajout_collection WHERE id_utilisateur = ? AND id_article = ? AND id_collection = ?");
         $stmt->bind_param("iii", $id_utilisateur, $id_article, $id_collection);
@@ -52,7 +54,7 @@ class CollectionModel
     static function getCollections(int $id_utilisateur, int $id_article): array
     {
 
-        $mysqli = require "../includes/database.inc.php";
+        $mysqli = Database::connexion();
 
 
         $stmt = $mysqli->prepare("SELECT 
@@ -83,7 +85,7 @@ class CollectionModel
 
     static function createNewCollection(int $id_utilisateur, string $nom): int
     {
-        $mysqli = require "../includes/database.inc.php";
+        $mysqli = Database::connexion();
 
 
         $stmt = $mysqli->prepare("INSERT INTO collection (nom, id_createur) VALUES (?, ?)");

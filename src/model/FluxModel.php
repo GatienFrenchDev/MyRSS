@@ -1,10 +1,12 @@
 <?php
 
+require_once $_SERVER['DOCUMENT_ROOT'] . "/src/classes/Database.php";
+
 class FluxModel
 {
     static function getNombreNonLuInsideFlux(int $id_flux): int
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT COUNT(a.id_article) AS nb_non_lu
         FROM article a
@@ -22,7 +24,7 @@ class FluxModel
 
     static function getArticlesFromFlux(int $id_flux, int $numero_page): array
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $numero_page *= 100;
 
@@ -46,7 +48,7 @@ class FluxModel
 
     static function updateNomFromFlux(int $id_flux, string $nom): void
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("UPDATE flux_rss SET nom = ? WHERE id_flux = ?");
         $stmt->bind_param("si", $nom, $id_flux);
@@ -57,7 +59,7 @@ class FluxModel
 
     static function isFluxRSSindb(string $url): bool
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT * FROM flux_rss WHERE adresse_url = ?");
         $stmt->bind_param("s", $url);
@@ -78,7 +80,7 @@ class FluxModel
      */
     static function ajouterFluxRSSindb(string $url, string $type_flux): int
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("INSERT INTO flux_rss (adresse_url, nom, type_flux) VALUES (?, 'Flux sans nom', ?)");
         $stmt->bind_param("ss", $url, $type_flux);
@@ -92,7 +94,7 @@ class FluxModel
     static // retourne -1 si pas dans db
     function getIDFromURL(string $url): int
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT id_flux FROM flux_rss WHERE adresse_url = ?");
         $stmt->bind_param("s", $url);
@@ -116,7 +118,7 @@ class FluxModel
     */
     static function getAllRSSFlux(): array
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT nom, id_flux, adresse_url FROM flux_rss");
         $stmt->execute();
@@ -126,7 +128,7 @@ class FluxModel
 
     static function getDernierUrlArticle(int $id_flux): Article | null
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT * FROM article WHERE id_flux = ? ORDER BY date_pub DESC LIMIT 1");
         $stmt->bind_param("i", $id_flux);
@@ -150,7 +152,7 @@ class FluxModel
      */
     static function rssFluxExist(int $id_flux): bool
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT COUNT(id_flux) as nb_fluxs FROM flux_rss WHERE id_flux = ?;");
         $stmt->bind_param("i", $id_flux);
@@ -163,7 +165,7 @@ class FluxModel
 
     static function getFluxDetailsFromId(int $id_flux): array
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT * FROM flux_rss WHERE id_flux = ?");
         $stmt->bind_param("i", $id_flux);
@@ -179,7 +181,7 @@ class FluxModel
 
     static function getAllArticles(int $id_flux): array
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT a.id_article, a.titre, a.description, a.url_article, a.date_pub AS date_publication, f.nom AS nom_flux, f.adresse_url AS adresse_flux,
         CASE WHEN el.id_article IS NOT NULL THEN 1 ELSE 0 END AS est_lu,

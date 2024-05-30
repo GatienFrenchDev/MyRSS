@@ -1,10 +1,12 @@
 <?php
 
+require_once $_SERVER['DOCUMENT_ROOT'] . "/src/classes/Database.php";
+
 class InvitationModel
 {
     static function invitationAppartientA(int $id_user, int $id_invitation): bool
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT * FROM invitation WHERE id_utilisateur = ? AND id_invitation = ?");
         $stmt->bind_param("ii", $id_user, $id_invitation);
@@ -21,7 +23,7 @@ class InvitationModel
 
     static function accepterInvitation(int $id_invitation): void
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT * FROM invitation WHERE id_invitation = ?");
         $stmt->bind_param("i", $id_invitation);
@@ -45,7 +47,7 @@ class InvitationModel
 
     static function refuserInvitation(int $id_invitation)
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
     
         $stmt = $mysqli->prepare("DELETE FROM invitation WHERE id_invitation = ?");
         $stmt->bind_param("i", $id_invitation);
@@ -57,7 +59,7 @@ class InvitationModel
     */
     static function creerInvitation(string $email, int $id_espace, int $id_utilisateur_inviteur): bool
    {
-       $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+       $mysqli = Database::connexion();
    
        $stmt = $mysqli->prepare("SELECT id_utilisateur FROM utilisateur WHERE email = ?");
        $stmt->bind_param("s", $email);

@@ -1,10 +1,12 @@
 <?php
 
+require_once $_SERVER['DOCUMENT_ROOT'] . "/src/classes/Database.php";
+
 class NotificationModel
 {
     static function notificationAppartientA(int $id_user, int $id_notification): bool
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT * FROM notification WHERE id_utilisateur = ? AND id_notification = ?");
         $stmt->bind_param("ii", $id_user, $id_notification);
@@ -20,7 +22,7 @@ class NotificationModel
 
     static function sendNotification(int $id_destinataire, string $titre, string $message): void
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
     
         $stmt = $mysqli->prepare("INSERT INTO `notification` (`titre`, `description`, `id_utilisateur`) VALUES (?, ?, ?)");
         $stmt->bind_param("ssi", $titre, $message, $id_destinataire);
@@ -31,7 +33,7 @@ class NotificationModel
 
     static function deleteNotification(int $id_notification): void
     {
-        $mysqli = require($_SERVER['DOCUMENT_ROOT'] . "/src" . "/includes/database.inc.php");
+        $mysqli = Database::connexion();
     
         $stmt = $mysqli->prepare("DELETE FROM notification WHERE id_notification = ?");
         $stmt->bind_param("i", $id_notification);
