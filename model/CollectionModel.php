@@ -80,4 +80,19 @@ class CollectionModel
         $mysqli->close();
         return $res;
     }
+
+    static function createNewCollection(int $id_utilisateur, string $nom): int
+    {
+        $mysqli = require "../includes/database.inc.php";
+
+
+        $stmt = $mysqli->prepare("INSERT INTO collection (nom, id_createur) VALUES (?, ?)");
+        $stmt->bind_param("si", $nom, $id_utilisateur);
+        $stmt->execute();
+        $id_collection = $mysqli->insert_id;
+        $stmt->close();
+
+        $mysqli->close();
+        return $id_collection;
+    }
 }

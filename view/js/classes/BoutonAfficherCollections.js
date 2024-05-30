@@ -1,4 +1,4 @@
-class BoutonAfficherTags{
+class BoutonAfficherCollections{
 
 
     static code_svg_down = `<svg height="14" width="14" style="margin-right: 0;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
@@ -18,7 +18,7 @@ class BoutonAfficherTags{
 
 
         btn_show_tags.addEventListener("click", () => {
-            const c_tag = document.getElementById("container-tags");
+            const c_tag = document.getElementById("container-collections");
             if(c_tag.classList.contains("hidden")){
                 c_tag.classList.remove("hidden");
                 btn_show_tags.style.transform = 'rotate(180deg)'

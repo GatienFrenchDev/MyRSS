@@ -27,4 +27,4 @@ if(strlen($nom) > 32){
 
 require_once "../model/EspaceModel.php";
 
-die(json_encode(["id_espace" => EspaceModel::pushNewEspaceToDB($nom, $id_utilisateur)]));
+die(json_encode(["id_espace" => EspaceModel::createNew($nom, $id_utilisateur)]));

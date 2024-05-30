@@ -451,4 +451,23 @@ class API {
         });
     }
 
+    /**
+     * 
+     * @param {String} nom - nom qui sera donné à la collection qui va être crée.
+     * @returns {Number} - id de la collection qui vient d'être crée.
+     */
+    static async createNewCollection(nom){
+        const data = new FormData();
+        data.append("nom", nom);
+        const req = await fetch(`api/create-collection.php`, {
+            method: "POST",
+            body: data
+        });
+
+        const json = await req.json();
+
+        return json["id_collection"]
+
+    }
+
 }

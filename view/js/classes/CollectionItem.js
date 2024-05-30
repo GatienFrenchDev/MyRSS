@@ -1,4 +1,4 @@
-class TagItem{
+class CollectionItem{
 
     constructor(id, nom, est_selectionne){
         this.id = id;

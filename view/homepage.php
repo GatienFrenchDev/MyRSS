@@ -24,6 +24,7 @@
     <script src="view/js/classes/BoutonAjoutDossier.js" defer></script>
     <script src="view/js/classes/BoutonAjoutFavoris.js" defer></script>
     <script src="view/js/classes/BoutonAjoutFlux.js" defer></script>
+    <script src="view/js/classes/BoutonAjoutCollection.js" defer></script>
     <script src="view/js/classes/BoutonArticleTraite.js" defer></script>
     <script src="view/js/classes/Categorie.js" defer></script>
     <script src="view/js/classes/ContainerArticle.js" defer></script>
@@ -31,8 +32,8 @@
     <script src="view/js/classes/Espace.js" defer></script>
     <script src="view/js/classes/FluxRSS.js" defer></script>
     <script src="view/js/classes/Header.js" defer></script>
-    <script src="view/js/classes/BoutonAfficherTags.js" defer></script>
-    <script src="view/js/classes/TagItem.js" defer></script>
+    <script src="view/js/classes/BoutonAfficherCollections.js" defer></script>
+    <script src="view/js/classes/CollectionItem.js" defer></script>
     <script src="view/js/classes/Tools.js" defer></script>
 
     <script src="view/js/main.js" defer></script>

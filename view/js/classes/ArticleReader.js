@@ -44,7 +44,7 @@ class ArticleReader {
 
         const btn_add_to_favorites = BoutonAjoutFavoris.getHTML();
 
-        const btn_show_tags = BoutonAfficherTags.getHTML();
+        const btn_show_tags = BoutonAfficherCollections.getHTML();
 
         const appartientAuFavoris = await API.articleDansFavoris(article.id_article);
 
@@ -113,11 +113,12 @@ class ArticleReader {
 
         const container_tags = document.createElement("div");
         container_tags.classList.add("hidden");
-        container_tags.id = "container-tags";
-        const tags = await API.getCollections(article.id_article);
-        for(let i  = 0; i < tags.length; i++){
-            container_tags.appendChild(new TagItem(tags[i]["id_collection"], tags[i]["nom"], tags[i]["article_in_collection"] == 1).getHTML());
+        container_tags.id = "container-collections";
+        const collections = await API.getCollections(article.id_article);
+        for(let i  = 0; i < collections.length; i++){
+            container_tags.appendChild(new CollectionItem(collections[i]["id_collection"], collections[i]["nom"], collections[i]["article_in_collection"] == 1).getHTML());
         }
+        container_tags.appendChild(BoutonAjoutCollection.getHTML());
 
         // description de l'article
         const description_component = document.createElement("p");

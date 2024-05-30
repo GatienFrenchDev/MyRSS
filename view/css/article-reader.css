@@ -134,17 +134,17 @@ button#btn-show-tags{
     height: 30px !important;
 }
 
-div#container-tags{
+div#container-collections{
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
 }
 
-div#container-tags.hidden{
+div#container-collections.hidden{
     display: none;
 }
 
-div#container-tags>button{
+div#container-collections>button{
     cursor: pointer;
     border-radius: 12px;
     padding: 5px 10px;
@@ -154,10 +154,22 @@ div#container-tags>button{
     background-color: var(--btn-hover-background-color);
 }
 
-div#container-tags>button.select{
+div#container-collections>button.select{
     font-weight: 450;
     border: 1px solid #5b4ecf;
     color: var(--highlight-text-color);
+
+}
+
+button#ajout-tag{
+    opacity: 0;
+    transition: all .2s ease-in-out;
+}
+
+button#ajout-tag:hover{
+    opacity: 1;
+    display: block;
+    border-style: dashed;
 
 }
 

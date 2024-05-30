@@ -87,7 +87,10 @@ class EspaceModel
         return $res != 0;
     }
 
-    static function pushNewEspaceToDB(string $nom, int $id_utilisateur): int
+    /**
+     * Créer un nouvel espace et le lie à l'utilisateur.
+     */
+    static function createNew(string $nom, int $id_utilisateur): int
     {
         $mysqli = require "../includes/database.inc.php";
 
@@ -102,8 +105,6 @@ class EspaceModel
         $stmt->bind_param("ii", $id_utilisateur, $id_espace);
         $stmt->execute();
         $stmt->close();
-
-
 
         $mysqli->close();
         return $id_espace;
