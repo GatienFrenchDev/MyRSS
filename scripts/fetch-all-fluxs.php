@@ -11,8 +11,8 @@ $t0 = time();
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/src/model/FluxModel.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/src/model/ArticleModel.php";
-require_once "../lib/tools.php";
-require_once "../classes/Article.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/src/lib/tools.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/src/classes/Article.php";
 
 
 echo "<h1> Récupération des flux RSS </h1>";
