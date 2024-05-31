@@ -21,6 +21,8 @@ async function setup() {
         nb_total_non_lu += espace.nb_non_lu;
     });
 
+    new BoutonAjoutDossier();
+    
     document.getElementById("nb-total-non-lu").innerText = nb_total_non_lu;
 
     ContainerArticle.addArticles(articles);
@@ -28,7 +30,6 @@ async function setup() {
 
 setup()
 
-new BoutonAjoutDossier();
 
 
 

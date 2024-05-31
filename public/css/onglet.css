@@ -1,4 +1,7 @@
 div.onglet {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
     user-select: none;
     width: 324px;
     background-color: var(--background-color);
@@ -110,7 +113,13 @@ p.side-info{
     margin-left: auto;
 }
 
+div#arborescence::-webkit-scrollbar{
+    display: none;
+}
+
 div#arborescence{
+    overflow-y: scroll;
+    scrollbar-width: none;
     padding: 16px 8px 8px 8px;
 }
 
