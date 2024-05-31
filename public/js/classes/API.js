@@ -438,6 +438,26 @@ class API {
 
     /**
      * 
+     * @returns {Collection[]}
+     */
+    static async getAllCollections(){
+        const request = await fetch(`api/get-collections.php`, { method: 'GET' });
+        const json = await request.json();
+        let collections = [];
+
+        json["collections"].forEach(element => {
+            const collection = new Collection(
+                element["id_collection"],
+                element["nom"]
+            )
+            collections.push(collection);
+        });
+
+        return collections;
+    }
+
+    /**
+     * 
      * @param {Number} id_article 
      * @param {Number} id_collection 
      */
