@@ -304,4 +304,18 @@ class UtilisateurModel
 
         return $id_user;
     }
+
+    static function getAllCollections(int $id_utilisateur): array
+    {
+        $mysqli = Database::connexion();
+
+        $stmt = $mysqli->prepare("SELECT c.id_collection, c.nom FROM collection c WHERE c.id_createur = ?");
+
+        $stmt->bind_param("i", $id_utilisateur);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        $mysqli->close();
+        return $res;
+    }
 }

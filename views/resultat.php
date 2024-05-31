@@ -25,6 +25,7 @@
     <script src="js/classes/BoutonAjoutCollection.js" defer></script>
     <script src="js/classes/BoutonAjoutFavoris.js" defer></script>
     <script src="js/classes/ContainerArticle.js" defer></script>
+    <script src="js/classes/ContextMenu.js" defer></script>
     <script src="js/classes/Tools.js" defer></script>
     <script src="js/classes/BoutonAfficherCollections.js" defer></script>
     <script src="js/classes/CollectionItem.js" defer></script>
