@@ -4,5 +4,4 @@
     collections.forEach(collection => {
         arborescence.appendChild(collection.getHTML());
     });
-    new BoutonAjoutDossier();
 })()

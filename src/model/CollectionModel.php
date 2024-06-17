@@ -97,4 +97,27 @@ class CollectionModel
         $mysqli->close();
         return $id_collection;
     }
+
+    static function getArticlesInsideCollection(int $id_collection, int $numero_page): array
+    {
+
+        $mysqli = Database::connexion();
+
+        $numero_page *= 100;
+
+
+        $stmt = $mysqli->prepare("SELECT 
+                a.*,
+                f.*
+            FROM article a
+            JOIN ajout_collection ac ON a.id_article = ac.id_article
+            JOIN flux_rss f ON a.id_flux = f.id_flux
+            WHERE ac.id_collection = ? LIMIT 100 OFFSET ?");
+        $stmt->bind_param("ii", $id_collection, $numero_page);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        $mysqli->close();
+        return $res;
+    }
 }

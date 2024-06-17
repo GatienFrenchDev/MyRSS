@@ -30,7 +30,8 @@ class Collection{
         DIVCollection.addEventListener("click", async () => {
             document.querySelectorAll("div.categorie-active").forEach(categorie => categorie.classList.remove("categorie-active"));
             DIVCollection.classList.add("categorie-active");
-            const articles = API.getArticlesFromCollection(this.id);
+            ContainerArticle.numero_page = 0;
+            const articles = await API.getArticlesFromCollection(this.id, ContainerArticle.numero_page);
             ContainerArticle.vider();
             ContainerArticle.addArticles(articles);
         });

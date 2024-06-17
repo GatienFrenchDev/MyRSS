@@ -490,4 +490,28 @@ class API {
 
     }
 
+    static async getArticlesFromCollection(id_collection, numero_page){
+        const request = await fetch(`api/get-articles.php?id_collection=${id_collection}&numero_page=${numero_page}`, { method: 'GET' });
+        const json = await request.json();
+
+        let articles = [];
+
+        json["articles"].forEach(element => {
+            const article = new Article(
+                element["id_article"],
+                element["titre"],
+                element["description"],
+                element["date_pub"],
+                element["url_article"],
+                element["nom"],
+                `http://www.google.com/s2/favicons?domain=${Tools.extractDomain(element["adresse_url"])}`,
+                true,
+                false,
+                element["url_image"]
+            )
+            articles.push(article);
+        });
+        return articles;
+    }
+
 }
