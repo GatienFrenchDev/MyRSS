@@ -94,9 +94,6 @@ function getArticlesFromRSSFlux(int $id_flux, string $url): array
         return $articles;
     }
 
-    if (count($xml->getElementsByTagName("channel")) == 0) {
-        return $articles;
-    }
 
     if (count($xml->getElementsByTagName("title")) == 0) {
         return $articles;
@@ -119,11 +116,10 @@ function getArticlesFromRSSFlux(int $id_flux, string $url): array
 
     FluxModel::updateNomFromFlux($id_flux, $titre);
 
-    // cas d'un flux YouTube
-    if (str_starts_with($url, "https://www.youtube.com/feeds/videos.xml?channel_id=")) {
 
-        print_r("aaaa");
-        print_r($itre);
+    
+    // cas d'un flux YouTube
+    if (str_starts_with($url, "https://www.youtube.com/feeds/")) {
 
         foreach ($xml->getElementsByTagName("entry") as $node) {
             $titre = $node->getElementsByTagName('title')->item(0)->nodeValue;
