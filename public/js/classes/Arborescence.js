@@ -52,6 +52,7 @@ class Arborescence{
         espaces.forEach(espace => {
             this.addEspace(espace);
         })
+        new BoutonAjoutDossier()
     }
 
     static addEspace(espace){
@@ -114,6 +115,7 @@ class Arborescence{
                 Arborescence.vider();
                 Arborescence.addBackButton();
                 Arborescence.addCategories(categories);
+                new BoutonAjoutDossier()
                 
                 ContainerArticle.numero_page = 0;
                 const articles = await API.getArticlesFromEspace(id_espace, ContainerArticle.numero_page);
@@ -133,6 +135,7 @@ class Arborescence{
                 Arborescence.vider();
                 Arborescence.addBackButton();
                 Arborescence.addCategories(categories);
+                new BoutonAjoutDossier()
 
                 const fluxs = await API.getFluxRSSFromCategorie(id_categorie);
                 this.addFluxs(fluxs);

@@ -36,7 +36,7 @@ function extractMainDomain(string $url): string | null
 function getIDFromYoutubeChannel(string $username): string | null
 {
 
-    $env = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/src" . "/.env");
+    $env = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/.env");
 
     $res = file_get_contents(sprintf("https://youtube.googleapis.com/youtube/v3/channels?part=id&forHandle=%s&key=%s", urlencode($username), $env["YTB_API_KEY"]));
     $json = json_decode($res, true);
@@ -53,6 +53,17 @@ function getIDFromYoutubeChannel(string $username): string | null
  */
 function getUsernameFromYouTubeUrl($url)
 {
+
+    if(str_starts_with($url, "https://www.youtube.com/c/")) {
+        $url = str_replace("https://www.youtube.com/c/", "", $url);
+        return $url;
+    }
+
+    if(str_starts_with($url, "https://www.youtube.com/channel/")) {
+        $url = str_replace("https://www.youtube.com/channel/", "", $url);
+        return $url;
+    }
+
     // Extraire le chemin de l'URL
     $path = parse_url($url, PHP_URL_PATH);
 
@@ -100,10 +111,19 @@ function getArticlesFromRSSFlux(int $id_flux, string $url): array
         $titre = $titre . " - Bing News";
     }
 
+    // pour supprimer le `?gl=FR` du titre du flux google news
+    if (str_starts_with($url, "https://news.google.com/rss/search?")) {
+        $titre = str_replace('?gl=FR"', '"', $titre);
+    }
+
+
     FluxModel::updateNomFromFlux($id_flux, $titre);
 
     // cas d'un flux YouTube
     if (str_starts_with($url, "https://www.youtube.com/feeds/videos.xml?channel_id=")) {
+
+        print_r("aaaa");
+        print_r($itre);
 
         foreach ($xml->getElementsByTagName("entry") as $node) {
             $titre = $node->getElementsByTagName('title')->item(0)->nodeValue;

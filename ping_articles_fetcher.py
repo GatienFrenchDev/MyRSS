@@ -22,4 +22,4 @@ def ping_server():
 if __name__ == "__main__":
     while True:
         ping_server()
-        time.sleep(120)  # Sleep for 2 minutes
+        time.sleep(20)  # Sleep for 2 minutes

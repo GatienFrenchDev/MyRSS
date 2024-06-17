@@ -92,7 +92,7 @@ if ($type_flux == "yt") {
         die(json_encode(["error" => "adresse parameter incorrect"]));
     }
 
-    // l'ID de la chaine YouTube (ex : `UCsBjURrPoezykLs9EqgamOA`)
+    // le nom d'utilisateur de la chaine YouTube (ex: code pour https://www.youtube.com/@code)
     $channel_username = getUsernameFromYouTubeUrl($url);
 
     // Cas où l'API YouTube ne retrouve pas la chaine YouTube passé en paramètre
@@ -110,7 +110,7 @@ if ($type_flux == "yt") {
 
 // Cas où le flux rss est un sujet google news
 else if($type_flux == "google-news"){
-    $url = "https://news.google.com/rss/search?hl=fr&gl=FR&ceid=FR%3Afr&oc=11&q=ukraine?gl=FR&ceid=FR%253Afr&hl=fr&q=".urlencode($url);
+    $url = "https://news.google.com/rss/search?hl=fr&gl=FR&ceid=FR%3Afr&oc=11?gl=FR&ceid=FR%253Afr&hl=fr&q=".urlencode($url);
     $id_flux = null;
     if(FluxModel::isFluxRSSindb($url)){
         $id_flux = FluxModel::getIDFromURL($url);
@@ -138,6 +138,11 @@ else if($type_flux == "bing-news"){
 else if ($type_flux == "rss") {
     $id_flux = FluxModel::ajouterFluxRSSindb($url, $type_flux);
     CategorieModel::addRSSFluxToCategorie($id_flux, $id_categorie);
+}
+
+else {
+    http_response_code(400);
+    die(json_encode(["error" => "type_flux parameter incorrect"]));
 }
 
 header("Location: ../index.php");

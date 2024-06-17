@@ -47,6 +47,8 @@ class Categorie{
     
             const fluxs = await API.getFluxRSSFromCategorie(this.id_categorie);
             Arborescence.addFluxs(fluxs);
+
+            new BoutonAjoutDossier()
     
             ContainerArticle.numero_page = 0;
             const articles = await API.getArticlesFromCategorie(this.id_categorie, ContainerArticle.numero_page);

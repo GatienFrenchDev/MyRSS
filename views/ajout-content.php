@@ -30,7 +30,7 @@
             </div>
         </div>
 
-        <form action="includes/ajout-flux-rss.inc.php" method="post">
+        <form action="api/ajout-flux-rss.php" method="post">
 
             <h3><?= htmlspecialchars($type["description"]) ?></h3>
 

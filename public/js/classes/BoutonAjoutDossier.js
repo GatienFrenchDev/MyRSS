@@ -17,6 +17,7 @@ class BoutonAjoutDossier{
 
         document.getElementById("arborescence").appendChild(div);
 
+
         div.addEventListener('click', async () => {
             // cas où il faut créer un nouvel espace
             if (arborescence.length == 0) {
@@ -28,7 +29,9 @@ class BoutonAjoutDossier{
                     }
                 }
                 const nouvel_espace = await API.createNewEspace(nom_espace);
+                document.querySelector("div.ajout-dossier").remove();
                 Arborescence.addEspace(nouvel_espace);
+                new BoutonAjoutDossier()
                 return;
             }
         
@@ -48,7 +51,10 @@ class BoutonAjoutDossier{
             }
             const id_espace = arborescence[0]["id"];
             const nouvelle_categorie = await API.createNewCategorie(nom_categorie, id_categorie_parent, id_espace);
+            document.querySelector("div.ajout-dossier").remove();
             Arborescence.addCategorie(nouvelle_categorie);
+            new BoutonAjoutDossier()
+    
             return;
         })
     }

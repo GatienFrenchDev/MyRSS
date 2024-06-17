@@ -93,6 +93,9 @@ class Espace {
             Arborescence.vider()
             Arborescence.addBackButton();
             Arborescence.addCategories(categories);
+            
+            new BoutonAjoutDossier()
+
 
             ContainerArticle.numero_page = 0;
             const articles = await API.getArticlesFromEspace(this.id_espace, ContainerArticle.numero_page);
