@@ -514,4 +514,8 @@ class API {
         return articles;
     }
 
+    static async deleteCollection(id_collection){
+        await fetch(`api/delete-collection.php?id_collection=${id_collection}`);
+    }
+
 }

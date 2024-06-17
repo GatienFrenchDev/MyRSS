@@ -120,4 +120,28 @@ class CollectionModel
         $mysqli->close();
         return $res;
     }
+
+    static function collectionAppartientAUtilisateur(int $id_collection, int $id_utilisateur): bool
+    {
+        $mysqli = Database::connexion();
+
+        $stmt = $mysqli->prepare("SELECT * FROM collection WHERE id_collection = ? AND id_createur = ?");
+        $stmt->bind_param("ii", $id_collection, $id_utilisateur);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        $mysqli->close();
+        return count($res) > 0;
+    }
+
+    static function delete(int $id_collection): void
+    {
+        $mysqli = Database::connexion();
+
+        $stmt = $mysqli->prepare("DELETE FROM collection WHERE id_collection = ?");
+        $stmt->bind_param("i", $id_collection);
+        $stmt->execute();
+        $stmt->close();
+        $mysqli->close();
+    }
 }

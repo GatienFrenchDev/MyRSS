@@ -41,6 +41,7 @@ class CollectionItem {
             const item_supprimer_collection = ContextMenu.addItem("Supprimer cette collection");
             item_supprimer_collection.addEventListener("click", () =>{
                 API.deleteCollection(this.id);
+                button.remove();
             });
         });
 
