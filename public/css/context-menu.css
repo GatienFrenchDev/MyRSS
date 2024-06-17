@@ -5,7 +5,7 @@ div#context-menu{
     display: none;
     position: absolute;
     background-color: white;
-    border: 1px solid black;
+    border: 1px solid var(--btn-border-color);
     z-index: 99;
     font-size: 14px;
 }
