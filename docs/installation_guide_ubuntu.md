@@ -57,9 +57,9 @@ Nous allons accepter ce rechargement en appuyant sur `y`.
 ## Configuration du serveur Apache
 Nous allons devoir apporter quelques modifications à Apache pour que les URLs ne portent pas l'extension `.php`.
 
-On vient tout d'abord activer `mod_rewrite` à l'aide de cette commande :
+On vient tout d'abord redemarréer apache2 et activer `mod_rewrite` à l'aide de cette commande :
 ```bash
-$ sudo a2enmod rewrite
+$ sudo systemctl restart apache2 && sudo a2enmod rewrite
 ```
 
 Et ensuite, on vient apporter quelques modifications dans le fichier de configuration Apache.
@@ -88,7 +88,7 @@ $ sudo systemctl restart apache2
 On va donc maintenant installer la codebase dans le repertoire Apache.
 Pour cela on va tout d'abord cloner le repo :
 ```bash
-$ cd /var/www/ && sudo rm html && sudo git clone https://github.com/GatienFrenchDev/MyRSS && sudo mv myrss html && sudo systemctl restart apache2
+cd /var/www/ && sudo rm -r html/* && sudo git clone https://github.com/GatienFrenchDev/MyRSS && sudo mv MyRSS html && sudo systemctl restart apache2
 ```
 
 On vient ensuite configurer le fichier `.env` avec les informations nécessaires.
