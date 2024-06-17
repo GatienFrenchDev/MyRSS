@@ -73,7 +73,7 @@ function getUsernameFromYouTubeUrl($url)
 function getArticlesFromRSSFlux(int $id_flux, string $url): array
 {
 
-    require_once "../classes/Article.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/src/classes/Article.php";
 
     $articles = [];
 
