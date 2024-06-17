@@ -88,12 +88,12 @@ $ sudo systemctl restart apache2
 On va donc maintenant installer la codebase dans le repertoire Apache.
 Pour cela on va tout d'abord cloner le repo :
 ```bash
-cd /var/www/ && sudo rm -r html/* && sudo git clone https://github.com/GatienFrenchDev/MyRSS && sudo mv MyRSS html && sudo systemctl restart apache2
+cd /var/www/ && sudo rm -r html/* && sudo git clone https://github.com/GatienFrenchDev/MyRSS && sudo mv MyRSS/* html && sudo systemctl restart apache2
 ```
 
 On vient ensuite configurer le fichier `.env` avec les informations nécessaires.
 ```bash
-$ vi .env
+$ sudo vi .env
 ```
 
 ## Importation de la base de données template dans MariaDB
