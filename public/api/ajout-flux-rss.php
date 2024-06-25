@@ -57,6 +57,7 @@ if ($type_flux == "categorie") {
     }
 
     header("Location: /");
+    exit;
 }
 
 if (!isset($_POST["categorie"])) {
