@@ -56,6 +56,7 @@ if ($type_flux == "categorie") {
         CategorieModel::pushNewCategorieToDB($url, -1, $id_espace);
     }
 
+    http_response_code(201);
     header("Location: /");
     exit;
 }
@@ -105,7 +106,7 @@ if ($type_flux == "yt") {
 
     $url = "https://www.youtube.com/feeds/videos.xml?channel_id=" . getIDFromYoutubeChannel($channel_username);
     if (!FluxModel::isFluxRSSindb($url)) {
-        $id_flux = FluxModel::ajouterFluxRSSindb($url, $type_flux);
+        $id_flux = FluxModel::insertFeedIntoDB($url, $type_flux);
         CategorieModel::addRSSFluxToCategorie($id_flux, $id_categorie);
     }
 }
@@ -117,7 +118,7 @@ else if ($type_flux == "google-news") {
     if (FluxModel::isFluxRSSindb($url)) {
         $id_flux = FluxModel::getIDFromURL($url);
     } else {
-        $id_flux = FluxModel::ajouterFluxRSSindb($url, $type_flux);
+        $id_flux = FluxModel::insertFeedIntoDB($url, $type_flux);
     }
     CategorieModel::addRSSFluxToCategorie($id_flux, $id_categorie);
 }
@@ -129,9 +130,19 @@ else if ($type_flux == "bing-news") {
     if (FluxModel::isFluxRSSindb($url)) {
         $id_flux = FluxModel::getIDFromURL($url);
     } else {
-        $id_flux = FluxModel::ajouterFluxRSSindb($url, $type_flux);
+        $id_flux = FluxModel::insertFeedIntoDB($url, $type_flux);
     }
     CategorieModel::addRSSFluxToCategorie($id_flux, $id_categorie);
+}
+
+else if ($type_flux == "rss") {
+    $id_flux = FluxModel::insertFeedIntoDB($url, $type_flux);
+    CategorieModel::addRSSFluxToCategorie($id_flux, $id_categorie);
+}
+
+else {
+    http_response_code(400);
+    die(json_encode(["error" => "type_flux parameter incorrect"]));
 }
 
 if($id_flux == null) {

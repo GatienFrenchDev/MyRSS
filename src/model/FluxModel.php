@@ -78,7 +78,7 @@ class FluxModel
      * @param type - type du flux rss ( eg. `rss`)
      * @return int - id du flux rss qui vient d'être ajouté à la db
      */
-    static function ajouterFluxRSSindb(string $url, string $type_flux): int
+    static function insertFeedIntoDB(string $url, string $type_flux): int
     {
         $mysqli = Database::connexion();
 
