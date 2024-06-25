@@ -56,7 +56,16 @@ $hash_password = password_hash($password, PASSWORD_DEFAULT);
 
 require $_SERVER['DOCUMENT_ROOT'] . "/src/model/UtilisateurModel.php";
 
-UtilisateurModel::createUser($nom, $prenom, $email, $hash_password);
+$id_utilisateur = UtilisateurModel::createUser($nom, $prenom, $email, $hash_password);
+
+if($id_utilisateur === false){
+    http_response_code(500);
+    die(json_encode(["error" => "An error occurred while creating the user"]));
+}
+
+session_start();
+
+$_SESSION["id_utilisateur"] = $id_utilisateur;
 
 header("Location: /");
 exit;
