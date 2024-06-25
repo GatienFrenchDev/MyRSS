@@ -135,6 +135,7 @@ else if ($type_flux == "bing-news") {
     CategorieModel::addRSSFluxToCategorie($id_flux, $id_categorie);
 }
 
+// Cas où le flux rss est un flux rss classique
 else if ($type_flux == "rss") {
     $id_flux = FluxModel::insertFeedIntoDB($url, $type_flux);
     CategorieModel::addRSSFluxToCategorie($id_flux, $id_categorie);

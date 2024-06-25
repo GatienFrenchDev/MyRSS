@@ -91,6 +91,7 @@ function getArticlesFromRSSFlux(int $id_flux, string $url): array
     $xml = new DOMDocument();
 
     if (!$xml->load($url)) {
+        print_r("Erreur lors du chargement du flux RSS : " . $url . "\n");
         return $articles;
     }
 
@@ -130,20 +131,43 @@ function getArticlesFromRSSFlux(int $id_flux, string $url): array
         }
     }
 
-    // cas d'un flux rss générique
+    // cas d'un flux rss générique (Atom ou RSS 2.0)
     else {
-        foreach ($xml->getElementsByTagName("item") as $node) {
+
+        $isAtomFlux = false;
+
+        if(count($xml->getElementsByTagName("feed")) > 0){
+            $feed_tag = $xml->getElementsByTagName("feed")->item(0);
+            // l'erreur d'intelissense est normal (voir https://github.com/bmewburn/vscode-intelephense/issues/865)
+            if($feed_tag->getAttribute('xmlns') == "http://www.w3.org/2005/Atom"){
+                $isAtomFlux = true;
+            }
+        }
+
+        foreach ($xml->getElementsByTagName($isAtomFlux ? "entry" : "item") as $node) {
             $titre = $node->getElementsByTagName('title')->item(0)->nodeValue;
 
-            $lien = $node->getElementsByTagName('link')->item(0)->nodeValue;
+            if($isAtomFlux){
+                $lien = $node->getElementsByTagName('link')->item(0)->getAttribute('href');
+            }
+            else{
+                $lien = $node->getElementsByTagName('link')->item(0)->nodeValue;
+            }
 
             $description = "";
             $url_image = "";
             $ts = 0;
 
-            if (count($node->getElementsByTagName('description')) > 0) {
-                $description = $node->getElementsByTagName('description')->item(0)->nodeValue;
+            if($isAtomFlux){
+                $description = $node->getElementsByTagName('content')->item(0)->nodeValue;
+                $ts = (int) strtotime($node->getElementsByTagName('updated')->item(0)->nodeValue);
             }
+            else{
+                if (count($node->getElementsByTagName('description')) > 0) {
+                    $description = $node->getElementsByTagName('description')->item(0)->nodeValue;
+                }
+            }
+
 
             if (count($node->getElementsByTagName('pubDate')) > 0) {
                 $ts = (int) strtotime($node->getElementsByTagName('pubDate')->item(0)->nodeValue);

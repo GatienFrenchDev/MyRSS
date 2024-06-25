@@ -15,7 +15,7 @@ _Toutes les fonctionnalitées notées ci dessous ne sont pas forcement encore di
 
 - Création d'espaces collaboratifs avec différents utilisateurs.
 - Ajout de flux RSS dans des catégories spécifiques.
-- Prise en charge des fluxs RSS, des chaînes YouTube, Google News, etc.
+- Prise en charge des fluxs RSS 2.0 et Atom, des chaînes YouTube, Google News, etc.
 - Recommandations de fluxs RSS et d'articles entre utilisateurs.
 - Taux de rafraîchissement des articles inférieur à 5 minutes.
 - Export des articles aux formats xlsx, csv, json, ...
