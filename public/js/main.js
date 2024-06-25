@@ -23,7 +23,7 @@ async function setup() {
 
     new BoutonAjoutDossier();
     
-    document.getElementById("nb-total-non-lu").innerText = nb_total_non_lu;
+    document.getElementById("nb-total-non-lu").innerText = nb_total_non_lu > 0  ? nb_total_non_lu : "";
 
     ContainerArticle.addArticles(articles);
 }
