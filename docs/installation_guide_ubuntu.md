@@ -2,19 +2,25 @@
 
 Guide d'installation testé avec **Ubuntu Server 24.04** et **PHP 8.5**
 
-## Installation d'Apache, PHP et MySQL
+## Installation d'Apache, PHP, Composer et MySQL
 Pour installer Apache, PHP et MySQL.
 
 ```bash
-$ sudo apt update && sudo apt upgrade
-$ sudo apt install php apache2 php-mysql php-xml mariadb-server
+sudo apt update && sudo apt upgrade
+```
+```bash
+sudo apt install php apache2 php-mysql php-xml mariadb-server
+```
+
+```bash
+curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
 ```
 
 ## Configuration et sécurisation de MariaDB
 MariaDB fournit un script pour aider la configuration initiale. Executez ce script en tapant cette commande.
 
 ```bash
-$ sudo mysql_secure_installation
+sudo mysql_secure_installation
 ```
 
 - Le script devrait demander un mdp (celui par défaut est vide). Ensuite un message de ce style devrait s'afficher :
@@ -59,12 +65,12 @@ Nous allons devoir apporter quelques modifications à Apache pour que les URLs n
 
 On vient tout d'abord redemarréer apache2 et activer `mod_rewrite` à l'aide de cette commande :
 ```bash
-$ sudo systemctl restart apache2 && sudo a2enmod rewrite
+sudo systemctl restart apache2 && sudo a2enmod rewrite
 ```
 
 Et ensuite, on vient apporter quelques modifications dans le fichier de configuration Apache.
 ```bash
-$ sudo vi /etc/apache2/sites-available/000-default.conf
+sudo vi /etc/apache2/sites-available/000-default.conf
 ```
 On va venir ajouter la balise `<Directory>` dans la balise `<VirtualHost>` :
 ```
@@ -81,7 +87,7 @@ On va venir ajouter la balise `<Directory>` dans la balise `<VirtualHost>` :
 
 Une fois ces modifications éffectuées, on peut relancer `apache2` à l'aide de cette commande :
 ```bash
-$ sudo systemctl restart apache2
+sudo systemctl restart apache2
 ```
 
 ## Installation du code source sur Apache
@@ -93,7 +99,12 @@ cd /var/www/ && sudo rm -r html/* && sudo git clone https://github.com/GatienFre
 
 On vient ensuite configurer le fichier `.env` avec les informations nécessaires.
 ```bash
-$ sudo vi .env
+sudo vi .env
+```
+
+On vient ensuite installer les dépendances composer du projet :
+```bash
+sudo composer update
 ```
 
 ## Importation de la base de données template dans MariaDB
@@ -101,7 +112,7 @@ Avant d'importer le fichier .sql template, il nous faut d'abord déjà créer la
 
 Pour cela on ouvre le shell de MariaDB en executant la commande suivante.
 ```bash
-$ sudo mariadb
+sudo mariadb
 ```
 
 Et on execute la commande SQL suivante : 
@@ -110,5 +121,5 @@ CREATE DATABASE myrss;
 ```
 On ferme le shell MariaDB en appyant sur `Ctrl+D` et on vient ensuite importer le fichier .sql. Pour cela on utilise la commande suivante.
 ```bash
-$ sudo mysql -u root -p myrss < docs/db_prod.sql
+sudo mysql -u root -p myrss < docs/db_prod.sql
 ```

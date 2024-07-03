@@ -13,7 +13,13 @@ _MyRSS utilise la v2 de docker compose, il ne fonctionnera donc pas avec la comm
 ## Clonage du repo
 Cloner le repository à l'aide de la commande suivante :
 ```bash
-$ git clone https://github.com/gatienfrenchdev/myrss && cd myrss
+git clone https://github.com/gatienfrenchdev/myrss && cd myrss
+```
+
+## Installation des dépendances
+Installer les dépendances du projet en executant la commande suivante :
+```bash
+composer update
 ```
 
 ## Configuration du fichier .env
@@ -22,7 +28,7 @@ Editer le fichier `.env` pour définier les identifiants et username de la base 
 
 Vous pouvez copier le fichier example docker à l'aide de la commande suivante :
 ```bash
-$ cp env.example.docker .env && vi .env
+cp env.example.docker .env && vi .env
 ```
 
 ## Démarrage de docker compose

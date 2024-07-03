@@ -6,7 +6,7 @@ services:
       - "./php.ini:/usr/local/etc/php/conf.d/30-custom.ini"
     ports:
       - "80:80"
-      - "443:443" # pour ssl
+      - "443:443" # for SSL
     environment:
       - ALLOW_OVERRIDE=true
   mysql:

@@ -1,5 +1,7 @@
 # Déploiement local sous Windows pour environnement de développement
 
+(à noter que les dépendances composer doivent être ajoutés au projet à l'aide de la commande `composer update`)
+
 - Téléchargez d'abord [XAMPP](https://www.apachefriends.org/fr/index.html) avec les modules `Apache` et `MySQL` (l'installation par défaut suffira).
 - Une fois installé, lancez XAMPP en tant qu'administrateur (clic droit sur `xampp.exe` > `Exécuter en tant qu'administrateur`).
 - Démarrez `Apache` et `MySQL` depuis le panneau de contrôle de XAMPP.
