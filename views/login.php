@@ -38,17 +38,19 @@
             </p>
         <?php endif; ?>
 
-        <input type="password" placeholder="Password" name="password" required minlength="8" maxlength="" autocomplete="current-password">
+        <input type="password" placeholder="Password" name="password" required minlength="8" maxlength="32" autocomplete="current-password">
 
         <?php if ($user_invalid_password) : ?>
             <p class="probleme-formulaire">
-            Mot de passe incorrect. Vous l'avez oublié?&nbsp;<a href="reset-mdp">Vous pouvez le réinitialiser ici.</a>
+            Mot de passe incorrect. Vous l'avez oublié?&nbsp;<a href="reset-password">Vous pouvez le réinitialiser ici.</a>
             </p>
         <?php endif; ?>
 
         <input type="submit" value="Connexion">
 
-        <p onclick="window.alert('Pas encore disponible. Veuillez nous contacter à myrss@gatiendev.fr')">Mot de passe oublié?</p>
+        <a href="reset-password" style="text-align:center;text-decoration:none;color:gray">
+            <p>Mot de passe oublié?</p>
+        </a>
 
     </form>
 

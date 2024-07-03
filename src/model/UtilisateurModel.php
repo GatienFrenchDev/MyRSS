@@ -318,4 +318,78 @@ class UtilisateurModel
         $mysqli->close();
         return $res;
     }
+
+    static function generateResetPasswordToken(int $id_utilisateur): string
+    {
+        $token = bin2hex(random_bytes(32));
+        $mysqli = Database::connexion();
+
+        $stmt = $mysqli->prepare("DELETE FROM reset_password_token WHERE id_utilisateur = ?");
+        $stmt->bind_param("i", $id_utilisateur);
+        $stmt->execute();
+        $stmt->close();
+
+        $stmt = $mysqli->prepare("INSERT INTO reset_password_token (id_utilisateur, token) VALUES (?, ?)");
+        $stmt->bind_param("is", $id_utilisateur, $token);
+        $stmt->execute();
+        $stmt->close();
+        $mysqli->close();
+        return $token;
+    }
+
+    static function sendResetPasswordEmail(string $email, string $token)
+    {
+
+        require ($_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php");
+
+        $env = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/.env");
+
+        $url = $env["DOMAIN"] . "/email-reset-password.php?email=" . $email . "&token=" . $token;
+        $resend = Resend::client($env["RESEND_API_KEY"]);
+
+        $resend->emails->send([
+        'from' => $env["RESEND_EMAIL"],
+        'to' => $email,
+        'subject' => 'MyRSS | Réinitialisation de votre mot de passe',
+        'html' => 'Bonjour,<br><p>Cliquez sur le lien suivant pour réinitialiser votre mot de passe : <a href="' . $url . '">' . $url . '</a><br><br>Cordialement,<br>L\'équipe de MyRSS</p>'
+        ]);
+    }
+
+    static function isTokenValid(string $email, string $token): bool
+    {
+        $mysqli = Database::connexion();
+
+        $stmt = $mysqli->prepare("SELECT id_utilisateur FROM reset_password_token WHERE token = ? AND id_utilisateur = (SELECT id_utilisateur FROM utilisateur WHERE email = ?)");
+        $stmt->bind_param("ss", $token, $email);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        $mysqli->close();
+        return count($res) > 0;
+    }
+
+    static function resetPassword(string $email, string $password): bool
+    {
+        $mysqli = Database::connexion();
+
+        $stmt = $mysqli->prepare("UPDATE utilisateur SET hash_password = ? WHERE email = ?");
+        $stmt->bind_param("ss", $password, $email);
+        $stmt->execute();
+        $stmt->close();
+        $mysqli->close();
+        return true;
+    }
+
+    static function deleteToken(string $email, string $token): bool
+    {
+        $mysqli = Database::connexion();
+
+        $stmt = $mysqli->prepare("DELETE FROM reset_password_token WHERE token = ? AND id_utilisateur = (SELECT id_utilisateur FROM utilisateur WHERE email = ?)");
+        $stmt->bind_param("ss", $token, $email);
+        $stmt->execute();
+        $stmt->close();
+        $mysqli->close();
+        return true;
+    }
+        
 }

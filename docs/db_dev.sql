@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le : mar. 25 juin 2024 à 23:01
--- Version du serveur : 10.4.32-MariaDB
--- Version de PHP : 8.2.12
+-- Hôte : mysql:3306
+-- Généré le : mer. 03 juil. 2024 à 21:09
+-- Version du serveur : 9.0.0
+-- Version de PHP : 8.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,10 +28,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `ajout_collection` (
-  `id_utilisateur` int(11) NOT NULL,
-  `id_article` int(11) NOT NULL,
-  `id_collection` int(11) NOT NULL,
-  `commentaire` varchar(255) DEFAULT NULL
+  `id_utilisateur` int NOT NULL,
+  `id_article` int NOT NULL,
+  `id_collection` int NOT NULL,
+  `commentaire` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -51,14 +51,14 @@ INSERT INTO `ajout_collection` (`id_utilisateur`, `id_article`, `id_collection`,
 --
 
 CREATE TABLE `article` (
-  `id_article` int(11) NOT NULL,
-  `titre` varchar(255) DEFAULT NULL,
-  `description` varchar(1500) DEFAULT NULL,
-  `date_pub` int(11) DEFAULT NULL,
-  `id_flux` int(11) DEFAULT NULL,
-  `url_article` varchar(512) NOT NULL,
-  `date_ajout` int(11) NOT NULL,
-  `url_image` varchar(512) NOT NULL
+  `id_article` int NOT NULL,
+  `titre` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `description` varchar(1500) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `date_pub` int DEFAULT NULL,
+  `id_flux` int DEFAULT NULL,
+  `url_article` varchar(512) COLLATE utf8mb4_general_ci NOT NULL,
+  `date_ajout` int NOT NULL,
+  `url_image` varchar(512) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3293,10 +3293,10 @@ INSERT INTO `article` (`id_article`, `titre`, `description`, `date_pub`, `id_flu
 --
 
 CREATE TABLE `categorie` (
-  `id_categorie` int(11) NOT NULL,
-  `nom` varchar(50) DEFAULT NULL,
-  `id_espace` int(11) NOT NULL,
-  `id_parent` int(11) DEFAULT NULL
+  `id_categorie` int NOT NULL,
+  `nom` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id_espace` int NOT NULL,
+  `id_parent` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3323,10 +3323,10 @@ INSERT INTO `categorie` (`id_categorie`, `nom`, `id_espace`, `id_parent`) VALUES
 --
 
 CREATE TABLE `collection` (
-  `id_collection` int(11) NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `nom` varchar(50) NOT NULL,
-  `id_createur` int(11) DEFAULT NULL
+  `id_collection` int NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `nom` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `id_createur` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3352,8 +3352,8 @@ INSERT INTO `collection` (`id_collection`, `description`, `nom`, `id_createur`) 
 --
 
 CREATE TABLE `contient` (
-  `id_flux` int(11) NOT NULL,
-  `id_categorie` int(11) NOT NULL
+  `id_flux` int NOT NULL,
+  `id_categorie` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3361,29 +3361,29 @@ CREATE TABLE `contient` (
 --
 
 INSERT INTO `contient` (`id_flux`, `id_categorie`) VALUES
-(1, 51),
-(2, 51),
-(3, 48),
-(10, 38),
-(11, 48),
-(12, 48),
-(14, 48),
-(15, 48),
-(15, 51),
 (26, 33),
 (27, 33),
 (28, 33),
+(10, 38),
+(36, 38),
+(37, 42),
+(38, 42),
+(58, 42),
 (29, 45),
 (30, 45),
 (32, 45),
 (33, 46),
 (34, 47),
 (35, 47),
-(36, 38),
-(37, 42),
-(38, 42),
+(3, 48),
+(11, 48),
+(12, 48),
+(14, 48),
+(15, 48),
+(1, 51),
+(2, 51),
+(15, 51),
 (56, 52),
-(58, 42),
 (59, 52),
 (60, 52),
 (61, 52),
@@ -3396,8 +3396,8 @@ INSERT INTO `contient` (`id_flux`, `id_categorie`) VALUES
 --
 
 CREATE TABLE `contient_des` (
-  `id_utilisateur` int(11) NOT NULL,
-  `id_espace` int(11) NOT NULL
+  `id_utilisateur` int NOT NULL,
+  `id_espace` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3417,9 +3417,9 @@ INSERT INTO `contient_des` (`id_utilisateur`, `id_espace`) VALUES
 --
 
 CREATE TABLE `espace` (
-  `id_espace` int(11) NOT NULL,
-  `nom` varchar(50) DEFAULT NULL,
-  `id_proprietaire` int(11) NOT NULL
+  `id_espace` int NOT NULL,
+  `nom` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id_proprietaire` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3439,8 +3439,8 @@ INSERT INTO `espace` (`id_espace`, `nom`, `id_proprietaire`) VALUES
 --
 
 CREATE TABLE `est_lu` (
-  `id_article` int(11) NOT NULL,
-  `id_espace` int(11) NOT NULL
+  `id_article` int NOT NULL,
+  `id_espace` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3448,28 +3448,28 @@ CREATE TABLE `est_lu` (
 --
 
 INSERT INTO `est_lu` (`id_article`, `id_espace`) VALUES
-(1935, 15),
 (1941, 11),
 (1942, 11),
 (1943, 11),
-(3378, 15),
 (3592, 11),
 (3606, 11),
 (3962, 11),
 (3963, 11),
 (3964, 11),
 (3965, 11),
-(4161, 30),
 (4266, 11),
-(4267, 15),
 (4703, 11),
+(5117, 11),
+(5118, 11),
+(5125, 11),
+(21641, 11),
+(1935, 15),
+(3378, 15),
+(4267, 15),
 (5000, 15),
 (5006, 15),
 (5007, 15),
 (5008, 15),
-(5117, 11),
-(5118, 11),
-(5125, 11),
 (5129, 15),
 (5130, 15),
 (5131, 15),
@@ -3480,7 +3480,7 @@ INSERT INTO `est_lu` (`id_article`, `id_espace`) VALUES
 (5266, 15),
 (5267, 15),
 (5422, 28),
-(21641, 11);
+(4161, 30);
 
 -- --------------------------------------------------------
 
@@ -3489,8 +3489,8 @@ INSERT INTO `est_lu` (`id_article`, `id_espace`) VALUES
 --
 
 CREATE TABLE `est_traite` (
-  `id_article` int(11) NOT NULL,
-  `id_espace` int(11) NOT NULL
+  `id_article` int NOT NULL,
+  `id_espace` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3513,10 +3513,10 @@ INSERT INTO `est_traite` (`id_article`, `id_espace`) VALUES
 --
 
 CREATE TABLE `flux_rss` (
-  `id_flux` int(11) NOT NULL,
-  `adresse_url` varchar(512) NOT NULL,
-  `nom` varchar(50) DEFAULT NULL,
-  `type_flux` varchar(64) NOT NULL
+  `id_flux` int NOT NULL,
+  `adresse_url` varchar(512) COLLATE utf8mb4_general_ci NOT NULL,
+  `nom` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `type_flux` varchar(64) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3564,10 +3564,10 @@ INSERT INTO `flux_rss` (`id_flux`, `adresse_url`, `nom`, `type_flux`) VALUES
 --
 
 CREATE TABLE `invitation` (
-  `id_invitation` int(11) NOT NULL,
-  `id_espace` int(11) NOT NULL,
-  `id_utilisateur` int(11) NOT NULL,
-  `id_utilisateur_inviteur` int(11) NOT NULL
+  `id_invitation` int NOT NULL,
+  `id_espace` int NOT NULL,
+  `id_utilisateur` int NOT NULL,
+  `id_utilisateur_inviteur` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -3577,11 +3577,22 @@ CREATE TABLE `invitation` (
 --
 
 CREATE TABLE `notification` (
-  `id_notification` int(11) NOT NULL,
-  `titre` varchar(50) NOT NULL,
-  `description` varchar(512) DEFAULT NULL,
-  `id_utilisateur` int(11) DEFAULT NULL
+  `id_notification` int NOT NULL,
+  `titre` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` varchar(512) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id_utilisateur` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `reset_password_token`
+--
+
+CREATE TABLE `reset_password_token` (
+  `id_utilisateur` int NOT NULL,
+  `token` varchar(225) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -3590,18 +3601,20 @@ CREATE TABLE `notification` (
 --
 
 CREATE TABLE `user_failed_logins` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `email` varchar(255) NOT NULL,
-  `attempted_at` int(11) NOT NULL,
+  `attempted_at` int NOT NULL,
   `ip_adress` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `user_failed_logins`
 --
 
 INSERT INTO `user_failed_logins` (`id`, `email`, `attempted_at`, `ip_adress`) VALUES
-(103, 'john@example.com', 1718620719, '::1');
+(108, 'pub@gatiendev.fr', 1720040722, '192.168.65.1'),
+(109, 'pub@gatiendev.fr', 1720040824, '192.168.65.1'),
+(110, 'pub@gatiendev.fr', 1720040888, '192.168.65.1');
 
 -- --------------------------------------------------------
 
@@ -3610,12 +3623,12 @@ INSERT INTO `user_failed_logins` (`id`, `email`, `attempted_at`, `ip_adress`) VA
 --
 
 CREATE TABLE `utilisateur` (
-  `id_utilisateur` int(11) NOT NULL,
-  `nom` varchar(128) NOT NULL,
-  `prenom` varchar(128) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `hash_password` varchar(255) NOT NULL,
-  `date_inscription` int(11) NOT NULL
+  `id_utilisateur` int NOT NULL,
+  `nom` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
+  `prenom` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `hash_password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `date_inscription` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -3720,6 +3733,12 @@ ALTER TABLE `notification`
   ADD KEY `id_utilisateur` (`id_utilisateur`);
 
 --
+-- Index pour la table `reset_password_token`
+--
+ALTER TABLE `reset_password_token`
+  ADD UNIQUE KEY `id_utilisateur` (`id_utilisateur`);
+
+--
 -- Index pour la table `user_failed_logins`
 --
 ALTER TABLE `user_failed_logins`
@@ -3740,55 +3759,55 @@ ALTER TABLE `utilisateur`
 -- AUTO_INCREMENT pour la table `article`
 --
 ALTER TABLE `article`
-  MODIFY `id_article` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24598;
+  MODIFY `id_article` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24598;
 
 --
 -- AUTO_INCREMENT pour la table `categorie`
 --
 ALTER TABLE `categorie`
-  MODIFY `id_categorie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id_categorie` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT pour la table `collection`
 --
 ALTER TABLE `collection`
-  MODIFY `id_collection` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_collection` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT pour la table `espace`
 --
 ALTER TABLE `espace`
-  MODIFY `id_espace` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id_espace` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT pour la table `flux_rss`
 --
 ALTER TABLE `flux_rss`
-  MODIFY `id_flux` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id_flux` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT pour la table `invitation`
 --
 ALTER TABLE `invitation`
-  MODIFY `id_invitation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_invitation` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id_notification` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_notification` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT pour la table `user_failed_logins`
 --
 ALTER TABLE `user_failed_logins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- AUTO_INCREMENT pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `id_utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_utilisateur` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Contraintes pour les tables déchargées
@@ -3869,6 +3888,12 @@ ALTER TABLE `invitation`
 --
 ALTER TABLE `notification`
   ADD CONSTRAINT `notification_ibfk_1` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateur` (`id_utilisateur`);
+
+--
+-- Contraintes pour la table `reset_password_token`
+--
+ALTER TABLE `reset_password_token`
+  ADD CONSTRAINT `reset_password_token_ibfk_1` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateur` (`id_utilisateur`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

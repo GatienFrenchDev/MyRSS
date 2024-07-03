@@ -10,7 +10,6 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     exit;
 }
 
-
 if (!isset($_POST["email"])) {
     http_response_code(400);
     die("missing email parameter");
@@ -33,7 +32,6 @@ if(!SimpleAntiBruteForce::isAuthorized($ip, $email)){
     http_response_code(429);
     die("Trop de tentatives de connexion... Par mesure de sécurite, vous êtes bloqué pour 5 minutes");
 }
-	
 
 $user_details = UtilisateurModel::getHashAndID($email);
 
@@ -52,4 +50,5 @@ if (password_verify($password, $user_details["hash_password"])) {
 } else {
     $user_invalid_password = true;
     SimpleAntiBruteForce::addFailedAttempt($ip, $email);
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/views/login.php";
 }
