@@ -33,3 +33,5 @@ $ docker compose up
 > Pour lancer l'application en fond vous pouvez utiliser l'option `-d`
 
 **MyRSS devrait desormais être accesible à l'adresse `http://localhost` !**
+
+Le portail PhPMyAdmin devrait être accesible à l'adresse `http://localhost:8001`
