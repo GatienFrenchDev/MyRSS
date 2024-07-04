@@ -13,7 +13,6 @@
 
 <body>
 
-
     <div class="top-bar">
         <p>MyRSS</p>
 
@@ -53,9 +52,6 @@
         </a>
 
     </form>
-
-
-
 
 </body>
 

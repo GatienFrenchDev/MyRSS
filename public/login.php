@@ -37,6 +37,7 @@ $user_details = UtilisateurModel::getHashAndID($email);
 
 if (!$user_details) {
     $user_existe_db = false;
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/views/login.php";
     return;
 }
 
@@ -51,4 +52,5 @@ if (password_verify($password, $user_details["hash_password"])) {
     $user_invalid_password = true;
     SimpleAntiBruteForce::addFailedAttempt($ip, $email);
     require_once $_SERVER['DOCUMENT_ROOT'] . "/views/login.php";
+    return;
 }
