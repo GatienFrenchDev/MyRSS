@@ -16,12 +16,6 @@ Cloner le repository à l'aide de la commande suivante :
 git clone https://github.com/gatienfrenchdev/myrss && cd myrss
 ```
 
-## Installation des dépendances
-Installer les dépendances du projet en executant la commande suivante :
-```bash
-composer update
-```
-
 ## Configuration du fichier .env
 
 Editer le fichier `.env` pour définier les identifiants et username de la base de données (la valeur `DB_HOST` doit rester à `host.docker.internal`).
@@ -39,5 +33,3 @@ $ docker compose up
 > Pour lancer l'application en fond vous pouvez utiliser l'option `-d`
 
 **MyRSS devrait desormais être accesible à l'adresse `http://localhost` !**
-
-Le portail PhPMyAdmin devrait être accesible à l'adresse `http://localhost:8001`
