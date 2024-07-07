@@ -90,7 +90,9 @@ function getArticlesFromRSSFlux(int $id_flux, string $url): array
 
     $xml = new DOMDocument();
 
-    if (!$xml->load($url)) {
+    $isSuccess = @$xml->load($url);
+
+    if (!$isSuccess) {
         print_r("Erreur lors du chargement du flux RSS : " . $url . "\n");
         return $articles;
     }
