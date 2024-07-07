@@ -48,6 +48,7 @@ class FluxModel
 
     static function updateNomFromFlux(int $id_flux, string $nom): void
     {
+        $nom = substr($nom, 0, 48);
         $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("UPDATE flux_rss SET nom = ? WHERE id_flux = ?");
