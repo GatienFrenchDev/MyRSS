@@ -1,5 +1,5 @@
 services:
-  php-apache:
+  web:
     build: .
     volumes:
       - "./:/var/www/html"
@@ -16,15 +16,8 @@ services:
       - MYSQL_USER=${DB_USERNAME}
       - MYSQL_PASSWORD=${DB_PASSWORD}
       - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
-      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+      - MYSQL_ALLOW_EMPTY_PASSWORD=0
     volumes:
       - "./docs/db_dev.sql:/docker-entrypoint-initdb.d/mysql_seed.sql"
     ports:
       - "3306:3306"
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    ports:
-      - "8001:80"
-    environment:
-      - PMA_HOST=mysql
-      - PMA_PORT=3306
