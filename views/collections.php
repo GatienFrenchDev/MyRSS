@@ -52,7 +52,7 @@
     <div class="onglet">
 
         <div class="top">
-            <img src="/docs/img/logo_troover.svg" height="35" alt="logo troover">
+            <img src="/img/logo_troover.png" height="35" alt="logo troover">
         </div>
 
         <div id="arborescence">
