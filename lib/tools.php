@@ -4,7 +4,7 @@
  * Ensemble de fonctions "boite à outils" du projet.
  */
 
-require_once $_SERVER['DOCUMENT_ROOT'] . "/src" . "/model/FluxModel.php";
+require_once __DIR__ . "/../src/model/FluxModel.php";
 
 function extractMainDomain(string $url): string | null
 {
@@ -36,7 +36,7 @@ function extractMainDomain(string $url): string | null
 function getIDFromYoutubeChannel(string $username): string | null
 {
 
-    $env = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/.env");
+    $env = parse_ini_file(__DIR__ . "/../.env");
 
     $res = file_get_contents(sprintf("https://youtube.googleapis.com/youtube/v3/channels?part=id&forHandle=%s&key=%s", urlencode($username), $env["YTB_API_KEY"]));
     $json = json_decode($res, true);
@@ -84,7 +84,7 @@ function getUsernameFromYouTubeUrl($url)
 function getArticlesFromRSSFlux(int $id_flux, string $url): array
 {
 
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/src/classes/Article.php";
+    require_once __DIR__ . "/../src/classes/Article.php";
 
     $articles = [];
 

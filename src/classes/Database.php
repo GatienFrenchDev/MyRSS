@@ -3,7 +3,7 @@ class Database
 {
     static function connexion()
     {
-        $env = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/.env");
+        $env = parse_ini_file(__DIR__ . "/../../.env");
         $mysqli = new mysqli($env["DB_HOST"], $env["DB_USERNAME"], $env["DB_PASSWORD"], $env["DB_NAME"]);
 
         if ($mysqli->connect_error) {
