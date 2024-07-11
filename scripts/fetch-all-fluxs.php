@@ -9,10 +9,10 @@
 $i = 0;
 $t0 = time();
 
-require_once $_SERVER['DOCUMENT_ROOT'] . "/src/model/FluxModel.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/src/model/ArticleModel.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/lib/tools.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/src/classes/Article.php";
+require_once __DIR__ . "/../src/model/FluxModel.php";
+require_once __DIR__ . "/../src/model/ArticleModel.php";
+require_once __DIR__ . "/../lib/tools.php";
+require_once __DIR__ . "/../src/classes/Article.php";
 
 
 echo "<h1> Récupération des flux RSS </h1>";
