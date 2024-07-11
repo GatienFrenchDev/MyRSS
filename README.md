@@ -30,7 +30,7 @@ MyRSS s'appuie sur plusieurs projets open source pour fonctionner efficacement :
 MyRSS est basé sur PHP 8.2 et MariaDB 10.4 (testé également sous Ubuntu 24.04 avec PHP 8.3.6 et MySQL 8.0.36-2ubuntu3)
 
 ## Déploiment de MyRSS
-- [Guide d'installation pour Docker](./docs/installation_guide_docker.md)
+- [Guide d'installation pour Docker](./docs/installation_guide_docker.md) (recommandé)
 - [Guide d'installation pour XAMPP](./docs/installation_guide_xampp.md)
 - [Guide d'installation pour Ubuntu](./docs/installation_guide_ubuntu.md)
 

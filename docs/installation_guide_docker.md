@@ -18,7 +18,7 @@ git clone https://github.com/gatienfrenchdev/myrss && cd myrss
 
 ## Configuration du fichier .env
 
-Editer le fichier `.env` pour définier les identifiants et username de la base de données (la valeur `DB_HOST` doit rester à `host.docker.internal`).
+Editer le fichier `.env` pour répondre à votre configuration (la valeur `DB_HOST` doit rester à `db`, le nom du container mysql).
 
 Vous pouvez copier le fichier example docker à l'aide de la commande suivante :
 ```bash
@@ -28,7 +28,7 @@ cp env.example.docker .env && vi .env
 ## Démarrage de docker compose
 Une fois cela fait, lancer docker compose à l'aide de la commande suivante :
 ```
-$ docker compose up
+docker compose up
 ```
 > Pour lancer l'application en fond vous pouvez utiliser l'option `-d`
 
