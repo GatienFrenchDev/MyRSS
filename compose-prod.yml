@@ -1,0 +1,39 @@
+services:
+  web:
+    restart: always
+    container_name: web
+    build: .
+    volumes:
+      - "./:/var/www/html"
+      - "./php.ini:/usr/local/etc/php/conf.d/30-custom.ini"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.web.rule=Host(`rss.troover.fr`)"
+      - "traefik.http.services.web.loadbalancer.server.port=80"
+      - "traefik.http.routers.web.entrypoints=websecure"
+      - "traefik.http.routers.web.tls.certresolver=myresolver"
+    networks:
+      - web
+    depends_on:
+      - db_myrss
+
+  db_myrss:
+    restart: always
+    container_name: db_myrss
+    image: mysql:9
+    environment:
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+    volumes:
+      - "./docs/db_dev.sql:/docker-entrypoint-initdb.d/mysql_seed.sql"
+      - "./db-data:/var/lib/mysql"
+    ports:
+      - "3306:3306"
+    networks:
+      - web
+
+networks:
+  web:
+    external: true
