@@ -109,6 +109,15 @@ class ArticleModel
         INNER JOIN utilisateur u ON u.id_utilisateur = cd.id_utilisateur
         WHERE u.id_utilisateur = ? AND (a.titre LIKE ? OR a.description LIKE ?)";
 
+        $id_categorie = 0;
+
+        if (isset($query["categorie"])) {
+            $id_categorie = intval($query["categorie"]);
+            if ($id_categorie != 0) {
+                $requete_sql .= " AND cg.id_categorie = ?";
+            }
+        }
+
         if (isset($query["article-lu"]) && !isset($query["article-non-lu"])) {
             $requete_sql .= " AND el.id_article IS NOT NULL";
         }
@@ -141,7 +150,13 @@ class ArticleModel
         $offset = $query["numero-page"] * 100;
 
         $stmt = $mysqli->prepare($requete_sql);
-        $stmt->bind_param("issi", $id_utilisateur, $texte, $texte, $offset);
+
+        if ($id_categorie != 0) {
+            $stmt->bind_param("issii", $id_utilisateur, $texte, $texte, $id_categorie, $offset);
+        } else {
+            $stmt->bind_param("issi", $id_utilisateur, $texte, $texte, $offset);
+        }
+
         $stmt->execute();
 
         $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
