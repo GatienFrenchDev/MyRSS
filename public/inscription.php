@@ -58,7 +58,7 @@ require $_SERVER['DOCUMENT_ROOT'] . "/src/model/UtilisateurModel.php";
 
 $id_utilisateur = UtilisateurModel::createUser($nom, $prenom, $email, $hash_password);
 
-if($id_utilisateur === false){
+if($id_utilisateur == -1){
     http_response_code(500);
     die(json_encode(["error" => "An error occurred while creating the user"]));
 }

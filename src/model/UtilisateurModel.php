@@ -272,36 +272,41 @@ GROUP BY
     static function createUser(string $nom, string $prenom, string $email, string $hash_password): int
     {
         $mysqli = Database::connexion();
+        
+        try {
+            $current_timestamp = time();
+            $sql = "INSERT INTO utilisateur (nom, prenom, email, hash_password, date_inscription) VALUES (?, ?, ?, ?, ?)";
+            $stmt = $mysqli->stmt_init();
+            $stmt->prepare($sql);
+            $stmt->bind_param("ssssi", $nom, $prenom, $email, $hash_password, $current_timestamp);
+            $stmt->execute();
+            $id_user = $mysqli->insert_id;
+            $stmt->close();
 
-        $current_timestamp = time();
-        $sql = "INSERT INTO utilisateur (nom, prenom, email, hash_password, date_inscription) VALUES (?, ?, ?, ?, ?)";
-        $stmt = $mysqli->stmt_init();
-        $stmt->prepare($sql);
-        $stmt->bind_param("ssssi", $nom, $prenom, $email, $hash_password, $current_timestamp);
-        $stmt->execute();
-        $id_user = $mysqli->insert_id;
-        $stmt->close();
-
-        // Lie l'espace partagé crée à l'user
-        $sql = "INSERT INTO espace (nom) VALUES (?)";
-        $stmt = $mysqli->stmt_init();
-        $stmt->prepare($sql);
-        $nom_espace = "Espace de " . $prenom;
-        $stmt->bind_param("si", $nom_espace, $id_user);
-        $stmt->execute();
-        $id_espace = $mysqli->insert_id;
-        $stmt->close();
+            // Lie l'espace partagé crée à l'user
+            $sql = "INSERT INTO espace (nom) VALUES (?)";
+            $stmt = $mysqli->stmt_init();
+            $stmt->prepare($sql);
+            $nom_espace = "Espace de " . $prenom;
+            $stmt->bind_param("s", $nom_espace);
+            $stmt->execute();
+            $id_espace = $mysqli->insert_id;
+            $stmt->close();
 
 
-        // Crée un espace partagé pour l'user
-        $sql = "INSERT INTO contient_des (id_utilisateur, id_espace, role) VALUES (?, ?, 'admin')";
-        $stmt = $mysqli->stmt_init();
-        $stmt->prepare($sql);
-        $stmt->bind_param("ii", $id_user, $id_espace);
-        $stmt->execute();
+            // Crée un espace partagé pour l'user
+            $sql = "INSERT INTO contient_des (id_utilisateur, id_espace, role) VALUES (?, ?, 'admin')";
+            $stmt = $mysqli->stmt_init();
+            $stmt->prepare($sql);
+            $stmt->bind_param("ii", $id_user, $id_espace);
+            $stmt->execute();
 
-        $stmt->close();
-        $mysqli->close();
+            $stmt->close();
+            $mysqli->close();
+        } catch (Exception $e) {
+            $mysqli->close();
+            return -1;
+        }
 
         return $id_user;
     }
@@ -341,7 +346,7 @@ GROUP BY
     static function sendResetPasswordEmail(string $email, string $token)
     {
 
-        require ($_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php");
+        require($_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php");
 
         $env = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/.env");
 
@@ -349,10 +354,10 @@ GROUP BY
         $resend = Resend::client($env["RESEND_API_KEY"]);
 
         $resend->emails->send([
-        'from' => $env["RESEND_EMAIL"],
-        'to' => $email,
-        'subject' => 'MyRSS | Réinitialisation de votre mot de passe',
-        'html' => 'Bonjour,<br><p>Cliquez sur le lien suivant pour réinitialiser votre mot de passe : <a href="' . $url . '">' . $url . '</a><br><br>Cordialement,<br>L\'équipe de MyRSS</p>'
+            'from' => $env["RESEND_EMAIL"],
+            'to' => $email,
+            'subject' => 'MyRSS | Réinitialisation de votre mot de passe',
+            'html' => 'Bonjour,<br><p>Cliquez sur le lien suivant pour réinitialiser votre mot de passe : <a href="' . $url . '">' . $url . '</a><br><br>Cordialement,<br>L\'équipe de MyRSS</p>'
         ]);
     }
 
@@ -392,5 +397,4 @@ GROUP BY
         $mysqli->close();
         return true;
     }
-        
 }
