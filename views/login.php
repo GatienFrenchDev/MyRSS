@@ -14,7 +14,7 @@
 <body>
 
     <div class="top-bar">
-        <p>MyRSS</p>
+        <img src="img/logo_troover.png" height="32" alt="logo de troover">
 
         <div style="width: 25vw;"></div>
 
