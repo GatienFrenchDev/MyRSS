@@ -45,8 +45,9 @@ $id_utilisateur = $_SESSION["id_utilisateur"];
 if (isset($_GET["id_categorie"])) {
     $id_categorie = $_GET["id_categorie"];
 
-    if (!CategorieModel::appartientA($id_utilisateur, $id_categorie)) {
-        die(json_encode(["error" => "categorie does not belong to you"]));
+    if (!CategorieModel::hasReadRights($id_utilisateur, $id_categorie)) {
+        http_response_code(403);
+        die(json_encode(["error" => "not enough rights to get articles inside this categorie"]));
     }
 
     die(json_encode(["articles" => CategorieModel::getArticlesInsideCategorie($id_categorie, $numero_page)]));

@@ -29,7 +29,7 @@ if (isset($_GET["id_categorie"])) {
 
     require_once $_SERVER['DOCUMENT_ROOT'] . "/src/model/CategorieModel.php";
 
-    if (!CategorieModel::appartientA($id_utilisateur, $id_categorie)) {
+    if (!CategorieModel::hasReadRights($id_utilisateur, $id_categorie)) {
         die(json_encode(["error" => "categorie does not belong to you"]));
     }
     die(json_encode(["categories" => CategorieModel::getSubCategories($id_categorie)]));
