@@ -1,0 +1,27 @@
+body{
+    font-family: 'Fira Sans';
+}
+
+h1{
+    padding: 2rem 0;
+}
+
+h1, h3{
+    text-align: center;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+}
+
+div.wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+div.text-wrapper{
+    width: 60%;
+    text-align: justify;
+}
