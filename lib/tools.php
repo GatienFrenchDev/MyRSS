@@ -93,7 +93,8 @@ function getArticlesFromRSSFlux(int $id_flux, string $url): array
     $isSuccess = @$xml->load($url);
 
     if (!$isSuccess) {
-        print_r("Erreur lors du chargement du flux RSS : " . $url . "\n");
+        echo "Flux RSS invalide (" . $url . ")... Suppression du flux de la base de données";
+        FluxModel::removeFluxFromDB($id_flux);
         return $articles;
     }
 

@@ -201,4 +201,15 @@ class FluxModel
 
         return $res;
     }
+
+    static function removeFluxFromDB(int $id_flux): void
+    {
+        $mysqli = Database::connexion();
+
+        $stmt = $mysqli->prepare("DELETE FROM flux_rss WHERE id_flux = ?");
+        $stmt->bind_param("i", $id_flux);
+        $stmt->execute();
+        $stmt->close();
+        $mysqli->close();
+    }
 }
