@@ -34,7 +34,7 @@
             <p>Les informations collectées par MyRSS sont utilisées uniquement dans le cadre de votre utilisation du site. Elles ne seront jamais divulguées à d'autres entreprises ou personnes.</p>
 
             <h2>3. Consentement et Droits des Utilisateurs</h2>
-            <p>En utilisant notre site, vous consentez explicitement à la collecte et au traitement de vos données personnelles conformément au Règlement Général sur la Protection des Données (RGPD). Vous avez le droit d'accéder, de rectifier, d'effacer, de limiter le traitement et de demander la portabilité de vos données. Pour exercer ces droits ou pour toute question concernant vos données personnelles, veuillez nous contacter à l'adresse suivante : <a href="mailto:info@troover.fr">info@troover.fr</a>.</p>
+            <p>En utilisant notre site, vous consentez explicitement à la collecte et au traitement de vos données personnelles conformément au Règlement Général sur la Protection des Données (RGPD). Vous avez le droit d'accéder, de rectifier, d'effacer, de limiter le traitement et de demander la portabilité de vos données. Pour exercer ces droits ou pour toute question concernant vos données personnelles, veuillez nous contacter à l'adresse suivante : <a href="mailto:info@troover.com">info@troover.com</a>.</p>
 
             <h2>4. Durée de Conservation des Données</h2>
             <p>Vos données personnelles seront conservées aussi longtemps que nécessaire pour fournir les services de MyRSS et pour se conformer à nos obligations légales. Nous les supprimerons lorsque nous n'aurons plus besoin de les conserver.</p>
@@ -52,7 +52,7 @@
             <p>MyRSS se réserve le droit de modifier à tout moment les présentes conditions générales d'utilisation. Nous vous encourageons à consulter régulièrement cette page pour rester informé(e) des éventuelles modifications.</p>
 
             <h2>9. Contact</h2>
-            <p>Si vous avez des questions ou des préoccupations concernant nos conditions générales d'utilisation ou notre politique de confidentialité, veuillez nous contacter à l'adresse suivante : <a href="mailto:info@troover.fr">info@troover.fr</a>.</p>
+            <p>Si vous avez des questions ou des préoccupations concernant nos conditions générales d'utilisation ou notre politique de confidentialité, veuillez nous contacter à l'adresse suivante : <a href="mailto:info@troover.com">info@troover.com</a>.</p>
 
             <p>Merci d'utiliser MyRSS !</p>
 
