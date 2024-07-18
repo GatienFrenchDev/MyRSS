@@ -85,7 +85,7 @@ div.categories>div.categorie-active>div>svg{
 div.categorie-active{
     color: var(--highlight-text-color);
     font-weight: 500;
-    background-color: #e9e8f9;
+    background-color: #15419117;
 }
 
 div.categorie-active>div>svg>path{
