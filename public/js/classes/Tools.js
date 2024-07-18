@@ -18,4 +18,8 @@ class Tools {
             return null;
         }
     }
+
+    static getRoleFromCurrentEspace(){
+        return arborescence[0]['role']
+    }
 }

@@ -4,6 +4,12 @@ class BoutonAjoutDossier{
      */
     constructor(){
 
+        if(arborescence.length > 0){
+            if(Tools.getRoleFromCurrentEspace() === "reader"){
+                return;
+            }
+        }
+
         const div = document.createElement("div");
         div.classList.add("ajout-dossier");
         div.innerHTML = `
@@ -13,7 +19,6 @@ class BoutonAjoutDossier{
             </svg>
         </span>
         <p>Ajouter</p>`;
-
 
         document.getElementById("arborescence").appendChild(div);
 

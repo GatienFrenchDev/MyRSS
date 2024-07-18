@@ -87,7 +87,7 @@ class Espace {
             document.querySelectorAll("div.categorie-active").forEach(categorie => categorie.classList.remove("categorie-active"));
             espace_actif = { "id_espace": this.id_espace, "nom": this.nom };
             Header.updateTitle(this.nom);
-            arborescence = [{ "id": parseInt(this.id_espace), "nom": this.nom }];
+            arborescence = [{ "id": parseInt(this.id_espace), "nom": this.nom, "role": this.role }];
 
             const categories = await API.getCategoriesFromEspace(this.id_espace);
             Arborescence.vider()
