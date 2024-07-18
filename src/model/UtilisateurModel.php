@@ -11,7 +11,7 @@ class UtilisateurModel
         $stmt = $mysqli->prepare("SELECT 
     e.nom, 
     e.id_espace,
-    MAX(cd.role = 'admin') AS est_proprietaire,
+    cd.role,
     COUNT(DISTINCT a.id_article) AS nb_non_lu
 FROM 
     espace e
@@ -31,7 +31,7 @@ WHERE
     u.id_utilisateur = ?
     AND (el.id_article IS NULL OR a.id_article IS NULL) -- Pour les articles non lus ou s'il n'y a pas d'article
 GROUP BY 
-    e.id_espace, e.nom
+    e.id_espace, e.nom, cd.role
 ;");
 
         $stmt->bind_param("i", $id_utilisateur);

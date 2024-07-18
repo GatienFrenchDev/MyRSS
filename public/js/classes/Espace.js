@@ -4,13 +4,13 @@ class Espace {
      * @param {String} nom 
      * @param {Number} id_espace 
      * @param {Number} nb_non_lu 
-     * @param {Boolean} est_proprietaire 
+     * @param {String} role
      */
-    constructor(nom, id_espace, nb_non_lu, est_proprietaire) {
+    constructor(nom, id_espace, nb_non_lu, role) {
         this.nom = nom;
         this.id_espace = id_espace;
         this.nb_non_lu = nb_non_lu;
-        this.est_proprietaire = est_proprietaire;
+        this.role = role;
     }
 
     /**
@@ -116,7 +116,7 @@ class Espace {
             Ajout du bouton `Supprimer l'espace` et `Renommer l'espace` si l'espace a été créé par l'user.
             Sinon on ajoute le bouton `Quitter l'espace`.
             */
-            if(this.est_proprietaire){
+            if(this.role === "admin"){
                 const item_collab = ContextMenu.addItem("Ajouter un collaborateur");
                 const item_lecteur = ContextMenu.addItem("Ajouter un lecteur");
                 const item_supprimer = ContextMenu.addItem("Supprimer l'espace");

@@ -165,7 +165,7 @@ class API {
                 element["nom"],
                 element["id_espace"],
                 element["nb_non_lu"],
-                element["est_proprietaire"] == 1
+                element["role"]
             )
             espaces.push(espace);
         });
