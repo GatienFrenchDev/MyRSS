@@ -7,7 +7,7 @@
 #
 # Hôte: localhost (MySQL 9.0.0)
 # Base de données: myrss
-# Temps de génération: 2024-07-18 10:30:07 +0000
+# Temps de génération: 2024-07-18 17:18:35 +0000
 # ************************************************************
 
 
