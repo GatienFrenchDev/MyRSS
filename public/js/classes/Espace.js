@@ -110,7 +110,6 @@ class Espace {
             ContextMenu.vider();
             ContextMenu.afficher(e.x, e.y)
             
-            const item_collab = ContextMenu.addItem("Ajouter un collaborateur");
             const item_export = ContextMenu.addItem("Exporter tous les articles");
 
             /*
@@ -118,7 +117,8 @@ class Espace {
             Sinon on ajoute le bouton `Quitter l'espace`.
             */
             if(this.est_proprietaire){
-
+                const item_collab = ContextMenu.addItem("Ajouter un collaborateur");
+                const item_lecteur = ContextMenu.addItem("Ajouter un lecteur");
                 const item_supprimer = ContextMenu.addItem("Supprimer l'espace");
                 const item_renommer = ContextMenu.addItem("Renommer l'espace");
 
@@ -144,6 +144,38 @@ class Espace {
                         DIVespace.remove();
                     };
                 });
+
+                item_collab.addEventListener("click", async () => {
+                    let email_a_inviter = "";
+                    while (email_a_inviter == "") {
+                        email_a_inviter = window.prompt("Entrez l'email de la personne à inviter en tant que collaborateur sur l'espace");
+                        if (email_a_inviter === null) {
+                            return;
+                        }
+                        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!regex.test(email_a_inviter)) {
+                            window.alert("Veuillez saisir un email valide");
+                            email_a_inviter = "";
+                        }
+                    }
+                    await API.ajouterEmailAUnEspace(this.id_espace, email_a_inviter, false);
+                });
+
+                item_lecteur.addEventListener("click", async () => {
+                    let email_a_inviter = "";
+                    while (email_a_inviter == "") {
+                        email_a_inviter = window.prompt("Entrez l'email de la personne à inviter en tant que lecteur sur l'espace");
+                        if (email_a_inviter === null) {
+                            return;
+                        }
+                        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!regex.test(email_a_inviter)) {
+                            window.alert("Veuillez saisir un email valide");
+                            email_a_inviter = "";
+                        }
+                    }
+                    await API.ajouterEmailAUnEspace(this.id_espace, email_a_inviter, true);
+                });
             }
             else{
                 const item_quitter = ContextMenu.addItem("Quitter l'espace");
@@ -154,22 +186,6 @@ class Espace {
                     };
                 });
             }
-
-            item_collab.addEventListener("click", async () => {
-                let email_a_inviter = "";
-                while (email_a_inviter == "") {
-                    email_a_inviter = window.prompt("Entrez l'email de la personne à inviter sur l'espace");
-                    if (email_a_inviter === null) {
-                        return;
-                    }
-                    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!regex.test(email_a_inviter)) {
-                        window.alert("Veuillez saisir un email valide");
-                        email_a_inviter = "";
-                    }
-                }
-                await API.inviterEmailaUnEspace(this.id_espace, email_a_inviter);
-            });
 
             item_export.addEventListener("click", async () => {
                 window.open(`api/download.php?id_espace=${this.id_espace}`, '_blank').focus();

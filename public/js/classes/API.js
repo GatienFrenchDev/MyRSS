@@ -296,9 +296,10 @@ class API {
      * 
      * @param {Number} id_espace 
      * @param {String} email
+     * @param {Boolean} lecteur_seul
      */
-    static async inviterEmailaUnEspace(id_espace, email) {
-        await fetch(`api/inviter.php?id_espace=${encodeURIComponent(id_espace)}&email=${encodeURIComponent(email)}`);
+    static async ajouterEmailAUnEspace(id_espace, email, lecteur_seul) {
+        await fetch(`api/inviter.php?id_espace=${encodeURIComponent(id_espace)}&email=${encodeURIComponent(email)}&reader_only=${encodeURIComponent(lecteur_seul)}`);
     }
 
     /**
@@ -489,6 +490,17 @@ class API {
         return json["id_collection"]
 
     }
+
+    static async ajouterLecteurAUnEspace(id_espace, email){
+        const data = new FormData();
+        data.append("id_espace", id_espace);
+        data.append("email", email);
+        const req = await fetch(`api/ajout-lecteur.php`, {
+            method: "POST",
+            body: data
+        });
+    }
+
 
     static async getArticlesFromCollection(id_collection, numero_page){
         const request = await fetch(`api/get-articles.php?id_collection=${id_collection}&numero_page=${numero_page}`, { method: 'GET' });
