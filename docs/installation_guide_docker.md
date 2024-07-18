@@ -28,4 +28,8 @@ docker compose -f compose-prod.yml up
 ```
 > Le fichier docker compose de production est configuré pour être utilisé avec traefik.
 
+## Mise en place du script interrogeant les flux RSS
+Pour avoir les derniers articles, le script `scripts/fetch-all-fluxs.php` doit être executé tous les 5 minutes.
+Pour cela, le crontab suivant est mis en place en production : `*/5 * * * * docker exec web php scripts/fetch-all-fluxs.php`.
+
 **MyRSS devrait desormais être accesible à l'adresse `http://localhost:80` !**
