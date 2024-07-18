@@ -15,7 +15,9 @@
 
 
     <div class="top-bar">
-        <img src="img/logo_troover.png" height="32" alt="logo de troover">
+        <a href="/">
+            <img src="img/logo_troover.png" height="32" alt="logo de troover">
+        </a>
 
         <div style="width: 25vw;"></div>
 
