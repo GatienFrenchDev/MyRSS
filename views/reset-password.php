@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset mdp | MyRSS</title>
+    <title>Reset mot de passe | MyRSS</title>
     <link rel="stylesheet" href="css/inscription.css">
     <link rel="stylesheet" href="css/font.css">
     <link rel="stylesheet" href="css/colors.css">
@@ -15,7 +15,7 @@
 
 
     <div class="top-bar">
-        <p>MyRSS</p>
+        <img src="img/logo_troover.png" height="32" alt="logo de troover">
 
         <div style="width: 25vw;"></div>
 
