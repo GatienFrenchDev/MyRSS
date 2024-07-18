@@ -283,7 +283,7 @@ GROUP BY
         $stmt->close();
 
         // Lie l'espace partagé crée à l'user
-        $sql = "INSERT INTO espace (nom, id_proprietaire) VALUES (?, ?)";
+        $sql = "INSERT INTO espace (nom) VALUES (?)";
         $stmt = $mysqli->stmt_init();
         $stmt->prepare($sql);
         $nom_espace = "Espace de " . $prenom;
@@ -294,7 +294,7 @@ GROUP BY
 
 
         // Crée un espace partagé pour l'user
-        $sql = "INSERT INTO contient_des (id_utilisateur, id_espace) VALUES (?, ?)";
+        $sql = "INSERT INTO contient_des (id_utilisateur, id_espace, role) VALUES (?, ?, 'admin')";
         $stmt = $mysqli->stmt_init();
         $stmt->prepare($sql);
         $stmt->bind_param("ii", $id_user, $id_espace);
