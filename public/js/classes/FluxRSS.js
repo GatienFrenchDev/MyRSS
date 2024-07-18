@@ -45,9 +45,16 @@ class FluxRSS {
             context_menu.style.display = "grid";
             context_menu.style.left = e.x + "px" ;
             context_menu.style.top = e.y + "px" ;
+
             ContextMenu.vider();
+
             const item_recommander = ContextMenu.addItem("Recommander ce flux");
             const item_supprimer = ContextMenu.addItem("Supprimer le flux de la catégorie");
+
+            if(Tools.getRoleFromCurrentEspace() === "reader"){
+                item_supprimer.style.display = "none";
+            }
+
             item_recommander.addEventListener("click", async () => {
                 let email_a_inviter = "";
                 while (email_a_inviter == "") {

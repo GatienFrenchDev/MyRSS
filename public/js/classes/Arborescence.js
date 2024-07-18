@@ -90,6 +90,7 @@ class Arborescence{
             else if (arborescence.length == 1) {
                 Header.updateTitle('Tous les posts')
                 arborescence = [];
+                espace_actif = null;
 
                 const espaces = await API.getEspaces();
                 Arborescence.vider();

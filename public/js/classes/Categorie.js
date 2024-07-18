@@ -66,6 +66,12 @@ class Categorie{
             const item_supprimer = ContextMenu.addItem("Supprimer la catégorie");
             const item_export = ContextMenu.addItem("Exporter tous les articles");
             const item_renommer = ContextMenu.addItem("Renommer la catégorie");
+
+            if(Tools.getRoleFromCurrentEspace() === "reader"){
+                item_supprimer.style.display = "none";
+                item_renommer.style.display = "none";
+            }
+
             item_supprimer.addEventListener("click", () => {
                 if(confirm(`Voulez vous vraiment supprimer la catégorie ${this.nom} et toutes ses sous-catégories ?`)){
                     API.supprimerCategorie(this.id_categorie);

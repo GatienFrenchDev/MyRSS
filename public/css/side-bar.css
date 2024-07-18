@@ -124,6 +124,10 @@ div.onglet-bottom:hover > a > span{
     border-radius: 50%;
 }
 
+div.onglet-bottom>a>span>svg{
+    color: var(--highlight-color);
+}
+
 div.onglet-bottom>a>p{
     padding: 0 4px;
     margin-top: 4px;

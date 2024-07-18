@@ -30,7 +30,7 @@ if(strlen($nom) > 32){
 
 if(!CategorieModel::appartientA($id_utilisateur, $id_categorie)){
     http_response_code(403);
-    die(json_encode(["error" => "categorie does not belong to you"]));
+    die(json_encode(["error" => "not enough rights to rename this categorie"]));
 }
 
 CategorieModel::renameCategorie($id_categorie, $nom);

@@ -37,8 +37,10 @@ class InvitationModel
         $stmt->bind_param("i", $id_invitation);
         $stmt->execute();
 
-        $stmt = $mysqli->prepare("INSERT INTO contient_des (id_utilisateur, id_espace) VALUES (?, ?)");
-        $stmt->bind_param("ii", $id_utilisateur, $id_espace);
+        $role = $ligne["reader_only"] ? "reader" : "collab";
+
+        $stmt = $mysqli->prepare("INSERT INTO contient_des (id_utilisateur, id_espace, role) VALUES (?, ?, ?)");
+        $stmt->bind_param("iis", $id_utilisateur, $id_espace, $role);
         $stmt->execute();
 
         $stmt->close();
@@ -57,7 +59,7 @@ class InvitationModel
     /**
     * Renvoi `true` si l'invitation a bien été envoyée.
     */
-    static function creerInvitation(string $email, int $id_espace, int $id_utilisateur_inviteur): bool
+    static function creerInvitation(string $email, int $id_espace, int $id_utilisateur_inviteur, bool $onlyReader): bool
    {
        $mysqli = Database::connexion();
    
@@ -75,8 +77,10 @@ class InvitationModel
    
        $id_utilisateur = $ligne["id_utilisateur"];
    
-       $stmt = $mysqli->prepare("INSERT INTO invitation (id_utilisateur, id_espace, id_utilisateur_inviteur) VALUES (?, ?, ?)");
-       $stmt->bind_param("iii", $id_utilisateur, $id_espace, $id_utilisateur_inviteur);
+       $temp = $onlyReader ? 1 : 0;
+
+       $stmt = $mysqli->prepare("INSERT INTO invitation (id_utilisateur, id_espace, id_utilisateur_inviteur, reader_only) VALUES (?, ?, ?, ?)");
+       $stmt->bind_param("iiii", $id_utilisateur, $id_espace, $id_utilisateur_inviteur, $temp);
        $stmt->execute();
    
        $stmt->close();

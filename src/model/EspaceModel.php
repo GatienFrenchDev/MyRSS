@@ -97,14 +97,16 @@ class EspaceModel
         $mysqli = Database::connexion();
 
 
-        $stmt = $mysqli->prepare("INSERT INTO espace (nom, id_proprietaire) VALUES (?, ?)");
-        $stmt->bind_param("si", $nom, $id_utilisateur);
+        $stmt = $mysqli->prepare("INSERT INTO espace (nom) VALUES (?)");
+        $stmt->bind_param("s", $nom);
         $stmt->execute();
         $id_espace = $mysqli->insert_id;
         $stmt->close();
 
-        $stmt = $mysqli->prepare("INSERT INTO contient_des (id_utilisateur, id_espace) VALUES (?, ?)");
-        $stmt->bind_param("ii", $id_utilisateur, $id_espace);
+        $role = "admin";
+
+        $stmt = $mysqli->prepare("INSERT INTO contient_des (id_utilisateur, id_espace, role) VALUES (?, ?, ?)");
+        $stmt->bind_param("ii", $id_utilisateur, $id_espace, $role);
         $stmt->execute();
         $stmt->close();
 
@@ -141,8 +143,10 @@ class EspaceModel
     {
         $mysqli = Database::connexion();
 
-        $stmt = $mysqli->prepare("SELECT COUNT(id_espace) FROM espace WHERE id_espace = ? AND id_proprietaire = ?");
-        $stmt->bind_param("ii", $id_espace, $id_utilisateur);
+        $role = "admin";
+
+        $stmt = $mysqli->prepare("SELECT COUNT(id_espace) FROM contient_des WHERE id_espace = ? AND id_utilisateur = ? AND role = ?");
+        $stmt->bind_param("iis", $id_espace, $id_utilisateur, $role);
         $stmt->execute();
         $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 

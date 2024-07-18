@@ -254,8 +254,23 @@ class CategorieModel
     {
         $mysqli = Database::connexion();
 
-        $stmt = $mysqli->prepare("SELECT * FROM categorie c INNER JOIN contient_des cd ON c.id_espace = cd.id_espace WHERE cd.id_utilisateur = ? AND c.id_categorie = ?");
+        $stmt = $mysqli->prepare("SELECT * FROM categorie c INNER JOIN contient_des cd ON c.id_espace = cd.id_espace WHERE cd.id_utilisateur = ? AND c.id_categorie = ? AND cd.role != 'reader'");
         $stmt->bind_param("ii", $id_user, $id_categorie);
+        $stmt->execute();
+        $stmt->store_result();
+        $res = $stmt->num_rows();
+
+        $stmt->close();
+        $mysqli->close();
+
+        return $res != 0;
+    }
+
+    static function hasReadRights(int $id_utilisateur, int $id_categorie): bool{
+        $mysqli = Database::connexion();
+
+        $stmt = $mysqli->prepare("SELECT * FROM categorie c INNER JOIN contient_des cd ON c.id_espace = cd.id_espace WHERE cd.id_utilisateur = ? AND c.id_categorie = ?");
+        $stmt->bind_param("ii", $id_utilisateur, $id_categorie);
         $stmt->execute();
         $stmt->store_result();
         $res = $stmt->num_rows();

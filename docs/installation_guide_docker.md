@@ -1,14 +1,10 @@
-# Déploiment à l'aide de Docker
+# Déploiment de MyRSS à l'aide de Docker
+Cette option de déploiment est recommandé, aussi bien pour l'environnement de dev que de production.
 
 ## Installation de `docker` et de `docker compose`
-Pour installer `docker` et `docker compose`, je recommande d'installer [Docker Dekstop](https://www.docker.com/products/docker-desktop/) qui permet directement d'avoir tous les outils d'installés.
+MyRSS tourne sur une version récente de docker (version utilisé en prod et dev : `Docker version 27.0.3, build 7d4bcd8`).
 
-Si cela n'est pas possible, je vous encourage à suivre ces deux guides disponibles sur le site de docker :
-
-- https://docs.docker.com/engine/install/
-- https://docs.docker.com/compose/install/
-
-_MyRSS utilise la v2 de docker compose, il ne fonctionnera donc pas avec la commande `docker-compose` mais bien avec la commande plus récente `docker compose`_
+Pour installer une version récente de docker veuillez suivre le guide officiel de docker : https://docs.docker.com/engine/install/
 
 ## Clonage du repo
 Cloner le repository à l'aide de la commande suivante :
@@ -18,18 +14,22 @@ git clone https://github.com/gatienfrenchdev/myrss && cd myrss
 
 ## Configuration du fichier .env
 
-Editer le fichier `.env` pour répondre à votre configuration (la valeur `DB_HOST` doit rester à `db`, le nom du container mysql).
+Editer le fichier `.env` pour répondre à votre configuration (la valeur `DB_HOST` doit rester à `db_myrss`, le nom du container mysql).
 
-Vous pouvez copier le fichier example docker à l'aide de la commande suivante :
+Vous pouvez copier le fichier example docker et l'éditer à l'aide de la commande suivante :
 ```bash
-cp env.example.docker .env && vi .env
+cp env.example.dev .env && vi .env
 ```
 
 ## Démarrage de docker compose
-Une fois cela fait, lancer docker compose à l'aide de la commande suivante :
+Une fois cela fait, lancer le fichier docker compose correspondant à votre environnement (dev ou prod):
 ```
-docker compose up
+docker compose -f compose-prod.yml up
 ```
-> Pour lancer l'application en fond vous pouvez utiliser l'option `-d`
+> Le fichier docker compose de production est configuré pour être utilisé avec traefik.
 
-**MyRSS devrait desormais être accesible à l'adresse `http://localhost` !**
+## Mise en place du script interrogeant les flux RSS
+Pour avoir les derniers articles, le script `scripts/fetch-all-fluxs.php` doit être executé tous les 5 minutes.
+Pour cela, le crontab suivant est mis en place en production : `*/5 * * * * docker exec web php scripts/fetch-all-fluxs.php`.
+
+**MyRSS devrait desormais être accesible à l'adresse `http://localhost:80` !**
