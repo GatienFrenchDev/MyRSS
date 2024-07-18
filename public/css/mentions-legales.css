@@ -2,6 +2,10 @@ body{
     font-family: 'Fira Sans';
 }
 
+img{
+    margin-top:2rem;
+}
+
 h1{
     padding: 2rem 0;
 }
