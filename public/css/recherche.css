@@ -20,14 +20,26 @@ h1{
 }
 
 span{
+    max-width: 500px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     gap: 20px;
 }
 
+span>div{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    gap: 10rem;
+}
+
 input, select{
-    border: 1px solid black;
+    border-radius: .25rem;
+    border: 1px solid var(--btn-border-color);
+    background-color: var(--btn-background-color);
 }
 
 input#text{
@@ -35,23 +47,21 @@ input#text{
     font-size: 20px;
     font-weight: 450;
     width: 100%;
-    padding: 5px;
+    padding: .5rem;
 }
 
 input#debut, input#fin, select{
-    padding: 5px;
+    padding: .25rem;
 }
 
 input#valider{
     cursor: pointer;
-    background-color: white;
-    padding: 5px;
+    padding: .5rem;
     font-size: 20px;
     font-weight: 450;
     transition: all .2s ease-in-out;
 }
 
 input#valider:hover{
-    border: 1px solid #2c942c;
-    color: #2c942c;
+    background-color: var(--btn-hover-background-color);
 }

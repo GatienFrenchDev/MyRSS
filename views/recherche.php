@@ -18,25 +18,50 @@
     ?>
     <div class="container">
 
-        
+
         <form action="resultat">
             <h1>Votre recherche</h1>
             <input type="text" placeholder="Mot clé" id="text" name="text" autocomplete="off">
             <span>
-                <label for="debut">Publié entre le</label>
-                <input type="date" name="debut" id="debut">
                 <input type="hidden" name="numero-page" value="0">
-                <label for="fin">et le</label>
-                <input type="date" name="fin" id="fin">
-                <label for="article-lu">Article lu</label>
-                <input type="checkbox" name="article-lu" id="article-lu" checked>
-                <label for="article-non-lu">Article non lu</label>
-                <input type="checkbox" name="article-non-lu" id="article-non-lu" checked>
-                <label for="tri">Trier par ordre</label>
-                <select name="tri" id="tri">
-                    <option value="desc">Décroissant</option>
-                    <option value="asc">Croissant</option>
-                </select>
+                <div>
+                    <label for="fin">Publié avant le</label>
+                    <input type="date" name="fin" id="fin">
+                </div>
+                <div>
+                    <label for="debut">Publié après le</label>
+                    <input type="date" name="debut" id="debut">
+                </div>
+
+                <div>
+                    <label for="article-lu">Article lu</label>
+                    <input type="checkbox" name="article-lu" id="article-lu" checked>
+                </div>
+                <div>
+                    <label for="article-non-lu">Article non lu</label>
+                    <input type="checkbox" name="article-non-lu" id="article-non-lu" checked>
+                </div>
+
+                <div>
+                    <label for="categorie">Catégorie</label>
+                    <select name="categorie" id="categorie">
+                        <option value="0">Toutes les catégories</option>
+                        <?php
+                        foreach ($categories as $categorie) {
+                            echo "<option value='" . $categorie["id_categorie"] . "'>" . $categorie["nom"] . "</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="tri">Trier par ordre</label>
+                    <select name="tri" id="tri">
+                        <option value="desc">Décroissant</option>
+                        <option value="asc">Croissant</option>
+                    </select>
+                </div>
+
             </span>
             <input type="submit" value="Valider" id="valider">
         </form>
