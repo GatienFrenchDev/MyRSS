@@ -46,10 +46,12 @@ if (isset($_GET["id_categorie"])) {
     }
 
     // on s'assure que la catégorie appartient à la personne
-    if (!CategorieModel::appartientA($id_utilisateur, $id_categorie)) {
+    if (!CategorieModel::hasReadRights($id_utilisateur, $id_categorie)) {
         http_response_code(403);
-        die(json_encode(["error" => "id_categorie does not belong to you"]));
+        die(json_encode(["error" => "you do not have the rights to read this category"]));
     }
+
+    $isOnlyReader = !CategorieModel::appartientA($id_utilisateur, $id_categorie);
 
     // récupération du nom de la catégorie pour pouvoir l'afficher en haut de la page
     $nom = CategorieModel::getNom($id_categorie);
