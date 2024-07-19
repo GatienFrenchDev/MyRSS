@@ -212,4 +212,24 @@ class FluxModel
         $stmt->close();
         $mysqli->close();
     }
+
+    static function renameFlux(int $id_flux, int $id_categorie, string $nom): void
+    {
+        $mysqli = Database::connexion();
+
+        if($nom == ""){
+            $stmt = $mysqli->prepare("UPDATE contient SET nom = NULL WHERE id_flux = ? AND id_categorie = ?");
+            $stmt->bind_param("ii", $id_flux, $id_categorie);
+            $stmt->execute();
+            $stmt->close();
+        }
+        else{
+            $stmt = $mysqli->prepare("UPDATE contient SET nom = ? WHERE id_flux = ? AND id_categorie = ?");
+            $stmt->bind_param("sii", $nom, $id_flux, $id_categorie);
+            $stmt->execute();
+            $stmt->close();
+        }
+
+        $mysqli->close();
+    }
 }

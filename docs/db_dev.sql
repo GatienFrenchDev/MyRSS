@@ -7,7 +7,7 @@
 #
 # Hôte: localhost (MySQL 9.0.0)
 # Base de données: myrss
-# Temps de génération: 2024-07-18 17:18:35 +0000
+# Temps de génération: 2024-07-19 12:17:43 +0000
 # ************************************************************
 
 
@@ -3369,6 +3369,7 @@ DROP TABLE IF EXISTS `contient`;
 CREATE TABLE `contient` (
   `id_flux` int NOT NULL,
   `id_categorie` int NOT NULL,
+  `nom` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id_flux`,`id_categorie`),
   KEY `contient_ibfk_2` (`id_categorie`),
   CONSTRAINT `contient_ibfk_1` FOREIGN KEY (`id_flux`) REFERENCES `flux_rss` (`id_flux`) ON DELETE CASCADE,
@@ -3378,35 +3379,35 @@ CREATE TABLE `contient` (
 LOCK TABLES `contient` WRITE;
 /*!40000 ALTER TABLE `contient` DISABLE KEYS */;
 
-INSERT INTO `contient` (`id_flux`, `id_categorie`)
+INSERT INTO `contient` (`id_flux`, `id_categorie`, `nom`)
 VALUES
-	(26,33),
-	(27,33),
-	(28,33),
-	(10,38),
-	(36,38),
-	(37,42),
-	(38,42),
-	(58,42),
-	(29,45),
-	(30,45),
-	(32,45),
-	(33,46),
-	(34,47),
-	(35,47),
-	(3,48),
-	(11,48),
-	(12,48),
-	(14,48),
-	(15,48),
-	(1,51),
-	(2,51),
-	(15,51),
-	(56,52),
-	(59,52),
-	(60,52),
-	(61,52),
-	(62,52);
+	(1,51,NULL),
+	(2,51,NULL),
+	(3,48,NULL),
+	(10,38,'cyclisme'),
+	(11,48,NULL),
+	(12,48,NULL),
+	(14,48,NULL),
+	(15,48,NULL),
+	(15,51,NULL),
+	(26,33,NULL),
+	(27,33,NULL),
+	(28,33,NULL),
+	(29,45,NULL),
+	(30,45,NULL),
+	(32,45,NULL),
+	(33,46,NULL),
+	(34,47,NULL),
+	(35,47,NULL),
+	(36,38,NULL),
+	(37,42,NULL),
+	(38,42,NULL),
+	(56,52,NULL),
+	(58,42,NULL),
+	(59,52,NULL),
+	(60,52,NULL),
+	(61,52,NULL),
+	(62,52,NULL);
 
 /*!40000 ALTER TABLE `contient` ENABLE KEYS */;
 UNLOCK TABLES;

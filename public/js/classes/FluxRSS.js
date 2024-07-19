@@ -49,9 +49,11 @@ class FluxRSS {
             ContextMenu.vider();
 
             const item_recommander = ContextMenu.addItem("Recommander ce flux");
+            const item_renommer = ContextMenu.addItem("Renommer ce flux");
             const item_supprimer = ContextMenu.addItem("Supprimer le flux de la catégorie");
 
             if(Tools.getRoleFromCurrentEspace() === "reader"){
+                item_renommer.style.display = "none";
                 item_supprimer.style.display = "none";
             }
 
@@ -72,7 +74,16 @@ class FluxRSS {
             });
             item_supprimer.addEventListener("click", async () => {
                 API.supprimerFlux(this.id_flux, arborescence.slice(-1)[0]["id"]);
-                location.reload(); // oui il y a mieux mais c'est déjà bien comme ca
+                DIVFlux.remove();
+            });
+            item_renommer.addEventListener("click", async () => {
+                const nouveau_nom = window.prompt("Entrez le nouveau nom du flux (vide si vous souhaitez le nom par défaut du flux)");
+                if (nouveau_nom === null) {
+                    return;
+                }
+                API.renommerFlux(this.id_flux, arborescence.slice(-1)[0]['id'], nouveau_nom);
+                this.nom = nouveau_nom;
+                DIVFlux.querySelector("p").innerText = nouveau_nom;
             });
         });
 

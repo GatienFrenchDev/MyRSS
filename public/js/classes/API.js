@@ -530,4 +530,15 @@ class API {
         await fetch(`api/delete-collection.php?id_collection=${id_collection}`);
     }
 
+    static async renommerFlux(id_flux, id_categorie, nouveau_nom){
+        const data = new FormData();
+        data.append("id_flux", id_flux);
+        data.append("id_categorie", id_categorie);
+        data.append("nom", nouveau_nom);
+        await fetch(`api/renommer-flux.php`, {
+            method: "POST",
+            body: data
+        });
+    }
+
 }

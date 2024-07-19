@@ -97,7 +97,7 @@ class CategorieModel
         $mysqli = Database::connexion();
 
 
-        $stmt = $mysqli->prepare("SELECT f.*
+        $stmt = $mysqli->prepare("SELECT f.*, COALESCE(c.nom, f.nom) AS nom
         FROM flux_rss f
         INNER JOIN contient c ON c.id_flux = f.id_flux
         WHERE c.id_categorie = ?");
