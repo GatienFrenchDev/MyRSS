@@ -2,6 +2,7 @@
 
     --border-color : #00000014;
     --highlight-color: #154090;
+    --highlight-border-color: #10367c;
     --highlight-text-color: #032562;
     --background-color: #eeeff0;
 
@@ -9,4 +10,7 @@
     --btn-background-color: #f0f0f0;
     --btn-border-color: #d0d7de;
     --btn-hover-background-color: #fafafa;
+
+    /* Textes */
+    --text-secondary-color: #62696f;
 }

@@ -20,7 +20,9 @@
 
 
         <form action="resultat">
+
             <h1>Votre recherche</h1>
+            
             <input type="text" placeholder="Mot clé" id="text" name="text" autocomplete="off">
             <span>
                 <input type="hidden" name="numero-page" value="0">

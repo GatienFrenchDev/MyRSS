@@ -13,14 +13,14 @@ form{
     display: flex;
     flex-direction: column;
     gap: 30px;
+    width: 500px;
 }
 
 h1{
-    margin-bottom: 15px;
+    font-size: 2.5rem;
 }
 
 span{
-    max-width: 500px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -56,12 +56,14 @@ input#debut, input#fin, select{
 
 input#valider{
     cursor: pointer;
-    padding: .5rem;
+    padding: .75rem;
     font-size: 20px;
-    font-weight: 450;
+    font-weight: 500;
     transition: all .2s ease-in-out;
+    background-color: var(--highlight-color);
+    border: 1px solid var(--highlight-border-color);
+    color: white;
 }
 
 input#valider:hover{
-    background-color: var(--btn-hover-background-color);
 }
