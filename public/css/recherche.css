@@ -64,6 +64,3 @@ input#valider{
     border: 1px solid var(--highlight-border-color);
     color: white;
 }
-
-input#valider:hover{
-}
