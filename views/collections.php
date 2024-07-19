@@ -64,7 +64,7 @@
 
         <div class="article-header">
             <span>
-                Tous les posts
+                Collections
             </span>
         </div>
 
