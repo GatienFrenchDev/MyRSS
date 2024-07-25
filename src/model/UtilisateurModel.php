@@ -72,7 +72,7 @@ GROUP BY
         return $res;
     }
 
-    static function getAllCategoriesFromUser(int $id_utilisateur): array
+    static function getAllCategories(int $id_utilisateur): array
     {
 
         $mysqli = Database::connexion();
