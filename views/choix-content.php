@@ -26,7 +26,7 @@
             <h4>Fluxs disponibles</h4>
 
             <div class="type">
-                <?php if (!isset($id_categorie) || $isOnlyReader) { ?>
+                <?php if (!isset($id_categorie) || $isReaderOnly) { ?>
                 <a class="non-disponible">
                 <?php } else { ?>
                 <a href="ajout-content?type=rss&<?= $parametre_balise ?>">
@@ -39,7 +39,7 @@
                     <span>Flux RSS</span>
                 </a>
 
-                <?php if (!isset($id_categorie) || $isOnlyReader) { ?>
+                <?php if (!isset($id_categorie) || $isReaderOnly) { ?>
                 <a class="non-disponible">
                 <?php } else { ?>
                 <a href="ajout-content?type=yt&<?= $parametre_balise ?>">
@@ -48,7 +48,7 @@
                     <span>Youtube</span>
                 </a>
 
-                <?php if (!isset($id_categorie) || $isOnlyReader) { ?>
+                <?php if (!isset($id_categorie) || $isReaderOnly) { ?>
                 <a class="non-disponible">
                     <?php } else { ?>
                 <a href="ajout-content?type=google-news&<?= $parametre_balise ?>">
@@ -57,7 +57,7 @@
                     <span>Google News</span>
                 </a>
 
-                <?php if (!isset($id_categorie) || $isOnlyReader) { ?>
+                <?php if (!isset($id_categorie) || $isReaderOnly) { ?>
                 <a class="non-disponible">
                     <?php } else { ?>
                 <a href="ajout-content?type=bing-news&<?= $parametre_balise ?>">
@@ -70,7 +70,7 @@
 
             <h4>Dossier</h4>
             <div class="type">
-            <?php if ($isOnlyReader) { ?>
+            <?php if ($isReaderOnly) { ?>
                 <a class="non-disponible">
             <?php } else { ?>
                 <a href="ajout-content?type=categorie&<?= $parametre_balise ?>">

@@ -29,7 +29,7 @@ if (!ctype_digit($id_espace)) {
     die(json_encode(["error" => "id_espace is not a number"]));
 }
 
-$isOnlyReader = !EspaceModel::hasWriteRights($id_utilisateur, $id_espace);
+$isReaderOnly = !EspaceModel::hasWriteRights($id_utilisateur, $id_espace);
 
 // on s'assure que l'espace appartient à la personne
 if (!EspaceModel::hasReadRights($id_utilisateur, $id_espace)) {
