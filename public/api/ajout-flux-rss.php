@@ -49,7 +49,7 @@ if ($type_flux == "categorie") {
         CategorieModel::pushNewCategorieToDB($url, $id_categorie, $id_espace);
     } else {
         $id_espace = $_POST["espace"];
-        if (!EspaceModel::appartientA($id_utilisateur, $id_espace)) {
+        if (!EspaceModel::hasReadRights($id_utilisateur, $id_espace)) {
             http_response_code(401);
             die(json_encode(["error" => "this espace does not belong to you"]));
         }
@@ -152,6 +152,12 @@ if($id_flux == null) {
 }
 
 $articles = getArticlesFromRSSFlux($id_flux, $url);
+
+if($articles == null) {
+    header("Location: ../");
+    exit;
+}
+
 // On récupère le dernier article en date du flux rss courant stocké dans la db
 $dernier_article = FluxModel::getDernierUrlArticle($id_flux);
 $dernier_url_en_date = "";

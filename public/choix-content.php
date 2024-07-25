@@ -29,8 +29,10 @@ if (!ctype_digit($id_espace)) {
     die(json_encode(["error" => "id_espace is not a number"]));
 }
 
+$isOnlyReader = !EspaceModel::hasWriteRights($id_utilisateur, $id_espace);
+
 // on s'assure que l'espace appartient à la personne
-if (!EspaceModel::appartientA($id_utilisateur, $id_espace)) {
+if (!EspaceModel::hasReadRights($id_utilisateur, $id_espace)) {
     http_response_code(403);
     die(json_encode(["error" => "this espace does not belong to you"]));
 }
@@ -44,14 +46,6 @@ if (isset($_GET["id_categorie"])) {
         http_response_code(400);
         die(json_encode(["error" => "id_categorie is not a number"]));
     }
-
-    // on s'assure que la catégorie appartient à la personne
-    if (!CategorieModel::hasReadRights($id_utilisateur, $id_categorie)) {
-        http_response_code(403);
-        die(json_encode(["error" => "you do not have the rights to read this category"]));
-    }
-
-    $isOnlyReader = !CategorieModel::appartientA($id_utilisateur, $id_categorie);
 
     // récupération du nom de la catégorie pour pouvoir l'afficher en haut de la page
     $nom = CategorieModel::getNom($id_categorie);

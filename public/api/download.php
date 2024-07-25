@@ -15,7 +15,7 @@ if (isset($_GET["id_espace"])) {
 
     $id_espace = $_GET["id_espace"];
 
-    if(!EspaceModel::appartientA($id_utilisateur, $id_espace)){
+    if(!EspaceModel::hasReadRights($id_utilisateur, $id_espace)){
         http_response_code(403);
         die(json_encode(["error" => "this espace does not belong to you"]));
     }

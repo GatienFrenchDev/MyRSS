@@ -25,7 +25,7 @@ $id_utilisateur = $_SESSION["id_utilisateur"];
 require_once $_SERVER['DOCUMENT_ROOT'] . "/src/model/ArticleModel.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/src/model/EspaceModel.php";
 
-if(!EspaceModel::appartientA($id_utilisateur, $id_espace)){
+if(!EspaceModel::hasReadRights($id_utilisateur, $id_espace)){
     http_response_code(403);
     die(json_encode(["error" => "this espace does not belong to you"]));
 }

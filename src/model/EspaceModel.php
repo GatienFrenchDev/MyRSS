@@ -70,10 +70,7 @@ class EspaceModel
         return $res;
     }
 
-    /**
-     * Permet de vérifier si l'espace appartient ou non à l'utilisateur.
-     */
-    static function appartientA(int $id_user, int $id_espace): bool
+    static function hasReadRights(int $id_user, int $id_espace): bool
     {
         $mysqli = Database::connexion();
 
@@ -134,6 +131,21 @@ class EspaceModel
         }
 
         return $res[0]["nom"];
+    }
+
+    static function hasWriteRights(int $id_utilisateur, int $id_espace): bool
+    {
+        $mysqli = Database::connexion();
+
+        $stmt = $mysqli->prepare("SELECT id_espace FROM contient_des WHERE id_espace = ? AND id_utilisateur = ? AND role != 'reader'");
+        $stmt->bind_param("ii", $id_espace, $id_utilisateur);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+        $stmt->close();
+        $mysqli->close();
+
+        return count($res) > 0;
     }
 
     /**

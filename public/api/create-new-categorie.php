@@ -21,7 +21,7 @@ if (isset($_SESSION["id_utilisateur"])) {
         require_once $_SERVER['DOCUMENT_ROOT'] . "/src/model/EspaceModel.php";
         require_once $_SERVER['DOCUMENT_ROOT'] . "/src/model/CategorieModel.php";
 
-        if (EspaceModel::appartientA($id_utilisateur, $id_espace)) {
+        if (EspaceModel::hasReadRights($id_utilisateur, $id_espace)) {
             if(CategorieModel::appartientA($id_utilisateur, $id_categorie_parent) || $id_categorie_parent==-1){
                 $id_categorie = CategorieModel::pushNewCategorieToDB($nom, $id_categorie_parent, $id_espace);
                 die(json_encode(["id_categorie" => $id_categorie]));

@@ -17,7 +17,7 @@ if (isset($_GET["id_espace"])) {
 
     require_once $_SERVER['DOCUMENT_ROOT'] . "/src/model/EspaceModel.php";
 
-    if (!EspaceModel::appartientA($id_utilisateur, $id_espace)) {
+    if (!EspaceModel::hasReadRights($id_utilisateur, $id_espace)) {
         die(json_encode(["error" => "espace does not belong to you"]));
     }
     die(json_encode(["categories" => EspaceModel::getCategoriesFromEspace($id_espace)]));

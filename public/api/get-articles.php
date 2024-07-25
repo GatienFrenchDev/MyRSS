@@ -54,7 +54,7 @@ if (isset($_GET["id_categorie"])) {
 } else if (isset($_GET["id_espace"])) {
     $id_espace = $_GET["id_espace"];
 
-    if (!EspaceModel::appartientA($id_utilisateur, $id_espace)) {
+    if (!EspaceModel::hasReadRights($id_utilisateur, $id_espace)) {
         die(json_encode(["error" => "espace does not belong to you"]));
     }
 
