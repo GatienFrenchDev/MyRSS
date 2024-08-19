@@ -136,10 +136,10 @@ class Arborescence{
                 Arborescence.vider();
                 Arborescence.addBackButton();
                 Arborescence.addCategories(categories);
-                new BoutonAjoutDossier()
-
+                
                 const fluxs = await API.getFluxRSSFromCategorie(id_categorie);
                 this.addFluxs(fluxs);
+                new BoutonAjoutDossier();
 
                 ContainerArticle.numero_page = 0;
                 const articles = await API.getArticlesFromCategorie(id_categorie, ContainerArticle.numero_page);
