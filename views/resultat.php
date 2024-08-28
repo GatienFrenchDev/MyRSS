@@ -44,8 +44,6 @@
     createSideBar(3);
     ?>
 
-
-
     <div class="articles">
 
         <div class="article-header">

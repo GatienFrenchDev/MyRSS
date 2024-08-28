@@ -9,8 +9,9 @@ body{
     height: 100vh;
     margin: 0;
     display: grid;
-    grid-template-columns: 96px 325px 300px auto;
+    grid-template-columns: 96px 325px auto;
     font-family: 'Fira Sans';
+    overflow-y: hidden;
 }
 
 path{

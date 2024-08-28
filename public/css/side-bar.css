@@ -1,8 +1,8 @@
-div.onglet-bottom>span>svg>path{
+div.onglet-bottom>span>svg>path {
     stroke-width: 2.5px;
 }
 
-div.side-bar{
+div.side-bar {
     user-select: none;
     height: 100%;
     background: var(--background-color);
@@ -13,15 +13,16 @@ div.side-bar{
     flex-shrink: 0;
 }
 
-a{
+a {
     text-decoration: none;
 }
 
-a.onglet>svg>path{
+a.onglet>svg>path {
     fill: rgb(163, 163, 163);
 }
 
-div.side-bar>a, div.ajout-flux{
+div.side-bar>a,
+div.ajout-flux {
     height: 60px;
     font-size: 12px;
     text-decoration: none;
@@ -33,28 +34,28 @@ div.side-bar>a, div.ajout-flux{
     color: rgb(77, 77, 77);
 }
 
-div.side-bar>a.actif>svg>path{
+div.side-bar>a.actif>svg>path {
     fill: white;
 }
 
-div.side-bar>a.actif{
+div.side-bar>a.actif {
     background-color: var(--highlight-color);
     color: white;
 }
 
-div.side-bar>a:not(.actif):hover{
+div.side-bar>a:not(.actif):hover {
     background-color: #dbdcdd;
 }
 
-a.onglet:not(.actif):hover > svg>path{
+a.onglet:not(.actif):hover>svg>path {
     fill: var(--highlight-color);
 }
 
-div.side-bar>a>p{
+div.side-bar>a>p {
     margin-top: 6px;
 }
 
-div.ajout-flux{
+div.ajout-flux {
     cursor: pointer;
     height: 66px;
     padding: 12px 0;
@@ -62,12 +63,12 @@ div.ajout-flux{
     border-top: 1px solid var(--border-color);
 }
 
-div.ajout-flux:hover > a>span{
+div.ajout-flux:hover>a>span {
     background-color: var(--highlight-text-color);
 }
 
 
-div.ajout-flux>a{
+div.ajout-flux>a {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -75,7 +76,7 @@ div.ajout-flux>a{
     margin-bottom: 6px;
 }
 
-div.ajout-flux>a>span{
+div.ajout-flux>a>span {
     box-shadow: rgba(91, 78, 207, 0.5) 0px 2px 4px 0px;
     display: flex;
     justify-content: center;
@@ -86,19 +87,19 @@ div.ajout-flux>a>span{
     border-radius: 50%;
 }
 
-div.ajout-flux>a>p{
+div.ajout-flux>a>p {
     margin-top: 6px;
     padding: 0 4px;
 }
 
-div.onglet-bottom{
+div.onglet-bottom {
     width: 100%;
     font-size: 12px;
     height: 60px;
     margin-bottom: 6px;
 }
 
-div.onglet-bottom>a{
+div.onglet-bottom>a, div.onglet-bottom>div {
     color: #707070;
     display: flex;
     justify-content: center;
@@ -106,7 +107,7 @@ div.onglet-bottom>a{
     flex-direction: column;
 }
 
-div.onglet-bottom> a > span{
+div.onglet-bottom>a>span, div.onglet-bottom>div>span {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -115,20 +116,20 @@ div.onglet-bottom> a > span{
     width: 32px;
 }
 
-div.onglet-bottom:hover{
+div.onglet-bottom:hover {
     cursor: pointer;
 }
 
-div.onglet-bottom:hover > a > span{
+div.onglet-bottom:hover>a>span, div.onglet-bottom:hover>div>span {
     background-color: #dbdcdd;
     border-radius: 50%;
 }
 
-div.onglet-bottom>a>span>svg{
+div.onglet-bottom>a>span>svg, div.onglet-bottom>div>span>svg {
     color: var(--highlight-color);
 }
 
-div.onglet-bottom>a>p{
+div.onglet-bottom>a>p {
     padding: 0 4px;
     margin-top: 4px;
 }

@@ -92,22 +92,25 @@
 
     </div>
 
-    <div class="articles">
+    <div id="ui">
 
-        <div class="article-header">
-            <span>
-                Tous les posts
-            </span>
+        <div class="articles">
+
+            <div class="article-header">
+                <span>
+                    Tous les posts
+                </span>
+            </div>
+
+            <div id="container-articles">
+            </div>
+
         </div>
 
-        <div id="container-articles">
+        <div id="article-reader">
         </div>
 
     </div>
-
-    <div id="article-reader">
-    </div>
-
 
     <div id="context-menu">
     </div>

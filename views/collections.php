@@ -57,23 +57,25 @@
 
         <div id="arborescence">
         </div>
-        
-    </div>
-
-    <div class="articles">
-
-        <div class="article-header">
-            <span>
-                Collections
-            </span>
-        </div>
-
-        <div id="container-articles">
-        </div>
 
     </div>
 
-    <div id="article-reader">
+    <div id="ui">
+        <div class="articles">
+
+            <div class="article-header">
+                <span>
+                    Collections
+                </span>
+            </div>
+
+            <div id="container-articles">
+            </div>
+
+        </div>
+
+        <div id="article-reader">
+        </div>
     </div>
 
 </body>

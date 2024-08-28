@@ -2,7 +2,6 @@ div#article-reader{
     overflow-y: scroll;
     padding: 8vh 6vw 0 5vw;
     display: flex;
-    width: auto;
     flex-direction: column;
 }
 

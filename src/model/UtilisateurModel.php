@@ -272,7 +272,7 @@ GROUP BY
     static function createUser(string $nom, string $prenom, string $email, string $hash_password): int
     {
         $mysqli = Database::connexion();
-        
+
         try {
             $current_timestamp = time();
             $sql = "INSERT INTO utilisateur (nom, prenom, email, hash_password, date_inscription) VALUES (?, ?, ?, ?, ?)";
