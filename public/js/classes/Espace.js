@@ -93,7 +93,7 @@ class Espace {
             Arborescence.vider()
             Arborescence.addBackButton();
             Arborescence.addCategories(categories);
-            
+
             new BoutonAjoutDossier()
 
 
@@ -109,18 +109,19 @@ class Espace {
             e.preventDefault();
             ContextMenu.vider();
             ContextMenu.afficher(e.x, e.y)
-            
+
             const item_export = ContextMenu.addItem("Exporter tous les articles");
+            const item_liste = ContextMenu.addItem("Afficher la liste des participants");
 
             /*
             Ajout du bouton `Supprimer l'espace` et `Renommer l'espace` si l'espace a été créé par l'user.
             Sinon on ajoute le bouton `Quitter l'espace`.
             */
-            if(this.role === "admin"){
+            if (this.role === "admin") {
                 const item_collab = ContextMenu.addItem("Ajouter un collaborateur");
                 const item_lecteur = ContextMenu.addItem("Ajouter un lecteur");
-                const item_supprimer = ContextMenu.addItem("Supprimer l'espace");
                 const item_renommer = ContextMenu.addItem("Renommer l'espace");
+                const item_supprimer = ContextMenu.addItem("Supprimer l'espace");
 
                 item_renommer.addEventListener("click", async () => {
                     let nom = "";
@@ -177,7 +178,7 @@ class Espace {
                     await API.ajouterEmailAUnEspace(this.id_espace, email_a_inviter, true);
                 });
             }
-            else{
+            else {
                 const item_quitter = ContextMenu.addItem("Quitter l'espace");
                 item_quitter.addEventListener("click", () => {
                     if (confirm(`Voulez vous vraiment quitter l'espace ${this.nom} ?`)) {
@@ -190,8 +191,20 @@ class Espace {
             item_export.addEventListener("click", async () => {
                 window.open(`api/download.php?id_espace=${this.id_espace}`, '_blank').focus();
             });
-        });
 
+            item_liste.addEventListener("click", async () => {
+                const liste_participants = await API.getParticipantsEspace(this.id_espace);
+                let liste_participants_string = "Participants sur cet espace :\n\n";
+                if (liste_participants.length === 0) {
+                    liste_participants_string = "Aucun participant sur cet espace";
+                }
+                liste_participants.forEach(participant => {
+                    liste_participants_string += `${participant.prenom } ${participant.nom} • ${participant.email} (${participant.role})\n`;
+                });
+                window.alert(liste_participants_string);
+            });
+
+        })
         return DIVespace;
     }
 }

@@ -541,4 +541,10 @@ class API {
         });
     }
 
+    static async getParticipantsEspace(id_espace){
+        const request = await fetch(`api/get-participants.php?id_espace=${id_espace}`, { method: 'GET' });
+        const json = await request.json();
+        return json["participants"];
+    }
+
 }

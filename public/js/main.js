@@ -13,7 +13,6 @@ async function setup() {
     const articles = await API.getAllArticles(ContainerArticle.numero_page);
     const espaces = await API.getEspaces();
 
-
     let nb_total_non_lu = 0;
 
     espaces.forEach(espace => {

@@ -210,4 +210,21 @@ class EspaceModel
 
         return $res;
     }
+
+    static function getParticipants(int $id_espace): array
+    {
+        $mysqli = Database::connexion();
+
+        $stmt = $mysqli->prepare("SELECT u.id_utilisateur, u.nom, u.prenom, u.email, c.role FROM utilisateur u
+    INNER JOIN contient_des c ON u.id_utilisateur = c.id_utilisateur
+    WHERE c.id_espace = ?");
+        $stmt->bind_param("i", $id_espace);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+        $stmt->close();
+        $mysqli->close();
+
+        return $res;
+    }
 }
