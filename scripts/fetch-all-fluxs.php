@@ -22,9 +22,11 @@ echo "<p> Ce  script interroge tous les flux rss répertoriés dans la db et ajo
 $liste_flux = FluxModel::getAllRSSFlux();
 
 // Pour chaque flux rss stocké dans la db
-foreach($liste_flux as $sourceRSS){
+foreach ($liste_flux as $sourceRSS) {
 
     $t1 = time();
+
+    ArticleModel::clearOldArticles();
 
     echo "<h2>" . $sourceRSS["nom"] . "</h2>";
 
@@ -35,15 +37,15 @@ foreach($liste_flux as $sourceRSS){
     $dernier_url_en_date = "";
     // On procéde ensuite par comparaison via l'url de l'article.
     // On considère que si 2 articles ont le même url d'article alors ils sont identiques.
-    if(!is_null($dernier_article)){
+    if (!is_null($dernier_article)) {
         $dernier_url_en_date = $dernier_article->getUrlArticle();
     }
 
     echo "<ul>";
 
-    foreach($articles as $article){
-        print_r("<li>".$article->getTitre()."</li>");
-        if($article->getUrlArticle() == $dernier_url_en_date){
+    foreach ($articles as $article) {
+        print_r("<li>" . $article->getTitre() . "</li>");
+        if ($article->getUrlArticle() == $dernier_url_en_date) {
             print_r("<b>Dernier article trouvé !</b>");
             break;
         }
@@ -52,8 +54,8 @@ foreach($liste_flux as $sourceRSS){
     }
 
     echo "</ul>";
-    echo "<br><i>" . time()-$t1 ."s pour ce flux</i>";
+    echo "<br><i>" . time() - $t1 . "s pour ce flux</i>";
 }
 
-echo "<br><code>".$i." nouveaux articles ajoutés !</code>";
-echo "<br><b>Temps total écoulé : " . time()-$t0 . "s</b>";
+echo "<br><code>" . $i . " nouveaux articles ajoutés !</code>";
+echo "<br><b>Temps total écoulé : " . time() - $t0 . "s</b>";

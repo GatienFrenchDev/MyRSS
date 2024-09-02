@@ -163,4 +163,17 @@ class ArticleModel
 
         return $res;
     }
+
+    /**
+     * Delete all articles that are older than 2 weeks and not in favorites or in collection.
+     */
+    static function clearOldArticles(){
+        $mysqli = Database::connexion();
+        $stmt = $mysqli->prepare("DELETE FROM article WHERE date_pub < ? AND id_article NOT IN (SELECT id_article FROM ajout_collection)");
+        $ts = time() - 3600 * 24 * 14;
+        $stmt->bind_param("i", $ts);
+        $stmt->execute();
+        $stmt->close();
+        $mysqli->close();
+    }
 }
