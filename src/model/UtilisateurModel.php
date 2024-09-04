@@ -397,4 +397,23 @@ GROUP BY
         $mysqli->close();
         return true;
     }
+
+    static function getNumbersOfNotifsAndInvits(int $id_utilisateur): int
+    {
+        $mysqli = Database::connexion();
+
+        $stmt = $mysqli->prepare("SELECT COUNT(id_notification) as nb_notif FROM notification WHERE id_utilisateur = ?");
+        $stmt->bind_param("i", $id_utilisateur);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+
+        $stmt = $mysqli->prepare("SELECT COUNT(id_invitation) as nb_invit FROM invitation WHERE id_utilisateur = ?");
+        $stmt->bind_param("i", $id_utilisateur);
+        $stmt->execute();
+        $res2 = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        $mysqli->close();
+        return $res[0]["nb_notif"] + $res2[0]["nb_invit"];
+    }
 }

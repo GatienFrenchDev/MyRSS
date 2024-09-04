@@ -5,6 +5,18 @@
  */
 function createSideBar(int $onglet_actif): void
 {
+
+    if (!isset($_SESSION["id_utilisateur"])) {
+        header("Location: /login");
+        exit();
+    }
+
+    $id_utilisateur = $_SESSION["id_utilisateur"];
+
+    require_once __DIR__ . "../../../src/model/UtilisateurModel.php";
+
+    $nb_notifs = UtilisateurModel::getNumbersOfNotifsAndInvits($id_utilisateur);
+
 ?>
     <div class="side-bar" style="width: 96px;">
 
@@ -17,11 +29,14 @@ function createSideBar(int $onglet_actif): void
 
 
 
-        <a href="notifications" class="onglet <?= $onglet_actif == 2 ? "actif" : "" ?>">
+        <a href="notifications" style="position: relative;" class="onglet <?= $onglet_actif == 2 ? "actif" : "" ?>">
             <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="m5.705 3.71-1.41-1.42C1 5.563 1 7.935 1 11h1l1-.063C3 8.009 3 6.396 5.705 3.71zm13.999-1.42-1.408 1.42C21 6.396 21 8.009 21 11l2-.063c0-3.002 0-5.374-3.296-8.647zM12 22a2.98 2.98 0 0 0 2.818-2H9.182A2.98 2.98 0 0 0 12 22zm7-7.414V10c0-3.217-2.185-5.927-5.145-6.742C13.562 2.52 12.846 2 12 2s-1.562.52-1.855 1.258C7.184 4.073 5 6.783 5 10v4.586l-1.707 1.707A.996.996 0 0 0 3 17v1a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-1a.996.996 0 0 0-.293-.707L19 14.586z" />
             </svg>
-            <p>Notifications</p>
+            <?php if ($nb_notifs > 0) { ?>
+                <span id="nb_notif" style="position: absolute; top: 5%; right: 25%; border-radius:50%; background-color: #e84d4d; height: 15px; width: 15px; color: white; display: flex; align-items: center; justify-content: center;"><?= $nb_notifs ?></span>
+            <?php } ?>
+        <p> Notifications</p>
         </a>
 
         <a href="recherche" class="onglet <?= $onglet_actif == 3 ? "actif" : "" ?>">
