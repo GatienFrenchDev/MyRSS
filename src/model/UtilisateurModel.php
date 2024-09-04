@@ -416,4 +416,17 @@ GROUP BY
         $mysqli->close();
         return $res[0]["nb_notif"] + $res2[0]["nb_invit"];
     }
+
+    static function getFluxs(int $id_utilisateur): array
+    {
+        $mysqli = Database::connexion();
+
+        $stmt = $mysqli->prepare("SELECT f.* FROM flux_rss f INNER JOIN contient c ON f.id_flux = c.id_flux INNER JOIN categorie cg ON c.id_categorie = cg.id_categorie INNER JOIN espace e ON cg.id_espace = e.id_espace INNER JOIN contient_des cd ON e.id_espace = cd.id_espace WHERE cd.id_utilisateur = ?");
+        $stmt->bind_param("i", $id_utilisateur);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        $mysqli->close();
+        return $res;
+    }
 }

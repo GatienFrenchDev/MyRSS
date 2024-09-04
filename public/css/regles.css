@@ -1,0 +1,39 @@
+body{
+    grid-template-columns: 96px auto;
+}
+
+div.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form{
+    display: grid;
+    gap: 15px;
+}
+
+label{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: large;
+    font-weight: 500;
+}
+
+input, select{
+    margin-bottom: 12px;
+    border-radius: 10px;
+    font-size: large;
+    padding: 6px 10px;
+    border: 1px solid rgb(204, 204, 204);
+}
+
+input[type="submit"]{
+    color: white;
+    padding: 15px 0;
+    font-size: large;
+    font-weight: 500;
+    background-color: var(--highlight-color);
+    cursor: pointer;
+}

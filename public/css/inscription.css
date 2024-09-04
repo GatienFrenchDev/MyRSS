@@ -65,7 +65,7 @@ h2{
     font-weight: 800;
 }
 
-input{
+input, select{
     margin-bottom: 12px;
     line-height: 28.8px;
     border-radius: 10px;
