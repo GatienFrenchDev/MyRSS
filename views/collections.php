@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyRSS</title>
+    <title>Collections | RSS Troover</title>
 
     <link rel="stylesheet" href="css/articles.css">
     <link rel="stylesheet" href="css/article-reader.css">
@@ -38,6 +38,8 @@
     <script src="js/classes/Tools.js" defer></script>
 
     <script src="js/collections.js" defer></script>
+
+    <link rel="shortcut icon" href="public/img/favicon.jpeg" type="image/x-icon">
 </head>
 
 <body>
