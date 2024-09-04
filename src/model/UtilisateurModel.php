@@ -429,4 +429,17 @@ GROUP BY
         $mysqli->close();
         return $res;
     }
+
+    static function getAllRules(int $id_utilisateur): array
+    {
+        $mysqli = Database::connexion();
+
+        $stmt = $mysqli->prepare("SELECT r.*, f.nom AS nom_flux FROM regle r INNER JOIN flux_rss f ON r.id_flux = f.id_flux WHERE r.id_utilisateur = ?");
+        $stmt->bind_param("i", $id_utilisateur);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        $mysqli->close();
+        return $res;
+    }
 }

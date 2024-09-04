@@ -29,7 +29,9 @@ input, select{
     border: 1px solid rgb(204, 204, 204);
 }
 
-input[type="submit"]{
+button{
+    border-radius: 4px;
+    border: 1px solid rgb(204, 204, 204);
     color: white;
     padding: 15px 0;
     font-size: large;
