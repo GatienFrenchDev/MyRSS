@@ -30,4 +30,17 @@ class RegleModel
         $mysqli->close();
         return true;
     }
+
+    static function getAllRules(): array
+    {
+        $mysqli = Database::connexion();
+
+        $stmt = $mysqli->prepare("SELECT * FROM regle");
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+        $stmt->close();
+        $mysqli->close();
+        return $res;
+    }
 }

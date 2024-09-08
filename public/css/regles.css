@@ -2,10 +2,22 @@ body{
     grid-template-columns: 96px auto;
 }
 
+h1{
+    font-size: large;
+    margin-bottom: 1rem;
+}
+
 div.container{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+div.container>div{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 form{
@@ -30,12 +42,31 @@ input, select{
 }
 
 button{
+    width: 100%;
     border-radius: 4px;
     border: 1px solid rgb(204, 204, 204);
     color: white;
-    padding: 15px 0;
+    padding: 10px;
     font-size: large;
     font-weight: 500;
     background-color: var(--highlight-color);
     cursor: pointer;
+}
+
+p.rule-description{
+    margin-top: 0.7rem;
+}
+
+button#btn-delete{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+
+div.rule-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
 }

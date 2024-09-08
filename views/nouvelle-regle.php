@@ -54,7 +54,6 @@
             <label>
                 L'article doit appartenir au flux suivant
                 <select name="flux">
-                    <option value="0">Tous les flux</option>
                     <?php
                     foreach ($fluxs as $flux) { ?>
                         <option value='<?= $flux["id_flux"] ?>'><?= $flux["nom"] ?></option>

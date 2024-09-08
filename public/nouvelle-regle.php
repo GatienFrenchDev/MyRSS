@@ -7,9 +7,16 @@ if (!isset($_SESSION["id_utilisateur"])) {
     header("Location: login");
 }
 
+$id_utilisateur = $_SESSION["id_utilisateur"];
+
 if($_SERVER["REQUEST_METHOD"] === "POST") {
-    $id_utilisateur = $_SESSION["id_utilisateur"];
+
     require_once __DIR__ . "../../src/model/RegleModel.php";
+
+    if(!isset($_POST["nom"]) || !isset($_POST["flux"]) || !isset($_POST["action"]) ){
+        http_response_code(400);
+        die("Paramètres manquants");
+    }
 
     $reponse = RegleModel::createRegle($id_utilisateur,
     $_POST["nom"],
@@ -22,9 +29,6 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
 
     header("Location: regles");
 }
-
-$id_utilisateur = $_SESSION["id_utilisateur"];
-
 
 
 require_once __DIR__ . "../../src/model/UtilisateurModel.php";

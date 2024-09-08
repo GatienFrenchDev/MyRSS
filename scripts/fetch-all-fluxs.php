@@ -20,6 +20,7 @@ echo "<p> Ce  script interroge tous les flux rss répertoriés dans la db et ajo
 
 
 $liste_flux = FluxModel::getAllRSSFlux();
+$rules = RegleModel::getAllRules();
 
 // Pour chaque flux rss stocké dans la db
 foreach ($liste_flux as $sourceRSS) {
