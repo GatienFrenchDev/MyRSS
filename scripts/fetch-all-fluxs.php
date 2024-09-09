@@ -11,12 +11,13 @@ $t0 = time();
 
 require_once __DIR__ . "/../src/model/FluxModel.php";
 require_once __DIR__ . "/../src/model/ArticleModel.php";
+require_once __DIR__ . "/../src/model/RegleModel.php";
 require_once __DIR__ . "/../lib/tools.php";
 require_once __DIR__ . "/../src/classes/Article.php";
 
 
-echo "<h1> Récupération des flux RSS </h1>";
-echo "<p> Ce  script interroge tous les flux rss répertoriés dans la db et ajoute les nouveaux articles à la db.</p>";
+echo "# Récupération des flux RSS\n\n";
+echo "## Ce  script interroge tous les flux rss répertoriés dans la db et ajoute les nouveaux articles à la db.\n\n";
 
 
 $liste_flux = FluxModel::getAllRSSFlux();
@@ -26,10 +27,14 @@ $rules = RegleModel::getAllRules();
 foreach ($liste_flux as $sourceRSS) {
 
     $t1 = time();
+    
+    // On initialise un tableau qui contiendra les articles à insérer dans la db
+    $articles_to_insert = array();
 
+    // On supprime les articles trop anciens (> 2 semaines)
     ArticleModel::clearOldArticles();
 
-    echo "<h2>" . $sourceRSS["nom"] . "</h2>";
+    echo "### " . $sourceRSS["nom"] . "\n";
 
     // On récupère tous les articles notés dans le xml du flux rss courant
     $articles = getArticlesFromRSSFlux($sourceRSS["id_flux"], $sourceRSS["adresse_url"]);
@@ -42,21 +47,27 @@ foreach ($liste_flux as $sourceRSS) {
         $dernier_url_en_date = $dernier_article->getUrlArticle();
     }
 
-    echo "<ul>";
-
     foreach ($articles as $article) {
-        print_r("<li>" . $article->getTitre() . "</li>");
+        print_r("  - " . $article->getTitre() . "\n");
         if ($article->getUrlArticle() == $dernier_url_en_date) {
-            print_r("<b>Dernier article trouvé !</b>");
+            print_r("  ( Dernier article trouvé ! )\n");
             break;
         }
+        $articles_to_insert[] = $article;
         $i++;
-        ArticleModel::insertArticleIntoDB($article, $sourceRSS["id_flux"]);
     }
 
-    echo "</ul>";
-    echo "<br><i>" . time() - $t1 . "s pour ce flux</i>";
+    // print_r("==============\n");
+    // print_r($articles_to_insert);
+    // print_r("\n==============\n");
+
+    
+    ArticleModel::insertArticlesIntoDB($articles_to_insert, $sourceRSS["id_flux"]);
+
+    echo "  ( " . time() - $t1 . "s pour ce flux )\n\n";
 }
 
-echo "<br><code>" . $i . " nouveaux articles ajoutés !</code>";
-echo "<br><b>Temps total écoulé : " . time() - $t0 . "s</b>";
+echo "==============\n";
+echo $i . " nouveaux articles ajoutés !\n";
+echo "Temps total écoulé : " . time() - $t0 . "s\n";
+echo "==============\n";

@@ -104,9 +104,16 @@ if ($type_flux == "yt") {
         die(json_encode(["error" => "invalid youtube channel"]));
     }
 
-    $url = "https://www.youtube.com/feeds/videos.xml?channel_id=" . getIDFromYoutubeChannel($channel_username);
+    $youtube_channel_id = getIDFromYoutubeChannel($channel_username);
+
+    $url = "https://www.youtube.com/feeds/videos.xml?channel_id=" . $youtube_channel_id;
+
     if (!FluxModel::isFluxRSSindb($url)) {
         $id_flux = FluxModel::insertFeedIntoDB($url, $type_flux);
+        CategorieModel::addRSSFluxToCategorie($id_flux, $id_categorie);
+    }
+    else{
+        $id_flux = FluxModel::getIDFromURL($url);
         CategorieModel::addRSSFluxToCategorie($id_flux, $id_categorie);
     }
 }
@@ -173,6 +180,7 @@ foreach ($articles as $article) {
     }
     ArticleModel::insertArticleIntoDB($article, $id_flux);
 }
+
 
 header("Location: ../index.php");
 exit;

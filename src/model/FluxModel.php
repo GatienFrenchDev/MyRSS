@@ -131,7 +131,7 @@ class FluxModel
     {
         $mysqli = Database::connexion();
 
-        $stmt = $mysqli->prepare("SELECT * FROM article WHERE id_flux = ? ORDER BY date_pub DESC LIMIT 1");
+        $stmt = $mysqli->prepare("SELECT * FROM article WHERE id_flux = ? ORDER BY date_ajout DESC, date_pub DESC LIMIT 1");
         $stmt->bind_param("i", $id_flux);
         $stmt->execute();
 

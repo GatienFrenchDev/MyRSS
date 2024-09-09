@@ -39,7 +39,7 @@
 
             <label>
                 La description contient un des mots clés suivants (délimités par des points virgules).
-                <input type="text" name="contient-description" placeholder="JO;Macron;JO 2024; Paris ;Gare de Lyon">
+                <input type="text" name="contient-description" placeholder="JO 2024; Paris">
             </label>
 
             <hr>

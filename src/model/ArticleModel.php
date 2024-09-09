@@ -94,6 +94,88 @@ class ArticleModel
         return $id_flux;
     }
 
+    /**
+     * @param Article[] $articles
+     * @param int $id_flux
+     */
+    static function insertArticlesIntoDB(array $articles, int $id_flux): array
+    {
+        $mysqli = Database::connexion();
+
+        if (count($articles) === 0) {
+            return [];
+        }
+
+        // Prepare the initial part of the query
+        $query = "INSERT INTO article (titre, description, date_pub, id_flux, url_article, date_ajout, url_image) VALUES ";
+
+        $values = [];
+        $types = "";
+        $current_ts = time();
+        $stmt = null;  // Initialize $stmt to null
+
+        try {
+            // Loop through each article and create the placeholders for the query
+            foreach ($articles as $article) {
+                $values[] = $article->getTitre();
+                $values[] = $article->getDescription();
+                $values[] = $article->getTimestamp();
+                $values[] = $id_flux;
+                $values[] = $article->getUrlArticle();
+                $values[] = $current_ts;
+                $values[] = $article->getUrlImage();
+
+                // Add placeholders for each set of values
+                $query .= "(?, ?, ?, ?, ?, ?, ?),";
+                $types .= "ssiisis";  // Type string corresponding to each set of values
+            }
+
+            // Remove the trailing comma from the query (important)
+            $query = rtrim($query, ',');
+
+            // Prepare the statement
+            $stmt = $mysqli->prepare($query);
+
+            if (!$stmt) {
+                throw new Exception("Failed to prepare SQL statement: " . $mysqli->error);
+            }
+
+            // Bind all parameters dynamically
+            $stmt->bind_param($types, ...$values);
+
+            // Execute the query
+            $stmt->execute();
+
+            // Get the ID of the first inserted row
+            $first_inserted_id = $mysqli->insert_id;
+
+            // Prepare an array to store the results
+            $result = [];
+
+            // Loop through the articles and prepare the result array
+            for ($i = 0; $i < count($articles); $i++) {
+                $result[] = [
+                    'titre' => $articles[$i]->getTitre(),
+                    'description' => $articles[$i]->getDescription(),
+                    'id_article' => $first_inserted_id + $i,  // Calculate the id_article
+                    'id_flux' => $id_flux
+                ];
+            }
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            return []; // Return empty array in case of failure
+        } finally {
+            // Only attempt to close if $stmt was successfully initialized
+            if ($stmt) {
+                $stmt->close();
+            }
+            $mysqli->close();
+        }
+
+        // Return the array of articles with the desired keys
+        return $result;
+    }
+
     static function rechercheAvancee(array $query, int $id_utilisateur): array
     {
         $mysqli = Database::connexion();
@@ -165,12 +247,15 @@ class ArticleModel
     }
 
     /**
-     * Delete all articles that are older than 2 weeks and not in favorites or in collection.
+     * Delete all articles that are older than 3 weeks and not in favorites or in collection.
      */
-    static function clearOldArticles(){
+    static function clearOldArticles()
+    {
+        $env = parse_ini_file(__DIR__ . "/../../.env");
+
         $mysqli = Database::connexion();
         $stmt = $mysqli->prepare("DELETE FROM article WHERE date_pub < ? AND id_article NOT IN (SELECT id_article FROM ajout_collection)");
-        $ts = time() - 3600 * 24 * 14;
+        $ts = time() - 3600 * 24 * $env["RETENTION_DAYS"];
         $stmt->bind_param("i", $ts);
         $stmt->execute();
         $stmt->close();

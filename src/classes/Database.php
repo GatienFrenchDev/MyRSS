@@ -10,6 +10,8 @@ class Database
             die("Erreur de connexion à la db : " . $mysqli->connect_error);
         }
 
+        $mysqli->set_charset("utf8mb4");
+
         return $mysqli;
     }
 }

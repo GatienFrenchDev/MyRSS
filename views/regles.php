@@ -24,18 +24,18 @@
             <?php
             if (count($rules) === 0) {
             ?>
-                <h1>Aucune règle de définie.</h1>
+                <h1 class="titre">Aucune règle définie.</h1>
             <?php
             } else {
             ?>
-                <h3 style="font-size: xx-large;">Règles</h3>
+                <h1 class="titre">Règles</h1>
                 <?php
                 foreach ($rules as $rule) {
                 ?>
                     <div class="rule-container">
                         <div>
                             <h2><?= $rule["nom"] ?></h2>
-                            <p class="rule-description">Se déclenche quand <b><?=$rule["nom_flux"]?></b> publie un nouvelle article<?php echo(!empty($rule["contient_titre"]) ? (" qui contient " . strip_tags($rule["contient_titre"]) . " dans le titre") : "") ?><?php echo(!empty($rule["contient_description"]) ? ", qui contient " . strip_tags($rule["contient_description"]) . " dans la description" : "") ?>.</p>
+                            <p class="rule-description">Se déclenche quand <b><?= $rule["nom_flux"] ?></b> publie un nouvelle article<?php echo (!empty($rule["contient_titre"]) ? (" qui contient <code>" . strip_tags($rule["contient_titre"]) . "</code> dans le titre") : "") ?><?php echo (!empty($rule["contient_description"]) ? ", qui contient <code>" . strip_tags($rule["contient_description"]) . "</code> dans la description" : "") ?>.</p>
                         </div>
                         <a href="/api/delete-rule?id=<?= $rule["id_regle"] ?>">
                             <button id="btn-delete" aria-label="supprimer règle">
