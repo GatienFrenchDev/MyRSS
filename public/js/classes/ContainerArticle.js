@@ -32,8 +32,8 @@ class ContainerArticle {
                 this.vider();
                 let articles = [];
 
-                if (arborescence.length == 0) {
-                    articles = await API.getAllArticles(this.numero_page - 1);
+                if (arborescence.length == 0) { // this case should theoretically never happen
+                    articles = []
                 }
                 else if (arborescence[0] == "non-lu") {
                     articles = await API.getArticlesNonLu(this.numero_page - 1);
@@ -61,8 +61,8 @@ class ContainerArticle {
         bnt_suivant.addEventListener("click", async () => {
             this.vider();
             let articles = [];
-            if (arborescence.length == 0) {
-                articles = await API.getAllArticles(this.numero_page + 1);
+            if (arborescence.length == 0) { // this case should theoretically never happen
+                articles = [];
             }
             else if (arborescence[0] == "non-lu") {
                 articles = await API.getArticlesNonLu(this.numero_page + 1);

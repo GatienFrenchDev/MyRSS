@@ -10,7 +10,6 @@ async function setup() {
     Arborescence.vider();
     ContainerArticle.vider();
 
-    const articles = await API.getAllArticles(ContainerArticle.numero_page);
     const espaces = await API.getEspaces();
 
     let nb_total_non_lu = 0;
@@ -22,34 +21,12 @@ async function setup() {
 
     new BoutonAjoutDossier();
 
-    document.getElementById("nb-total-non-lu").innerText = nb_total_non_lu > 0 ? nb_total_non_lu : "";
-
-    ContainerArticle.addArticles(articles);
 }
 
 setup();
 
 
 
-
-document.getElementById("tous-les-posts").addEventListener("click", async () => {
-    ContainerArticle.numero_page = 0;
-    document.querySelectorAll("div.categorie-active").forEach(categorie => categorie.classList.remove("categorie-active"));
-    document.getElementById("tous-les-posts").classList.add("categorie-active");
-    Header.updateTitle("Tous les posts");
-    setup();
-});
-
-document.getElementById("btn-afficher-non-lu").addEventListener("click", async () => {
-    document.querySelectorAll("div.categorie-active").forEach(categorie => categorie.classList.remove("categorie-active"));
-    document.getElementById("btn-afficher-non-lu").classList.add("categorie-active");
-    arborescence = ["non-lu"];
-    ContainerArticle.vider();
-    Header.updateTitle("Non lu");
-    ContainerArticle.numero_page = 0;
-    const articles = await API.getArticlesNonLu(0);
-    ContainerArticle.addArticles(articles);
-});
 
 document.getElementById("btn-afficher-favoris").addEventListener("click", async () => {
     document.querySelectorAll("div.categorie-active").forEach(categorie => categorie.classList.remove("categorie-active"));

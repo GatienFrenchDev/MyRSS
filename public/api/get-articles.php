@@ -66,5 +66,5 @@ if (isset($_GET["id_categorie"])) {
     $id_collection = $_GET["id_collection"];
     die(json_encode(["articles" => CollectionModel::getArticlesInsideCollection($id_collection, $numero_page)]));
 } else {
-    die(json_encode(["articles" => UtilisateurModel::getAllArticles($id_utilisateur, $numero_page)]));
+    die(json_encode(["error" => "id_categorie, id_espace, id_flux or id_collection is required"]));
 }

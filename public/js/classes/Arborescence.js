@@ -88,7 +88,7 @@ class Arborescence{
 
             // cas où on est a la racine d'un espace (n=1)
             else if (arborescence.length == 1) {
-                Header.updateTitle('Tous les posts')
+                Header.updateTitle('Sélectionnez un espace')
                 arborescence = [];
                 espace_actif = null;
 
@@ -97,12 +97,9 @@ class Arborescence{
                 Arborescence.addEspaces(espaces);
 
                 ContainerArticle.numero_page = 0;
-                const articles = await API.getAllArticles(ContainerArticle.numero_page);
                 ContainerArticle.vider();
-                ContainerArticle.addArticles(articles);
 
                 document.querySelectorAll("div.categorie-active").forEach(categorie => categorie.classList.remove("categorie-active"));
-                document.getElementById("tous-les-posts").classList.add("categorie-active");
             }
 
             // cas où on a pas encore d'id_parent pour catégorie au dessus (n=2)

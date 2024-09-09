@@ -42,36 +42,6 @@ GROUP BY
         return $res;
     }
 
-    /**
-     * @param id_utilisateur - identifiant de l'utilisateur
-     * @param numero_page - premiere page commence à 0 donc $numero_page appartient à [0;+inf[
-     */
-    static function getAllArticles(int $id_utilisateur, int $numero_page): array
-    {
-        $mysqli = Database::connexion();
-
-        $numero_page *= 100;
-
-        $stmt = $mysqli->prepare("SELECT a.*, f.*
-       FROM article a
-       INNER JOIN flux_rss f ON a.id_flux = f.id_flux
-       INNER JOIN contient c ON c.id_flux = f.id_flux
-       INNER JOIN categorie cg ON cg.id_categorie = c.id_categorie
-       INNER JOIN espace e ON e.id_espace = cg.id_espace
-       INNER JOIN contient_des cd ON cd.id_espace = e.id_espace
-       INNER JOIN utilisateur u ON u.id_utilisateur = cd.id_utilisateur
-       WHERE u.id_utilisateur = ?
-       ORDER BY date_pub DESC LIMIT 100 OFFSET ?");
-        $stmt->bind_param("ii", $id_utilisateur, $numero_page);
-        $stmt->execute();
-        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-
-        $stmt->close();
-        $mysqli->close();
-
-        return $res;
-    }
-
     static function getAllCategories(int $id_utilisateur): array
     {
 
