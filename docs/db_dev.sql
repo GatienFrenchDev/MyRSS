@@ -7,7 +7,7 @@
 #
 # Hôte: localhost (MySQL 9.0.0)
 # Base de données: myrss
-# Temps de génération: 2024-09-04 17:43:39 +0000
+# Temps de génération: 2024-09-10 08:57:55 +0000
 # ************************************************************
 
 
@@ -600,18 +600,19 @@ DROP TABLE IF EXISTS `espace`;
 CREATE TABLE `espace` (
   `id_espace` int NOT NULL AUTO_INCREMENT,
   `nom` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `article_wp` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_espace`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 LOCK TABLES `espace` WRITE;
 /*!40000 ALTER TABLE `espace` DISABLE KEYS */;
 
-INSERT INTO `espace` (`id_espace`, `nom`)
+INSERT INTO `espace` (`id_espace`, `nom`, `article_wp`)
 VALUES
-	(11,'Sciences'),
-	(15,'Sport'),
-	(28,'Actualités'),
-	(30,'Espace de Smith');
+	(11,'Sciences',0),
+	(15,'Sport',0),
+	(28,'Actualités',0),
+	(30,'Espace de Smith',0);
 
 /*!40000 ALTER TABLE `espace` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -771,9 +772,9 @@ DROP TABLE IF EXISTS `regle`;
 CREATE TABLE `regle` (
   `id_regle` int unsigned NOT NULL AUTO_INCREMENT,
   `id_utilisateur` int NOT NULL,
-  `nom` varchar(64) COLLATE utf8mb4_general_ci NOT NULL,
-  `contient_titre` varchar(512) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `contient_description` varchar(512) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `nom` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `contient_titre` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `contient_description` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `operateur` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `sensible_casse` tinyint(1) NOT NULL,
   `id_flux` int DEFAULT NULL,

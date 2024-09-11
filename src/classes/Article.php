@@ -1,5 +1,11 @@
 <?php
 
+class ArticleNotFoundException extends Exception{
+    public function __construct() {
+        parent::__construct("Article not found");
+    }
+}
+
 class Article{
 
     private int $article_timestamp;

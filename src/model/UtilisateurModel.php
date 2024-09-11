@@ -11,6 +11,7 @@ class UtilisateurModel
         $stmt = $mysqli->prepare("SELECT 
     e.nom, 
     e.id_espace,
+    e.article_wp,
     cd.role,
     COUNT(DISTINCT a.id_article) AS nb_non_lu
 FROM 

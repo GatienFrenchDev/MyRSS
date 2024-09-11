@@ -27,7 +27,7 @@ MyRSS s'appuie sur plusieurs projets open source pour fonctionner efficacement :
 - [moment.js](https://github.com/moment/moment/) - Une bibliothèque JavaScript pour l'analyse, la validation, la manipulation et le formatage des dates.
 - [SimpleAntiBruteForce](https://github.com/GatienFrenchDev/SimpleAntiBruteForce) - Une petite bibliothèque PHP codé par moi même pour l'occasion afin de gérer les tentatives de connexion erronées sur le formulaire de connexion
 
-MyRSS est basé sur PHP 8.2 et MariaDB 10.4 (testé également sous Ubuntu 24.04 avec PHP 8.3.6 et MySQL 8.0.36-2ubuntu3)
+MyRSS fonctionne actuellement sous Docker 4.34 avec PHP 8.3.9 et MySQL 9 (testé également sous Ubuntu 24.04 avec PHP 8.3.6 et MySQL 8.0.36-2ubuntu3)
 
 ## Déploiment de MyRSS
 - [Guide d'installation pour Docker](./docs/installation_guide_docker.md) (recommandé)

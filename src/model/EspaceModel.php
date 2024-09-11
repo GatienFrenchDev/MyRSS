@@ -227,4 +227,19 @@ class EspaceModel
 
         return $res;
     }
+
+    static function hasAccessToWP(int $id_espace):bool
+    {
+        $mysqli = Database::connexion();
+
+        $stmt = $mysqli->prepare("SELECT id_espace FROM espace WHERE id_espace = ? AND article_wp = 1");
+        $stmt->bind_param("i", $id_espace);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+        $stmt->close();
+        $mysqli->close();
+
+        return count($res) > 0;
+    }
 }

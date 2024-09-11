@@ -34,7 +34,7 @@ class Article {
      * 
      * @returns {HTMLElement}
      */
-    getHTMLElement(){
+    getHTMLElement() {
         const article = document.createElement('div');
 
         const div_article_description = document.createElement('div');
@@ -55,7 +55,7 @@ class Article {
             article.classList.add("article-non-lu");
         }
 
-        if(this.est_traite){
+        if (this.est_traite) {
             article.classList.add("est-traite");
         }
 
@@ -103,7 +103,7 @@ class Article {
             document.querySelectorAll("div.article-actif").forEach(article => {
                 article.classList.remove("article-actif");
             })
-            if(article.classList.contains("article-non-lu") && espace_actif){
+            if (article.classList.contains("article-non-lu") && espace_actif) {
                 await API.setArticleLu(this.id_article, espace_actif["id_espace"]);
                 article.classList.remove("article-non-lu");
             }
@@ -111,14 +111,58 @@ class Article {
             ArticleReader.afficher(this);
             article.classList.add("article-actif");
         })
-    
+
         article.addEventListener('contextmenu', (e) => {
+            e.stopPropagation();
             e.preventDefault();
-            if(article.classList.contains("article-non-lu") || !espace_actif){
-                return;
+            const context_menu = document.getElementById('context-menu');
+            context_menu.style.display = "grid";
+            context_menu.style.left = e.x + "px";
+            context_menu.style.top = e.y + "px";
+
+            ContextMenu.vider();
+
+            const item_non_lu = ContextMenu.addItem("Marquer comme non lu");
+
+
+            if(espace_actif.article_wp){
+                const brief_wp = ContextMenu.addItem("Créer un brief sur WP HTI");
+                const mercato_wp = ContextMenu.addItem("Créer un mercato sur WP HTI");
+                const post_wp = ContextMenu.addItem("Créer un article CI sur WP HTI");
+
+                brief_wp.addEventListener('click', async () => {
+                    if (!espace_actif) {
+                        return;
+                    }
+                    await API.sendArticleToWP(this.id_article, espace_actif["id_espace"], "brief");
+                    window.alert("Brief créé avec succès");
+                });
+
+                mercato_wp.addEventListener('click', async () => {
+                    if (!espace_actif) {
+                        return;
+                    }
+                    await API.sendArticleToWP(this.id_article, espace_actif["id_espace"], "mercato");
+                    window.alert("Mercato créé avec succès");
+                });
+
+                post_wp.addEventListener('click', async () => {
+                    if (!espace_actif) {
+                        return;
+                    }
+                    await API.sendArticleToWP(this.id_article, espace_actif["id_espace"], "post_ci");
+                    window.alert("Article créé avec succès");
+                });
             }
-            API.setArticleNonLu(this.id_article, espace_actif["id_espace"]);
-            article.classList.add("article-non-lu");
+
+            item_non_lu.addEventListener('click', async () => {
+                if (article.classList.contains("article-non-lu") || !espace_actif) {
+                    return;
+                }
+                await API.setArticleNonLu(this.id_article, espace_actif["id_espace"]);
+                article.classList.add("article-non-lu");
+            });
+            
         });
 
         return article;
@@ -128,14 +172,14 @@ class Article {
      * Renvoie qque chose du style `il y 3 heures`
      * @returns {String}
      */
-    getMomentAgo(){
+    getMomentAgo() {
         return moment.unix(this.date_pub).fromNow();
     }
 
     /**
      * @returns {Boolean}
      */
-    estUneVideoYT(){
+    estUneVideoYT() {
         return this.url_article.startsWith("https://www.youtube.com/watch?");
     }
 }

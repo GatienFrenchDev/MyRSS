@@ -1,9 +1,28 @@
 <?php
 
 require_once __DIR__ . "/../classes/Database.php";
+require_once __DIR__ . "/../classes/Article.php";
 
 class ArticleModel
 {
+
+    static function getArticle(int $id_article): Article | ArticleNotFoundException {
+        $mysqli = Database::connexion();
+
+        $stmt = $mysqli->prepare("SELECT * FROM article WHERE id_article = ?");
+        $stmt->bind_param("i", $id_article);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
+        $mysqli->close();
+
+        if ($res === null) {
+            throw new ArticleNotFoundException();
+        }
+
+        return new Article($res["titre"], $res["description"], $res["url_article"], $res["date_pub"], $res["url_image"]);
+    }
+
     static function setArticleLu(int $id_article, int $id_espace): void
     {
         $mysqli = Database::connexion();

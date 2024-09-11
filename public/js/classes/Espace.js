@@ -5,12 +5,14 @@ class Espace {
      * @param {Number} id_espace 
      * @param {Number} nb_non_lu 
      * @param {String} role
+     * @param {boolean} article_wp
      */
-    constructor(nom, id_espace, nb_non_lu, role) {
+    constructor(nom, id_espace, nb_non_lu, role, article_wp) {
         this.nom = nom;
         this.id_espace = id_espace;
         this.nb_non_lu = nb_non_lu;
         this.role = role;
+        this.article_wp = article_wp;
     }
 
     /**
@@ -78,14 +80,14 @@ class Espace {
                 c1.879-0.698,3.573-1.551,5.037-2.528c2.397,3.403,3.836,7.534,3.875,11.998H38.09z"/>
         </svg>
     </span>
-    <p>${this.nom}</p>
+    <p>${this.nom} ${this.article_wp ? "(WP HTI)" : ""}</p>
     <p class="side-info">${this.nb_non_lu == 0 ? "" : this.nb_non_lu}</p>
 </div>
     `
         document.querySelector('div#arborescence').appendChild(DIVespace);
         DIVespace.addEventListener('click', async () => {
             document.querySelectorAll("div.categorie-active").forEach(categorie => categorie.classList.remove("categorie-active"));
-            espace_actif = { "id_espace": this.id_espace, "nom": this.nom };
+            espace_actif = { "id_espace": this.id_espace, "nom": this.nom, "article_wp": this.article_wp };
             Header.updateTitle(this.nom);
             arborescence = [{ "id": parseInt(this.id_espace), "nom": this.nom, "role": this.role }];
 

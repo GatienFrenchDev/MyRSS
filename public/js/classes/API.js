@@ -165,7 +165,8 @@ class API {
                 element["nom"],
                 element["id_espace"],
                 element["nb_non_lu"],
-                element["role"]
+                element["role"],
+                element["article_wp"] == 1
             )
             espaces.push(espace);
         });
@@ -516,6 +517,17 @@ class API {
         const request = await fetch(`api/get-participants.php?id_espace=${id_espace}`, { method: 'GET' });
         const json = await request.json();
         return json["participants"];
+    }
+
+    static async sendArticleToWP(id_article, id_espace, categorie){
+        const data = new FormData();
+        data.append("id_article", id_article);
+        data.append("id_espace", id_espace);
+        data.append("categorie", categorie);
+        await fetch(`api/send-article-to-wp.php`, {
+            method: "POST",
+            body: data
+        });
     }
 
 }
