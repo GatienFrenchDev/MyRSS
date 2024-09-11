@@ -80,7 +80,7 @@ class Espace {
                 c1.879-0.698,3.573-1.551,5.037-2.528c2.397,3.403,3.836,7.534,3.875,11.998H38.09z"/>
         </svg>
     </span>
-    <p>${this.nom} ${this.article_wp ? "(WP HTI)" : ""}</p>
+    <p>${this.nom} ${this.article_wp ? "[accès WP HTI]" : ""}</p>
     <p class="side-info">${this.nb_non_lu == 0 ? "" : this.nb_non_lu}</p>
 </div>
     `
