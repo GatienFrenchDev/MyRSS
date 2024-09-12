@@ -2,6 +2,12 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/src/classes/Database.php";
 
+class UserNotFoundException extends Exception {
+    public function __construct() {
+        parent::__construct("User not found");
+    }
+}
+
 class UtilisateurModel
 {
     static function getEspaces(int $id_utilisateur): array
@@ -60,10 +66,9 @@ GROUP BY
     }
 
     /**
-     * Renvoie une liste vide si l'user existe pas.
      * Exemple : getUserDetailsFromId(1) renvoie `Array ( [id_utilisateur] => 1 [nom] => Doe [prenom] => John [email] => john@example.com [date_inscription] => 1714580239 )`
      */
-    static function getUserDetailsFromId(int $id_utilisateur): array
+    static function getUserDetailsFromId(int $id_utilisateur): array | UserNotFoundException
     {
         $mysqli = Database::connexion();
 
@@ -73,16 +78,16 @@ GROUP BY
         $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $stmt->close();
         $mysqli->close();
-        if (count($res) > 0) {
-            return $res[0];
+        if (count($res) == 0) {
+            throw new UserNotFoundException();
         }
-        return [];
+        return $res[0];
     }
 
     /**
      * Permet de vérifier si un utilisateur existe avec l'id passé en paramètre.
-     * e.g. : `userExist(13)` renvoie `true` si il existe un utilisateur dans la db avec l'id 13
      * @param id_utilisateur - l'identifiant à tester
+     * @example UtilisateurModel::userExist(13) renvoie `true` si l'utilisateur existe, `false` sinon
      */
     static function userExist(int $id_utilisateur): bool
     {
@@ -328,7 +333,7 @@ GROUP BY
             'from' => $env["RESEND_EMAIL"],
             'to' => $email,
             'subject' => 'MyRSS | Réinitialisation de votre mot de passe',
-            'html' => 'Bonjour,<br><p>Cliquez sur le lien suivant pour réinitialiser votre mot de passe : <a href="' . $url . '">' . $url . '</a><br><br>Cordialement,<br>L\'équipe de MyRSS</p>'
+            'html' => 'Bonjour,<br><p>Cliquez sur le lien suivant pour réinitialiser votre mot de passe : <a href="' . $url . '">' . $url . '</a><br><br>Cordialement,<br>L\'équipe Troover</p>'
         ]);
     }
 

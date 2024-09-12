@@ -52,8 +52,8 @@ if (count($destinataire) == 0) {
     $resend->emails->send([
         'from' => $env["RESEND_EMAIL"],
         'to' => $mail_destinataire,
-        'subject' => 'MyRSS | Recommendation de flux',
-        'html' => 'Bonjour,<br><br>' . $user["prenom"] . ' ' . $user["nom"] . ' vous recommande ce flux RSS : <a href="' . $flux["adresse_url"] . '">' . $flux["adresse_url"] . '</a><br><br>Cordialement,<br><br>L\'équipe MyRSS'
+        'subject' => 'RSS Troover | Recommendation de flux',
+        'html' => 'Bonjour,<br><br>' . $user["prenom"] . ' ' . $user["nom"] . ' vous recommande ce flux RSS : <a href="' . $flux["adresse_url"] . '">' . $flux["adresse_url"] . '</a><br><br>Cordialement,<br><br>L\'équipe Troover'
     ]);
 
     die(json_encode(["message" => "email sent"]));

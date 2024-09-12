@@ -14,6 +14,7 @@ require_once __DIR__ . "/../src/model/ArticleModel.php";
 require_once __DIR__ . "/../src/model/RegleModel.php";
 require_once __DIR__ . "/../lib/tools.php";
 require_once __DIR__ . "/../src/classes/Article.php";
+require_once __DIR__ . "/../src/classes/Database.php";
 
 
 echo "# Récupération des flux RSS\n\n";
@@ -32,7 +33,7 @@ foreach ($liste_flux as $sourceRSS) {
     $articles_to_insert = array();
 
     // On supprime les articles trop anciens (> 2 semaines)
-    ArticleModel::clearOldArticles();
+    Database::clearOldArticles();
 
     echo "### " . $sourceRSS["nom"] . "\n";
 
@@ -57,12 +58,29 @@ foreach ($liste_flux as $sourceRSS) {
         $i++;
     }
 
+    $articles_with_id = ArticleModel::insertArticlesIntoDB($articles_to_insert, $sourceRSS["id_flux"]);
+
+    foreach($rules as $rule) {
+        if($rule->getIdFlux() != $sourceRSS["id_flux"]) {
+            continue;
+        }
+
+        foreach($articles_with_id as $article) {
+            if($rule->isVerified($article)) {
+                $rule->triggerAction($article);
+            }
+        }
+
+        unset($rule);
+    }
+
+    /**
+     * TODO: ajouter les articles dans la db pour connaitre ensuite leur id et ensuite les ajouter à la classe Article avec setId()
+     */
+
     // print_r("==============\n");
     // print_r($articles_to_insert);
     // print_r("\n==============\n");
-
-    
-    ArticleModel::insertArticlesIntoDB($articles_to_insert, $sourceRSS["id_flux"]);
 
     echo "  ( " . time() - $t1 . "s pour ce flux )\n\n";
 }

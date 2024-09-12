@@ -46,7 +46,7 @@ function createSideBar(int $onglet_actif): void
             <p>Recherche</p>
         </a>
 
-        <!-- <a href="regles" class="onglet <?= $onglet_actif == 5 ? "actif" : "" ?>">
+        <a href="regles" class="onglet <?= $onglet_actif == 5 ? "actif" : "" ?>">
             <svg height="20" width="20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                 viewBox="0 0 500 500" xml:space="preserve">
                 <path class="st0" d="M499.139,318.571l-37.178-5.407c-2.329-0.178-4.336-1.642-5.228-3.8l-12.054-29.086
@@ -89,7 +89,7 @@ function createSideBar(int $onglet_actif): void
 		c4.096,11.403,3.516,23.706-1.632,34.672C168.731,159.886,159.621,168.183,148.229,172.296z" />
             </svg>
             <p>Règles</p>
-        </a> -->
+        </a>
 
         <a href="collections" class="onglet <?= $onglet_actif == 4 ? "actif" : "" ?>">
             <svg xmlns:xlink="http://www.w3.org/1999/xlink" class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

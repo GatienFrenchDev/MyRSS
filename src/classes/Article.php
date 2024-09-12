@@ -1,20 +1,25 @@
 <?php
 
-class ArticleNotFoundException extends Exception{
-    public function __construct() {
+class ArticleNotFoundException extends Exception
+{
+    public function __construct()
+    {
         parent::__construct("Article not found");
     }
 }
 
-class Article{
+class Article
+{
 
+    private int $id_article;
     private int $article_timestamp;
     private string $titre;
     private string $description;
     private string $url_article;
     private string $url_image;
 
-    public function __construct(string $titre, string $description, string $url_article, int $article_timestamp, string $url_image) {
+    public function __construct(string $titre, string $description, string $url_article, int $article_timestamp, string $url_image)
+    {
         $this->article_timestamp = $article_timestamp;
         $this->titre = mb_substr($titre, 0, 255);
         $this->description = mb_substr($description, 0, 255);
@@ -22,24 +27,38 @@ class Article{
         $this->url_image = mb_substr($url_image, 0, 512);
     }
 
-    public function getTitre():string{
+    public function getTitre(): string
+    {
         return $this->titre;
     }
 
-    public function getDescription():string{
+    public function getDescription(): string
+    {
         return $this->description;
     }
 
-    public function getUrlArticle():string{
+    public function getUrlArticle(): string
+    {
         return $this->url_article;
     }
 
-    public function getTimestamp():int{
+    public function getTimestamp(): int
+    {
         return $this->article_timestamp;
     }
 
-    public function getUrlImage():string{
+    public function getUrlImage(): string
+    {
         return $this->url_image;
     }
 
+    public function setId(int $id_article): void
+    {
+        $this->id_article = $id_article;
+    }
+
+    public function getId(): int | null
+    {
+        return $this->id_article;
+    }
 }

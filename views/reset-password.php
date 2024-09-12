@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oubli de mot de passe | MyRSS</title>
+    <title>Oubli de mot de passe | RSS Troover</title>
     <link rel="shortcut icon" href="public/img/favicon.jpeg" type="image/x-icon">
     <link rel="stylesheet" href="css/inscription.css">
     <link rel="stylesheet" href="css/font.css">

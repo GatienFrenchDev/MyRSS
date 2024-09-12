@@ -6,7 +6,8 @@ require_once __DIR__ . "/../classes/Article.php";
 class ArticleModel
 {
 
-    static function getArticle(int $id_article): Article | ArticleNotFoundException {
+    static function getArticle(int $id_article): Article | ArticleNotFoundException
+    {
         $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("SELECT * FROM article WHERE id_article = ?");
@@ -173,12 +174,7 @@ class ArticleModel
 
             // Loop through the articles and prepare the result array
             for ($i = 0; $i < count($articles); $i++) {
-                $result[] = [
-                    'titre' => $articles[$i]->getTitre(),
-                    'description' => $articles[$i]->getDescription(),
-                    'id_article' => $first_inserted_id + $i,  // Calculate the id_article
-                    'id_flux' => $id_flux
-                ];
+                $articles[$i]->setId($first_inserted_id + $i);  // Set the id_article for each article
             }
         } catch (Exception $e) {
             error_log($e->getMessage());
@@ -192,7 +188,7 @@ class ArticleModel
         }
 
         // Return the array of articles with the desired keys
-        return $result;
+        return $articles;
     }
 
     static function rechercheAvancee(array $query, int $id_utilisateur): array
@@ -263,21 +259,5 @@ class ArticleModel
         $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
         return $res;
-    }
-
-    /**
-     * Delete all articles that are older than 3 weeks and not in favorites or in collection.
-     */
-    static function clearOldArticles()
-    {
-        $env = parse_ini_file(__DIR__ . "/../../.env");
-
-        $mysqli = Database::connexion();
-        $stmt = $mysqli->prepare("DELETE FROM article WHERE date_pub < ? AND id_article NOT IN (SELECT id_article FROM ajout_collection)");
-        $ts = time() - 3600 * 24 * $env["RETENTION_DAYS"];
-        $stmt->bind_param("i", $ts);
-        $stmt->execute();
-        $stmt->close();
-        $mysqli->close();
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . "/src/classes/Database.php";
+require_once __DIR__ . "/../classes/Database.php";
 
 class CollectionModel
 {

@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . "../../classes/Database.php";
+require_once __DIR__ . "../../classes/Rule.php";
 
 class RegleModel
 {
@@ -31,6 +32,10 @@ class RegleModel
         return true;
     }
 
+    /**
+     * Get all rules from the database
+     * @return Rule[] array of Rule objects
+     */
     static function getAllRules(): array
     {
         $mysqli = Database::connexion();
@@ -41,6 +46,13 @@ class RegleModel
 
         $stmt->close();
         $mysqli->close();
-        return $res;
+        
+        $rules = array();
+        
+        foreach ($res as $rule) {
+            $rules[] = new Rule($rule["id_regle"], $rule["id_utilisateur"], $rule["nom"], $rule["contient_titre"], $rule["contient_description"], $rule["operateur"], $rule["sensible_casse"], $rule["id_flux"], $rule["action"]);
+        }
+
+        return $rules;
     }
 }
