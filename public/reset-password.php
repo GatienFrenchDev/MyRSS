@@ -2,7 +2,7 @@
 
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/views/reset-password.php";
+    require_once __DIR__ . "/../views/reset-password.php";
     exit;
 }
 
@@ -13,7 +13,7 @@ if (!isset($_POST["email"])) {
 
 $email = $_POST["email"];
 
-require_once $_SERVER['DOCUMENT_ROOT'] . "/src/model/UtilisateurModel.php";
+require_once __DIR__ . "/../src/model/UtilisateurModel.php";
 
 $user_details = UtilisateurModel::getUserDetailsFromMail($email);
 
