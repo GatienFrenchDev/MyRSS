@@ -55,4 +55,31 @@ class RegleModel
 
         return $rules;
     }
+
+    static function deleteRule(int $id_rule)
+    {
+        $mysqli = Database::connexion();
+
+        $stmt = $mysqli->prepare("DELETE FROM regle WHERE id_regle = ?");
+        $stmt->bind_param("i", $id_rule);
+        $stmt->execute();
+        $stmt->close();
+
+        $mysqli->close();
+    }
+
+    static function belongsToUser(int $id_rule, int $id_user): bool
+    {
+        $mysqli = Database::connexion();
+
+        $stmt = $mysqli->prepare("SELECT * FROM regle WHERE id_regle = ? AND id_utilisateur = ?");
+        $stmt->bind_param("ii", $id_rule, $id_user);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+        $stmt->close();
+        $mysqli->close();
+
+        return count($res) > 0;
+    }
 }

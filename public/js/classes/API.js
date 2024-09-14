@@ -20,8 +20,8 @@ class API {
                 element["url_article"],
                 element["nom"],
                 `http://www.google.com/s2/favicons?domain=${Tools.extractDomain(element["adresse_url"])}`,
-                element["est_lu"]==1,
-                element["est_traite"]==1,
+                element["est_lu"] == 1,
+                element["est_traite"] == 1,
                 element["url_image"]
             )
             articles.push(article);
@@ -114,8 +114,8 @@ class API {
                 element["url_article"],
                 element["nom"],
                 `http://www.google.com/s2/favicons?domain=${Tools.extractDomain(element["adresse_url"])}`,
-                element["est_lu"]==1,
-                element["est_traite"]==1,
+                element["est_lu"] == 1,
+                element["est_traite"] == 1,
                 element["url_image"]
             )
             articles.push(article);
@@ -123,33 +123,33 @@ class API {
         return articles;
     }
 
-        /**
-     * 
-     * @param {Number} id_flux 
-     * @returns {Article[]}
-     */
-        static async getArticlesFromFlux(id_flux, numero_page) {
-            const request = await fetch(`api/get-articles.php?id_flux=${encodeURIComponent(id_flux)}&numero_page=${encodeURIComponent(numero_page)}`, { method: 'GET' });
-            const json = await request.json();
-            let articles = [];
-    
-            json["articles"].forEach(element => {
-                const article = new Article(
-                    element["id_article"],
-                    element["titre"],
-                    element["description"],
-                    element["date_pub"],
-                    element["url_article"],
-                    element["nom"],
-                    `http://www.google.com/s2/favicons?domain=${Tools.extractDomain(element["adresse_url"])}`,
-                    element["est_lu"]==1,
-                    element["est_traite"]==1,
-                    element["url_image"]
-                )
-                articles.push(article);
-            });
-            return articles;
-        }
+    /**
+ * 
+ * @param {Number} id_flux 
+ * @returns {Article[]}
+ */
+    static async getArticlesFromFlux(id_flux, numero_page) {
+        const request = await fetch(`api/get-articles.php?id_flux=${encodeURIComponent(id_flux)}&numero_page=${encodeURIComponent(numero_page)}`, { method: 'GET' });
+        const json = await request.json();
+        let articles = [];
+
+        json["articles"].forEach(element => {
+            const article = new Article(
+                element["id_article"],
+                element["titre"],
+                element["description"],
+                element["date_pub"],
+                element["url_article"],
+                element["nom"],
+                `http://www.google.com/s2/favicons?domain=${Tools.extractDomain(element["adresse_url"])}`,
+                element["est_lu"] == 1,
+                element["est_traite"] == 1,
+                element["url_image"]
+            )
+            articles.push(article);
+        });
+        return articles;
+    }
 
     /**
      * @returns {Espace[]}
@@ -252,7 +252,7 @@ class API {
         await fetch(`api/suppresion.php?id_espace=${id_espace}`);
     }
 
-    static async quitterEspace(id_espace){
+    static async quitterEspace(id_espace) {
         await fetch(`api/quitter-espace.php?id_espace=${id_espace}`);
     }
 
@@ -279,15 +279,15 @@ class API {
      * @param {Number} id_flux - l'id du flux à recommander
      * @param {Number} mail_destinataire - le mail de l'utilisateur à qui la notification sera envoyée
      */
-    static async recommanderFlux(id_flux, mail_destinataire){
+    static async recommanderFlux(id_flux, mail_destinataire) {
         await fetch(`api/recommander-flux.php?id_flux=${encodeURIComponent(id_flux)}&mail_destinataire=${encodeURIComponent(mail_destinataire)}`);
     }
 
-    static async supprimerFlux(id_flux, id_categorie){
+    static async supprimerFlux(id_flux, id_categorie) {
         await fetch(`api/supprimer-flux.php?id_flux=${encodeURIComponent(id_flux)}&id_categorie=${encodeURIComponent(id_categorie)}`);
     }
 
-    static async getArticlesNonLu(numero_page){
+    static async getArticlesNonLu(numero_page) {
         const request = await fetch(`api/get-articles-non-lu.php?numero_page=${numero_page}`, { method: 'GET' });
         const json = await request.json();
 
@@ -311,7 +311,7 @@ class API {
         return articles;
     }
 
-    static async addToFavorites(id_article){
+    static async addToFavorites(id_article) {
         const data = new FormData();
         data.append("id_article", id_article);
         data.append("id_collection", 1);
@@ -321,7 +321,7 @@ class API {
         });
     }
 
-    static async addToTraite(id_article, id_espace){
+    static async addToTraite(id_article, id_espace) {
         const data = new FormData();
         data.append("id_article", id_article);
         data.append("id_espace", id_espace);
@@ -336,7 +336,7 @@ class API {
      * @param {Number} id_article 
      * @returns {Boolean}
      */
-    static async articleDansFavoris(id_article){
+    static async articleDansFavoris(id_article) {
         const request = await fetch(`api/est-dans-collection.php?id_article=${id_article}&id_collection=1`, { method: 'GET' });
         const json = await request.json();
         return json["res"];
@@ -348,14 +348,14 @@ class API {
      * @param {Number} id_espace 
      * @returns {Boolean}
      */
-    static async articleDansTraite(id_article, id_espace){
+    static async articleDansTraite(id_article, id_espace) {
         const request = await fetch(`api/est-traite.php?id_article=${id_article}&id_espace=${id_espace}`, { method: 'GET' });
         const json = await request.json();
         return json["res"];
     }
 
 
-    static async getArticlesFavoris(numero_page){
+    static async getArticlesFavoris(numero_page) {
         const request = await fetch(`api/get-articles-favoris.php?numero_page=${numero_page}`, { method: 'GET' });
         const json = await request.json();
 
@@ -379,7 +379,7 @@ class API {
         return articles;
     }
 
-    static async getArticlesFromRecherche(query){
+    static async getArticlesFromRecherche(query) {
         const request = await fetch(`api/recherche.php?${query}`, { method: 'GET' });
         const json = await request.json();
 
@@ -403,7 +403,7 @@ class API {
         return articles;
     }
 
-    static async getCollections(id_article){
+    static async getCollections(id_article) {
         const request = await fetch(`api/get-collections.php?id_article=${id_article}`, { method: 'GET' });
         const json = await request.json();
         return json["collections"];
@@ -413,7 +413,7 @@ class API {
      * 
      * @returns {Collection[]}
      */
-    static async getAllCollections(){
+    static async getAllCollections() {
         const request = await fetch(`api/get-collections.php`, { method: 'GET' });
         const json = await request.json();
         let collections = [];
@@ -434,7 +434,7 @@ class API {
      * @param {Number} id_article 
      * @param {Number} id_collection 
      */
-    static async addArticleToCollection(id_article, id_collection){
+    static async addArticleToCollection(id_article, id_collection) {
         const data = new FormData();
         data.append("id_article", id_article);
         data.append("id_collection", id_collection);
@@ -449,7 +449,7 @@ class API {
      * @param {String} nom - nom qui sera donné à la collection qui va être crée.
      * @returns {Number} - id de la collection qui vient d'être crée.
      */
-    static async createNewCollection(nom){
+    static async createNewCollection(nom) {
         const data = new FormData();
         data.append("nom", nom);
         const req = await fetch(`api/create-collection.php`, {
@@ -463,7 +463,7 @@ class API {
 
     }
 
-    static async ajouterLecteurAUnEspace(id_espace, email){
+    static async ajouterLecteurAUnEspace(id_espace, email) {
         const data = new FormData();
         data.append("id_espace", id_espace);
         data.append("email", email);
@@ -474,7 +474,7 @@ class API {
     }
 
 
-    static async getArticlesFromCollection(id_collection, numero_page){
+    static async getArticlesFromCollection(id_collection, numero_page) {
         const request = await fetch(`api/get-articles.php?id_collection=${id_collection}&numero_page=${numero_page}`, { method: 'GET' });
         const json = await request.json();
 
@@ -498,11 +498,11 @@ class API {
         return articles;
     }
 
-    static async deleteCollection(id_collection){
+    static async deleteCollection(id_collection) {
         await fetch(`api/delete-collection.php?id_collection=${id_collection}`);
     }
 
-    static async renommerFlux(id_flux, id_categorie, nouveau_nom){
+    static async renommerFlux(id_flux, id_categorie, nouveau_nom) {
         const data = new FormData();
         data.append("id_flux", id_flux);
         data.append("id_categorie", id_categorie);
@@ -513,13 +513,13 @@ class API {
         });
     }
 
-    static async getParticipantsEspace(id_espace){
+    static async getParticipantsEspace(id_espace) {
         const request = await fetch(`api/get-participants.php?id_espace=${id_espace}`, { method: 'GET' });
         const json = await request.json();
         return json["participants"];
     }
 
-    static async sendArticleToWP(id_article, id_espace, categorie){
+    static async sendArticleToWP(id_article, id_espace, categorie) {
         const data = new FormData();
         data.append("id_article", id_article);
         data.append("id_espace", id_espace);
@@ -530,4 +530,12 @@ class API {
         });
     }
 
+    static async deleteRule(id_rule) {
+        const data = new FormData();
+        data.append("id_rule", id_rule);
+        await fetch(`api/delete-rule.php`, {
+            method: "POST",
+            body: data
+        });
+    }
 }

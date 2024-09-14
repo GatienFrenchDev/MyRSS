@@ -65,11 +65,13 @@ button#btn-delete{
     justify-content: center;
     align-items: center;
     padding: 5px;
+    width: 32px;
+    height: 32px;
 }
 
 div.rule-container{
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     gap: 10px;
 }
