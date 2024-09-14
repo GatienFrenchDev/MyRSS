@@ -322,9 +322,9 @@ GROUP BY
     static function sendResetPasswordEmail(string $email, string $token)
     {
 
-        require __DIR__ . "/../vendor/autoload.php";
+        require __DIR__ . "/../../vendor/autoload.php";
 
-        $env = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/.env");
+        $env = parse_ini_file(__DIR__ . "/../../.env");
 
         $url = $env["DOMAIN"] . "/email-reset-password.php?email=" . $email . "&token=" . $token;
         $resend = Resend::client($env["RESEND_API_KEY"]);
