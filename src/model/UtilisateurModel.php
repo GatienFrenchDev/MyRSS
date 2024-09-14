@@ -322,7 +322,7 @@ GROUP BY
     static function sendResetPasswordEmail(string $email, string $token)
     {
 
-        require($_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php");
+        require __DIR__ . "/../../vendor/autoload.php";
 
         $env = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/.env");
 
