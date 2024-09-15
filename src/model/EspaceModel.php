@@ -2,6 +2,14 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/src/classes/Database.php";
 
+class EspaceNotFoundException extends Exception
+{
+    public function __construct()
+    {
+        parent::__construct("Espace not found");
+    }
+}
+
 class EspaceModel
 {
     static function getArticlesInsideEspace(int $id_espace, int $numero_page): array
@@ -168,6 +176,25 @@ class EspaceModel
         return count($res) > 0;
     }
 
+    static function getDetails(int $id_espace): array | EspaceNotFoundException
+    {
+        $mysqli = Database::connexion();
+
+        $stmt = $mysqli->prepare("SELECT e.*, COUNT(c.id_utilisateur) AS nb_utilisateurs FROM espace e INNER JOIN contient_des c ON e.id_espace = c.id_espace WHERE e.id_espace = ? GROUP BY e.id_espace");
+        $stmt->bind_param("i", $id_espace);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+        $stmt->close();
+        $mysqli->close();
+
+        if (count($res) == 0) {
+            return new EspaceNotFoundException();
+        }
+
+        return $res[0];
+    }
+
     /**
      * Permet de faire quitter l'espace à un user.
      * NOTE : ne supprime pas l'espace, l'user n'est juste plus associé à cette espace.
@@ -182,6 +209,20 @@ class EspaceModel
         $stmt->execute();
         $stmt->close();
         $mysqli->close();
+    }
+
+    static function getAll(): array
+    {
+        $mysqli = Database::connexion();
+
+        $stmt = $mysqli->prepare("SELECT e.*, COUNT(c.id_utilisateur) AS nb_utilisateurs FROM espace e INNER JOIN contient_des c ON e.id_espace = c.id_espace GROUP BY e.id_espace ORDER BY article_wp DESC, nb_utilisateurs DESC");
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+        $stmt->close();
+        $mysqli->close();
+
+        return $res;
     }
 
     /**
@@ -217,7 +258,7 @@ class EspaceModel
 
         $stmt = $mysqli->prepare("SELECT u.id_utilisateur, u.nom, u.prenom, u.email, c.role FROM utilisateur u
     INNER JOIN contient_des c ON u.id_utilisateur = c.id_utilisateur
-    WHERE c.id_espace = ?");
+    WHERE c.id_espace = ? ORDER BY c.role ASC");
         $stmt->bind_param("i", $id_espace);
         $stmt->execute();
         $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);

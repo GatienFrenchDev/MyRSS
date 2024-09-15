@@ -12,17 +12,9 @@ if(!isset($_SESSION["is_admin"]) || $_SESSION["is_admin"] == 0){
     header("Location: /");
 }
 
-if(!isset($_GET["id"])){
-    http_response_code(400);
-    header("Location: /");
-}
+require_once __DIR__ . "/../src/model/EspaceModel.php";
 
-$id_equipe = $_GET["id"];
-
-if(!is_numeric($id_equipe)){
-    http_response_code(400);
-    header("Location: /");
-}
+$espaces = EspaceModel::getAll();
 
 require_once __DIR__ . "/../views/components/side-bar.php";
-require_once __DIR__ . "/../views/equipe.php";
+require_once __DIR__ . "/../views/espaces.php";
