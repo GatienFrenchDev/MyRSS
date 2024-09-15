@@ -2,8 +2,10 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/src/classes/Database.php";
 
-class UserNotFoundException extends Exception {
-    public function __construct() {
+class UserNotFoundException extends Exception
+{
+    public function __construct()
+    {
         parent::__construct("User not found");
     }
 }
@@ -227,22 +229,22 @@ GROUP BY
     }
 
     /**
-     * Renvoi le hash de connexion et l'id appartenant à l'utilisateur
+     * Renvoi le hash de connexion et l'id appartenant à l'utilisateur (également si il est admin)
      */
-    static function getHashAndID(string $email): false|array
+    static function getHashAndID(string $email): array | UserNotFoundException
     {
         $mysqli = Database::connexion();
 
-        $stmt = $mysqli->prepare("SELECT hash_password, id_utilisateur FROM utilisateur WHERE email = ?");
+        $stmt = $mysqli->prepare("SELECT hash_password, id_utilisateur, est_admin FROM utilisateur WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $stmt->close();
         $mysqli->close();
-        if (count($res) > 0) {
-            return $res[0];
+        if (count($res) == 0) {
+            throw new UserNotFoundException();
         }
-        return false;
+        return $res[0];
     }
 
     static function createUser(string $nom, string $prenom, string $email, string $hash_password): int

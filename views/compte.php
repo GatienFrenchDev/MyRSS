@@ -22,6 +22,9 @@
             <h1>Mon profil</h1>
             <h3><?= $utilisateur["prenom"] ?> <?= $utilisateur["nom"] ?></h3>
             <p>Inscrit depuis le <b><?= date("d/m/Y", $utilisateur["date_inscription"]) ?></b> avec l'email <b><?= $utilisateur["email"] ?></b></p>
+            <?php if (isset($_SESSION["is_admin"])) : ?>
+                <p>Connecté en tant qu'administrateur</p>
+            <?php endif; ?>
         </div>
 
     </div>
