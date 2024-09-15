@@ -28,3 +28,9 @@ article.notification{
 article.notification>h3, article.notification>p{
     margin-bottom: 10px;
 }
+
+button{
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 4px;
+}

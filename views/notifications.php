@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="css/font.css">
     <link rel="stylesheet" href="css/notifications.css">
     <link rel="shortcut icon" href="public/img/favicon.jpeg" type="image/x-icon">
+    <script src="js/classes/API.js"></script>
+    <script src="js/notifications.js" defer></script>
 </head>
 
 <body>
@@ -39,7 +41,7 @@
         }
         foreach ($notifications as $notification) {
         ?>
-            <article class="notification">
+            <article class="notification" id="notification-<?= $notification['id_notification'] ?>">
                 <h3><?= htmlspecialchars($notification["titre"]) ?></h3>
                 <?php
                 if (isset($notification["description"])) {
@@ -48,7 +50,7 @@
                 <?php
                 }
                 ?>
-                <a href="api/supprimer-notification?id_notification=<?=$notification["id_notification"]?>">Supprimer</a>
+                <button onclick="deleteNotification(<?= $notification['id_notification'] ?>)">Supprimer</button>
             </article>
 
         <?php

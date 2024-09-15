@@ -2,7 +2,7 @@
 
 session_start();
 
-$id_notification = $_GET["id_notification"];
+$id_notification = $_POST["id_notification"];
 $id_utilisateur = $_SESSION["id_utilisateur"];
 
 if (!isset($_SESSION["id_utilisateur"])) {
@@ -10,7 +10,7 @@ if (!isset($_SESSION["id_utilisateur"])) {
     die(json_encode(["error" => "authentification required"]));
 }
 
-if (!isset($_GET["id_notification"])) {
+if (!isset($_POST["id_notification"])) {
     http_response_code(400);
     die(json_encode(["error" => "id_notification parameter needed"]));
 }
@@ -23,3 +23,4 @@ if(!NotificationModel::notificationAppartientA($id_utilisateur, $id_notification
 }
 
 NotificationModel::deleteNotification($id_notification);
+die(json_encode(["success" => "notification deleted"]));

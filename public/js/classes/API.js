@@ -538,4 +538,13 @@ class API {
             body: data
         });
     }
+
+    static async deleteNotification(id_notification) {
+        const data = new FormData();
+        data.append("id_notification", id_notification);
+        await fetch(`api/delete-notification.php`, {
+            method: "POST",
+            body: data
+        });
+    }
 }
