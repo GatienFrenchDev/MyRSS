@@ -215,7 +215,7 @@ class EspaceModel
     {
         $mysqli = Database::connexion();
 
-        $stmt = $mysqli->prepare("SELECT e.*, COUNT(c.id_utilisateur) AS nb_utilisateurs FROM espace e INNER JOIN contient_des c ON e.id_espace = c.id_espace GROUP BY e.id_espace ORDER BY article_wp DESC, nb_utilisateurs DESC");
+        $stmt = $mysqli->prepare("SELECT e.*, COUNT(c.id_utilisateur) AS nb_utilisateurs FROM espace e INNER JOIN contient_des c ON e.id_espace = c.id_espace GROUP BY e.id_espace ORDER BY article_wp DESC, nb_utilisateurs DESC, ORDER BY e.nom ASC");
         $stmt->execute();
         $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
