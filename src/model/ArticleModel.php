@@ -177,7 +177,7 @@ class ArticleModel
                 $articles[$i]->setId($first_inserted_id + $i);  // Set the id_article for each article
             }
         } catch (Exception $e) {
-            error_log($e->getMessage());
+            echo "[!] Error in insertArticlesIntoDB: " . $e->getMessage();
             return []; // Return empty array in case of failure
         } finally {
             // Only attempt to close if $stmt was successfully initialized

@@ -41,7 +41,7 @@ foreach ($liste_flux as $sourceRSS) {
     // On récupère tous les articles notés dans le xml du flux rss courant
     $articles = getArticlesFromRSSFlux($sourceRSS["id_flux"], $sourceRSS["adresse_url"]);
     // On récupère le dernier article en date du flux rss courant stocké dans la db
-    $dernier_article = FluxModel::getDernierUrlArticle($sourceRSS["id_flux"]);
+    $dernier_article = FluxModel::getLatestInsertedArticle($sourceRSS["id_flux"]);
     $dernier_url_en_date = "";
     // On procéde ensuite par comparaison via l'url de l'article.
     // On considère que si 2 articles ont le même url d'article alors ils sont identiques.
@@ -52,7 +52,6 @@ foreach ($liste_flux as $sourceRSS) {
     foreach ($articles as $article) {
         print_r("  - " . $article->getTitre() . "\n");
         if ($article->getUrlArticle() == $dernier_url_en_date) {
-            print_r("  ( Dernier article trouvé ! )\n");
             break;
         }
         $articles_to_insert[] = $article;
@@ -75,15 +74,7 @@ foreach ($liste_flux as $sourceRSS) {
         unset($rule);
     }
 
-    /**
-     * TODO: ajouter les articles dans la db pour connaitre ensuite leur id et ensuite les ajouter à la classe Article avec setId()
-     */
-
-    // print_r("==============\n");
-    // print_r($articles_to_insert);
-    // print_r("\n==============\n");
-
-    echo "  ( " . time() - $t1 . "s pour ce flux )\n\n";
+    echo " [*] " . time() - $t1 . "s pour traiter ce flux\n\n";
 }
 
 echo "==============\n";

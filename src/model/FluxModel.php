@@ -127,7 +127,7 @@ class FluxModel
         return $res;
     }
 
-    static function getDernierUrlArticle(int $id_flux): Article | null
+    static function getLatestInsertedArticle(int $id_flux): Article | null
     {
         $mysqli = Database::connexion();
 

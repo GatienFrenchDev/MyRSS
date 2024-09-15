@@ -166,7 +166,7 @@ if($articles == null) {
 }
 
 // On récupère le dernier article en date du flux rss courant stocké dans la db
-$dernier_article = FluxModel::getDernierUrlArticle($id_flux);
+$dernier_article = FluxModel::getLatestInsertedArticle($id_flux);
 $dernier_url_en_date = "";
 // On procéde ensuite par comparaison via l'url de l'article.
 // On considère que si 2 articles ont le même url d'article alors ils sont identiques.
