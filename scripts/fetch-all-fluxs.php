@@ -18,7 +18,8 @@ require_once __DIR__ . "/../src/classes/Database.php";
 
 
 echo "# Récupération des flux RSS\n\n";
-echo "## Ce  script interroge tous les flux rss répertoriés dans la db et ajoute les nouveaux articles à la db.\n\n";
+echo "## Ce  script interroge tous les flux rss répertoriés dans la db et ajoute les nouveaux articles à la db.\n";
+echo "## " . date("d/m/Y H:i:s") . "\n\n";
 
 
 $liste_flux = FluxModel::getAllRSSFlux();
