@@ -1179,7 +1179,7 @@ DROP TABLE IF EXISTS `notification`;
 
 CREATE TABLE `notification` (
   `id_notification` int NOT NULL AUTO_INCREMENT,
-  `titre` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `titre` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `description` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `id_utilisateur` int DEFAULT NULL,
   PRIMARY KEY (`id_notification`),
