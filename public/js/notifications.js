@@ -9,3 +9,13 @@ async function deleteNotification(notificationId) {
     await API.deleteNotification(notificationId);
     location.reload();
 }
+
+/**
+ * Deletes all notifications and reloads the page.
+ * 
+ * @returns {Promise<void>} A promise that resolves when all notifications are deleted and the page is reloaded.
+ * */
+async function deleteAllNotifications(){
+    await API.deleteAllNotifications();
+    location.reload();
+}

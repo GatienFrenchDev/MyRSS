@@ -24,6 +24,10 @@
     <div class="container">
         <?php
 
+        if(count($notifications) > 0) { ?>
+            <button onclick="deleteAllNotifications()" style="margin-bottom: 10px;">Supprimer toutes les notifications</button>
+        <?php }
+
         if (count($invitations) == 0 && count($notifications) == 0) {
             echo ('<p style="padding:20px;"><i>Pas de nouvelles notifications...</i></p>');
         }
@@ -36,13 +40,12 @@
                 <a href="api/accepter-invitation.php?id_invitation=<?= $invitation["id_invitation"] ?>">Accepter</a>
                 <a href="api/refuser-invitation.php?id_invitation=<?= $invitation["id_invitation"] ?>">Refuser</a>
             </article>
-
         <?php
         }
         foreach ($notifications as $notification) {
         ?>
             <article class="notification" id="notification-<?= $notification['id_notification'] ?>">
-                <h3><?= htmlspecialchars($notification["titre"]) ?></h3>
+                <h3><?= $notification["titre"] ?></h3>
                 <?php
                 if (isset($notification["description"])) {
                 ?>

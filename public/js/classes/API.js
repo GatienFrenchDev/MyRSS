@@ -547,4 +547,10 @@ class API {
             body: data
         });
     }
+
+    static async deleteAllNotifications() {
+        await fetch(`api/delete-all-notifications.php`, {
+            method: "POST"
+        });
+    }
 }

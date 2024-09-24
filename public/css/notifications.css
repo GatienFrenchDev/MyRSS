@@ -8,6 +8,7 @@ body{
 }
 
 .container{
+    overflow-y: scroll;
     height: 100vh;
     box-sizing: border-box;
     padding: 50px;

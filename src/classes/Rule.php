@@ -75,7 +75,7 @@ class Rule
             CollectionModel::addToCollection($this->id_utilisateur, $article->getId(), 1);
         } elseif ($this->action == 2) {
             // create a notification for the user
-            NotificationModel::sendNotification($this->id_utilisateur, "Nouvel article correspondant à votre règle", "Un article correspondant à votre règle a été trouvé");
+            NotificationModel::sendNotification($this->id_utilisateur, "Nouvel article correspondant à votre règle <i>" . $this->nom . "</i> a été trouvé", "L'article nommé <i>'" . mb_substr($article->getTitre(), 0, 50) . "...'</i> correspond à une de vos règles. <a target='_blank' href='". $article->getUrlArticle() ."'>Lien vers l'article</a>");
         } elseif ($this->action == 3) {
             // send an email to the user
             require __DIR__ . "/../../vendor/autoload.php";

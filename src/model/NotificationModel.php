@@ -41,4 +41,15 @@ class NotificationModel
         $stmt->close();
         $mysqli->close();
     }
+
+    static function deleteAll(int $id_utilisateur): void
+    {
+        $mysqli = Database::connexion();
+    
+        $stmt = $mysqli->prepare("DELETE FROM notification WHERE id_utilisateur = ?");
+        $stmt->bind_param("i", $id_utilisateur);
+        $stmt->execute();
+        $stmt->close();
+        $mysqli->close();
+    }
 }
