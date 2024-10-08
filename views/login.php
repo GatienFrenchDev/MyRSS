@@ -39,7 +39,7 @@
             </p>
         <?php endif; ?>
 
-        <input type="password" placeholder="Password" name="password" required minlength="8" maxlength="32" autocomplete="current-password">
+        <input type="password" placeholder="Mot de passe" name="password" required minlength="8" maxlength="32" autocomplete="current-password">
 
         <?php if ($user_invalid_password) : ?>
             <p class="probleme-formulaire">

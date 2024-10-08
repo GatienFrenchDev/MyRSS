@@ -37,9 +37,9 @@
 
         <input type="email" placeholder="E-mail" name="email" required autocomplete="email">
 
-        <input type="password" placeholder="Password" name="password" required minlength="8" maxlength="32" autocomplete="new-password">
+        <input type="password" placeholder="Mot de passe" name="password" required minlength="8" maxlength="32" autocomplete="new-password">
 
-        <input type="password" placeholder="Confirm password" name="password-confirmation" required minlength="8" maxlength="32" autocomplete="new-password">
+        <input type="password" placeholder="Confirmer le mot de passe" name="password-confirmation" required minlength="8" maxlength="32" autocomplete="new-password">
 
         <input type="submit" value="Commencez maintenant">
 
