@@ -419,4 +419,22 @@ GROUP BY
         $mysqli->close();
         return $res;
     }
+
+    static function estAdmin(int $id_utilisateur): bool | UserNotFoundException
+    {
+        $mysqli = Database::connexion();
+
+        $stmt = $mysqli->prepare("SELECT est_admin FROM utilisateur WHERE id_utilisateur = ?");
+        $stmt->bind_param("i", $id_utilisateur);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        $mysqli->close();
+
+        if(count($res) == 0){
+            throw new UserNotFoundException(); ;
+        }
+
+        return $res[0]["est_admin"] == 1;
+    }
 }

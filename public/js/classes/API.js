@@ -553,4 +553,13 @@ class API {
             method: "POST"
         });
     }
+
+    static async toggleAccessToWP(id_espace) {
+        const data = new FormData();
+        data.append("id_espace", id_espace);
+        return await fetch(`api/toggle-access-to-wp.php`, {
+            method: "POST",
+            body: data
+        });
+    }
 }

@@ -269,7 +269,7 @@ class EspaceModel
         return $res;
     }
 
-    static function hasAccessToWP(int $id_espace):bool
+    static function hasAccessToWP(int $id_espace): bool
     {
         $mysqli = Database::connexion();
 
@@ -282,5 +282,19 @@ class EspaceModel
         $mysqli->close();
 
         return count($res) > 0;
+    }
+
+    /**
+     * Active ou désactive l'accès au WP pour un espace
+     */
+    static function toggleAccessToWP(int $id_espace): void
+    {
+        $mysqli = Database::connexion();
+
+        $stmt = $mysqli->prepare("UPDATE espace SET article_wp = 1 - article_wp WHERE id_espace = ?");
+        $stmt->bind_param("i", $id_espace);
+        $stmt->execute();
+        $stmt->close();
+        $mysqli->close();
     }
 }

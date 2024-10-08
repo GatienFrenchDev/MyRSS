@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/espace.css">
 
+    <script src="/js/classes/api.js"></script>
+    <script src="/js/details-espace.js"></script>
+
     <link rel="shortcut icon" href="public/img/favicon.jpeg" type="image/x-icon">
 </head>
 
@@ -24,14 +27,14 @@
     <div id="container-espace">
 
         <h1><?= $espace["nom"] ?></h1>
+        <h2>Accès au WP : <?= $espace["article_wp"] == 1 ? "Oui" : "Non" ?></h2>
+        <button style="padding: 4px; width: fit-content;" onclick="toggleAccessToWP(<?= $espace['id_espace']?>)">Donner l'accès au WP</button>
 
         <div class="participants">
-            <h2>Participants</h2>
+            <h2>Participants (<?= $espace["nb_utilisateurs"] ?>)</h2>
             <?php foreach ($participants as $participant): ?>
                 <div class="participant">
-                    <p><?= $participant["prenom"] ?> <?= $participant["nom"] ?></p>
-                    <p><?= $participant["email"] ?></p>
-                    <p><?= $participant["role"] ?></p>
+                    <p><?= $participant["prenom"] ?> <?= $participant["nom"] ?> (<?= $participant["email"] ?>) en tant que <b><?= $participant["role"] ?></b></p>
                 </div>
             <?php endforeach; ?>
         </div>
