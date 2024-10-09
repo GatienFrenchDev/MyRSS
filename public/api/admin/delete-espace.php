@@ -19,8 +19,8 @@ if (!is_numeric($id_espace)) {
     die(json_encode(["error" => "id_espace must be an integer"]));
 }
 
-require_once __DIR__ . "/../../src/model/UtilisateurModel.php";
-require_once __DIR__ . "/../../src/model/EspaceModel.php";
+require_once __DIR__ . "/../../../src/model/UtilisateurModel.php";
+require_once __DIR__ . "/../../../src/model/EspaceModel.php";
 
 $id_utilisateur = $_SESSION["id_utilisateur"];
 

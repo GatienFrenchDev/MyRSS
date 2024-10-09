@@ -557,7 +557,7 @@ class API {
     static async toggleAccessToWP(id_espace) {
         const data = new FormData();
         data.append("id_espace", id_espace);
-        return await fetch(`api/toggle-access-to-wp.php`, {
+        return await fetch(`api/admin/toggle-access-to-wp.php`, {
             method: "POST",
             body: data
         });
@@ -566,7 +566,7 @@ class API {
     static async deleteEspace(id_espace) {
         const data = new FormData();
         data.append("id_espace", id_espace);
-        return await fetch(`api/delete-espace.php`, {
+        return await fetch(`api/admin/delete-espace.php`, {
             method: "POST",
             body: data
         });
