@@ -562,4 +562,13 @@ class API {
             body: data
         });
     }
+
+    static async deleteEspace(id_espace) {
+        const data = new FormData();
+        data.append("id_espace", id_espace);
+        return await fetch(`api/delete-espace.php`, {
+            method: "POST",
+            body: data
+        });
+    }
 }

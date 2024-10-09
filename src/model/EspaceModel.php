@@ -297,4 +297,15 @@ class EspaceModel
         $stmt->close();
         $mysqli->close();
     }
+
+    static function delete(int $id_espace): void
+    {
+        $mysqli = Database::connexion();
+
+        $stmt = $mysqli->prepare("DELETE FROM espace WHERE id_espace = ?");
+        $stmt->bind_param("i", $id_espace);
+        $stmt->execute();
+        $stmt->close();
+        $mysqli->close();
+    }
 }

@@ -28,7 +28,10 @@
 
         <h1><?= $espace["nom"] ?></h1>
         <h2>Accès au WP : <?= $espace["article_wp"] == 1 ? "Oui" : "Non" ?></h2>
-        <button style="padding: 4px; width: fit-content;" onclick="toggleAccessToWP(<?= $espace['id_espace']?>)">Donner l'accès au WP</button>
+        <div style="display: flex; gap: 8px;">
+            <button style="padding: 4px; width: fit-content;" onclick="toggleAccessToWP(<?= $espace['id_espace']?>)">Donner l'accès au WP</button>
+            <button style="padding: 4px; width: fit-content;" onclick="deleteEspace(<?= $espace['id_espace']?>)">Supprimer l'espace</button>
+        </div>
 
         <div class="participants">
             <h2>Participants (<?= $espace["nb_utilisateurs"] ?>)</h2>
