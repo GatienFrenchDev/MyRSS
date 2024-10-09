@@ -1,5 +1,10 @@
+/**
+ * La classe Arborescence permet de gérer l'affichage de l'arborescence
+ * Dans l'arborecence, on peut retrouver les fluxs RSS, les catégories et les espaces
+ */
 class Arborescence{
     /**
+     * This method is used to add a flux RSS to the arborescence
      * 
      * @param {FluxRSS} flux_rss 
     */
@@ -10,7 +15,7 @@ class Arborescence{
     }
 
     /**
-     * 
+     * This method is used to add the fluxs to the arborescence
      * @param {FluxRSS[]} fluxs 
      */
     static addFluxs(fluxs){
@@ -19,13 +24,16 @@ class Arborescence{
         });
     }
 
+    /**
+     * This method is used to empty the arborescence
+     */
     static vider(){
         const arborescence = document.getElementById('arborescence');
         arborescence.innerHTML = "";
     }
 
     /**
-     * 
+     * This method is used to add the categories to the arborescence
      * @param {Categorie[]} categories 
      */
     static addCategories(categories){
@@ -35,7 +43,7 @@ class Arborescence{
     }
 
     /**
-     * 
+     * This method is used to add a category to the arborescence
      * @param {Categorie} categorie 
      */
     static addCategorie(categorie){
@@ -45,7 +53,7 @@ class Arborescence{
     }
 
     /**
-     * 
+     * This method is used to add the spaces to the arborescence
      * @param {Espace[]} espaces 
      */
     static addEspaces(espaces){
@@ -55,13 +63,19 @@ class Arborescence{
         new BoutonAjoutDossier()
     }
 
+    /**
+     * This method is used to add a space to the arborescence
+     * @param {Espace} espace 
+     */
     static addEspace(espace){
         const arborescence = document.getElementById('arborescence');
         const HTMLespace = espace.getHTMLElement();
         arborescence.appendChild(HTMLespace);
     }
 
-    
+    /**
+     * This method is used to add the back button to the arborescence
+     */
     static addBackButton() {
         const arbo = document.querySelector('div#arborescence')
         const div = document.createElement('div');
