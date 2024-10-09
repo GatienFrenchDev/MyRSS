@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/espace.css">
 
-    <script src="/js/classes/api.js"></script>
+    <script src="/js/classes/API.js"></script>
     <script src="/js/details-espace.js"></script>
 
     <link rel="shortcut icon" href="public/img/favicon.jpeg" type="image/x-icon">
