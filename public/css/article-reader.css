@@ -78,26 +78,28 @@ div#container-actions>button.starred{
     margin-right: 0 !important;
 }
 
+#btn-add-to-processed.starred{
+    background-color: #29d634 !important;
+    border: 1px solid #29d634 !important;
+}
+
+#btn-add-to-processed.starred>svg{
+    display: none;
+}
+
+#btn-add-to-processed.starred:hover {
+    color: white !important;
+}
+
 
 div#container-actions>button>svg>path{
     transition: all 0.2s ease-in-out;
 }
-/* 
-div#container-actions>button:hover{
-    border: 1px solid #50e250;
-    color: #50e250;
-}
-
-div#container-actions>button:hover>svg>path{
-    stroke: #50e250;
-} */
 
 div#container-actions>button.starred:hover{
     border: 1px solid red;
     color: red;
 }
-
-/* Oui, la partie css ici est assez moyenne. Une petite pr pour fix ca n'est pas de refus */
 
 div#container-actions>button#btn-add-to-favorites.starred:hover>svg>path{
     stroke: red;

@@ -51,7 +51,7 @@ class Categorie{
             new BoutonAjoutDossier()
     
             ContainerArticle.numero_page = 0;
-            const articles = await API.getArticlesFromCategorie(this.id_categorie, ContainerArticle.numero_page);
+            const articles = await API.getArticlesFromCategorie(this.id_categorie, Arborescence.getCurrentEspaceId(), ContainerArticle.numero_page);
             ContainerArticle.vider();
             ContainerArticle.addArticles(articles);
     

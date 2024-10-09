@@ -139,7 +139,7 @@ class Arborescence{
                 new BoutonAjoutDossier();
 
                 ContainerArticle.numero_page = 0;
-                const articles = await API.getArticlesFromCategorie(id_categorie, ContainerArticle.numero_page);
+                const articles = await API.getArticlesFromCategorie(id_categorie, Arborescence.getCurrentEspaceId(), ContainerArticle.numero_page);
                 ContainerArticle.vider();
                 ContainerArticle.addArticles(articles);
             }
@@ -148,5 +148,16 @@ class Arborescence{
         arbo.appendChild(div);
     }
 
+    /**
+     * This method is used to get the current active space id
+     * 
+     * @returns {number|null} l'id de l'espace actif
+     */
+    static getCurrentEspaceId(){
+        if(arborescence.length == 0){
+            return null;
+        }
+        return arborescence[0]["id"];
+    }
 
 }

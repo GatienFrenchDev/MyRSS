@@ -46,12 +46,12 @@ class ArticleModel
         $mysqli->close();
     }
 
-    static function marquerCommeTraite(int $id_article, int $id_espace): bool
+    static function marquerCommeTraite(int $id_article, int $id_espace, int $id_utilisateur): bool
     {
         $mysqli = Database::connexion();
 
-        $stmt = $mysqli->prepare("INSERT INTO est_traite (id_article, id_espace) VALUES (?, ?)");
-        $stmt->bind_param("ii", $id_article, $id_espace);
+        $stmt = $mysqli->prepare("INSERT INTO est_traite (id_article, id_espace, id_traite_par) VALUES (?, ?, ?)");
+        $stmt->bind_param("iii", $id_article, $id_espace, $id_utilisateur);
         $res = true;
         try {
             $stmt->execute();
@@ -68,7 +68,7 @@ class ArticleModel
         $mysqli = Database::connexion();
 
         $stmt = $mysqli->prepare("DELETE FROM est_traite WHERE id_article = ? AND id_espace = ?");
-        $stmt->bind_param("ii", $id_article, $id_espace);
+        $stmt->bind_param("iii", $id_article, $id_espace);
         $stmt->execute();
         $stmt->close();
         $mysqli->close();

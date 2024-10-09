@@ -42,29 +42,36 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/src/model/CollectionModel.php";
 
 $id_utilisateur = $_SESSION["id_utilisateur"];
 
+if(!isset($_GET["id_espace"])){
+    http_response_code(400);
+    die(json_encode(["error" => "id_espace is required"]));
+}
+
+$id_espace = $_GET["id_espace"];
+
+if (!EspaceModel::hasReadRights($id_utilisateur, $id_espace)) {
+    die(json_encode(["error" => "espace does not belong to you"]));
+}
+
 if (isset($_GET["id_categorie"])) {
     $id_categorie = $_GET["id_categorie"];
-
     if (!CategorieModel::hasReadRights($id_utilisateur, $id_categorie)) {
         http_response_code(403);
         die(json_encode(["error" => "not enough rights to get articles inside this categorie"]));
     }
+    die(json_encode(["articles" => CategorieModel::getArticlesInsideCategorie($id_categorie, $id_espace, $numero_page)]));
 
-    die(json_encode(["articles" => CategorieModel::getArticlesInsideCategorie($id_categorie, $numero_page)]));
-} else if (isset($_GET["id_espace"])) {
-    $id_espace = $_GET["id_espace"];
 
-    if (!EspaceModel::hasReadRights($id_utilisateur, $id_espace)) {
-        die(json_encode(["error" => "espace does not belong to you"]));
-    }
-
-    die(json_encode(["articles" => EspaceModel::getArticlesInsideEspace($id_espace, $numero_page)]));
 } else if (isset($_GET["id_flux"])) {
     $id_flux = $_GET["id_flux"];
-    die(json_encode(["articles" => FluxModel::getArticlesFromFlux($id_flux, $numero_page)]));
+    die(json_encode(["articles" => FluxModel::getArticlesFromFlux($id_flux, $id_espace, $numero_page)]));
+
+
 } else if (isset($_GET["id_collection"])) {
     $id_collection = $_GET["id_collection"];
     die(json_encode(["articles" => CollectionModel::getArticlesInsideCollection($id_collection, $numero_page)]));
+
+
 } else {
-    die(json_encode(["error" => "id_categorie, id_espace, id_flux or id_collection is required"]));
+    die(json_encode(["articles" => EspaceModel::getArticlesInsideEspace($id_espace, $numero_page)]));
 }

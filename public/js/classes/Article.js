@@ -14,10 +14,10 @@ class Article {
      * @param {String} nom_source - Le nom de la source de l'article.
      * @param {String} url_favicon - L'URL de l'icone associée à la source de l'article.
      * @param {boolean} est_lu - Indique si l'article a été lu ou non.
-     * @param {boolean} est_traite - Indique si l'article a été noté comme traité.
+     * @param {String | null} traite_par - Prénom et nom de la personne ayant traité l'article. ex: "Jean Dupont" ou null si non traité.
      * @param {String} url_image - l'URL de l'image de l'article, si il en existe une
      */
-    constructor(id_article, titre, description, date_pub, url_article, nom_source, url_favicon, est_lu, est_traite, url_image) {
+    constructor(id_article, titre, description, date_pub, url_article, nom_source, url_favicon, est_lu, traite_par, url_image) {
         this.id_article = id_article;
         this.titre = titre;
         this.description = description;
@@ -26,7 +26,7 @@ class Article {
         this.nom_source = nom_source;
         this.url_favicon = url_favicon;
         this.est_lu = est_lu;
-        this.est_traite = est_traite;
+        this.traite_par = traite_par;
         this.url_image = url_image;
     }
 
@@ -55,7 +55,7 @@ class Article {
             article.classList.add("article-non-lu");
         }
 
-        if (this.est_traite) {
+        if (this.traite_par !== null) {
             article.classList.add("est-traite");
         }
 

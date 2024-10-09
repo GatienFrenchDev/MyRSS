@@ -31,6 +31,6 @@ if(!EspaceModel::hasReadRights($id_utilisateur, $id_espace)){
 }
 
 
-if(!ArticleModel::marquerCommeTraite($id_article, $id_espace)){
+if(!ArticleModel::marquerCommeTraite($id_article, $id_espace, $id_utilisateur)){
     ArticleModel::removeFromTraite($id_article, $id_espace);
 }

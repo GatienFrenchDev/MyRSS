@@ -29,7 +29,7 @@ class FluxRSS {
             
             ContainerArticle.fluxOnFocus = this;
 
-            const articles = await API.getArticlesFromFlux(this.id_flux, 0);
+            const articles = await API.getArticlesFromFlux(this.id_flux, Arborescence.getCurrentEspaceId(), 0);
 
             ContainerArticle.numero_page = 0;
             ContainerArticle.vider();

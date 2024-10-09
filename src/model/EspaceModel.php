@@ -18,17 +18,20 @@ class EspaceModel
 
         $numero_page *= 100;
 
-        $stmt = $mysqli->prepare("SELECT a.*, f.*, 
-    CASE WHEN el.id_article IS NOT NULL THEN 1 ELSE 0 END AS est_lu,
-    CASE WHEN et.id_article IS NOT NULL THEN 1 ELSE 0 END AS est_traite
+        $stmt = $mysqli->prepare("SELECT a.*, f.*,
+        CONCAT(u.prenom, ' ', u.nom) AS traite_par,
+    CASE WHEN el.id_article IS NOT NULL THEN 1 ELSE 0 END AS est_lu
     FROM article a
     INNER JOIN flux_rss f ON a.id_flux = f.id_flux
     INNER JOIN contient c ON c.id_flux = f.id_flux
     LEFT JOIN est_lu el ON a.id_article = el.id_article
-    LEFT JOIN est_traite et ON a.id_article = et.id_article
+    LEFT JOIN est_traite et ON a.id_article = et.id_article AND et.id_espace = ?
+    LEFT JOIN utilisateur u ON et.id_traite_par = u.id_utilisateur
     INNER JOIN categorie cat ON cat.id_categorie = c.id_categorie
-    WHERE cat.id_espace = ? AND cat.id_parent IS NULL ORDER BY date_pub DESC LIMIT 100 OFFSET ?");
-        $stmt->bind_param("ii", $id_espace, $numero_page);
+    WHERE cat.id_espace = ? AND cat.id_parent IS NULL
+    ORDER BY date_pub DESC
+    LIMIT 100 OFFSET ?");
+        $stmt->bind_param("iii", $id_espace, $id_espace, $numero_page);
         $stmt->execute();
         $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 

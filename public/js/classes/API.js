@@ -21,7 +21,7 @@ class API {
                 element["nom"],
                 `http://www.google.com/s2/favicons?domain=${Tools.extractDomain(element["adresse_url"])}`,
                 element["est_lu"] == 1,
-                element["est_traite"] == 1,
+                element["traite_par"],
                 element["url_image"]
             )
             articles.push(article);
@@ -100,8 +100,8 @@ class API {
      * @param {Number} id_categorie 
      * @returns {Article[]}
      */
-    static async getArticlesFromCategorie(id_categorie, numero_page) {
-        const request = await fetch(`api/get-articles.php?id_categorie=${encodeURIComponent(id_categorie)}&numero_page=${numero_page}`, { method: 'GET' });
+    static async getArticlesFromCategorie(id_categorie, id_espace, numero_page) {
+        const request = await fetch(`api/get-articles.php?id_categorie=${encodeURIComponent(id_categorie)}&numero_page=${numero_page}&id_espace=${id_espace}`, { method: 'GET' });
         const json = await request.json();
         let articles = [];
 
@@ -115,7 +115,7 @@ class API {
                 element["nom"],
                 `http://www.google.com/s2/favicons?domain=${Tools.extractDomain(element["adresse_url"])}`,
                 element["est_lu"] == 1,
-                element["est_traite"] == 1,
+                element["traite_par"],
                 element["url_image"]
             )
             articles.push(article);
@@ -126,10 +126,11 @@ class API {
     /**
  * 
  * @param {Number} id_flux 
+ * @param {Number} id_espace
  * @returns {Article[]}
  */
-    static async getArticlesFromFlux(id_flux, numero_page) {
-        const request = await fetch(`api/get-articles.php?id_flux=${encodeURIComponent(id_flux)}&numero_page=${encodeURIComponent(numero_page)}`, { method: 'GET' });
+    static async getArticlesFromFlux(id_flux, id_espace, numero_page) {
+        const request = await fetch(`api/get-articles.php?id_flux=${encodeURIComponent(id_flux)}&numero_page=${encodeURIComponent(numero_page)}&id_espace=${encodeURIComponent(id_espace)}`, { method: 'GET' });
         const json = await request.json();
         let articles = [];
 
@@ -143,7 +144,7 @@ class API {
                 element["nom"],
                 `http://www.google.com/s2/favicons?domain=${Tools.extractDomain(element["adresse_url"])}`,
                 element["est_lu"] == 1,
-                element["est_traite"] == 1,
+                element["traite_par"],
                 element["url_image"]
             )
             articles.push(article);

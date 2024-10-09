@@ -1,7 +1,8 @@
 class ArticleReader {
 
     /**
-     * @param {Article} article 
+     * Affiche un article dans le lecteur
+     * @param {Article} article - L'article à afficher dans le lecteur
      * @returns {void}
      */
     static async afficher (article) {
@@ -74,12 +75,10 @@ class ArticleReader {
             if(typeof arborescence[0] !== "string"){
 
                 const btn_traite = BoutonArticleTraite.getHTML();
-                
-                const appartientAuTraite = await API.articleDansTraite(article.id_article, arborescence[0]["id"]);
 
-                if(appartientAuTraite){
+                if(article.traite_par !== null){
                     btn_traite.classList.add("starred");
-                    btn_traite.children[1].innerText = "";
+                    btn_traite.children[1].innerText = `Traité par ${article.traite_par}`;
                 }
 
                 btn_traite.addEventListener("click", async () => {
@@ -99,7 +98,7 @@ class ArticleReader {
                         if(articleDOM != null){
                             articleDOM.classList.add("est-traite");
                         }
-                        btn_traite.children[1].innerText = "";
+                        btn_traite.children[1].innerText = `Article traité`;
                     }
                 });
 
