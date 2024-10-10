@@ -128,7 +128,7 @@ GROUP BY
     {
         $mysqli = Database::connexion();
 
-        $stmt = $mysqli->prepare("SELECT * FROM notification WHERE id_utilisateur = ?");
+        $stmt = $mysqli->prepare("SELECT * FROM notification WHERE id_utilisateur = ? ORDER BY id_notification DESC");
         $stmt->bind_param("i", $id_utilisateur);
         $stmt->execute();
         $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);

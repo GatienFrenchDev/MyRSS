@@ -30,6 +30,7 @@ a.espace-container>div {
     display: flex;
     width: 100%;
     justify-content: space-between;
+    cursor: pointer;
 
 }
 

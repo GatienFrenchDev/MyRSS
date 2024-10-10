@@ -340,4 +340,19 @@ class EspaceModel
 
         $mysqli->close();
     }
+
+    static function possedeUnEspaceEnCommun(int $id_utilisateur1, int $id_utilisateur2): bool
+    {
+        $mysqli = Database::connexion();
+
+        $stmt = $mysqli->prepare("SELECT * FROM contient_des WHERE id_utilisateur = ? OR id_utilisateur = ?");
+        $stmt->bind_param("ii", $id_utilisateur1, $id_utilisateur2);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+        $stmt->close();
+        $mysqli->close();
+
+        return count($res) > 1;
+    }
 }

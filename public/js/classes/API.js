@@ -582,4 +582,14 @@ class API {
             body: data
         });
     }
+
+    static async shareArticle(id_article, id_utilisateur) {
+        const data = new FormData();
+        data.append("id_article", id_article);
+        data.append("id_utilisateur", id_utilisateur);
+        return await fetch(`api/share-article.php`, {
+            method: "POST",
+            body: data
+        });
+    }
 }

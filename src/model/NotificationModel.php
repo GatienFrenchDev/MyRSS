@@ -1,6 +1,8 @@
 <?php
 
 require_once __DIR__ . "/../classes/Database.php";
+require_once __DIR__ . "/../model/NotificationModel.php";
+require_once __DIR__ . "/../model/UtilisateurModel.php";
 
 class NotificationModel
 {
@@ -51,5 +53,14 @@ class NotificationModel
         $stmt->execute();
         $stmt->close();
         $mysqli->close();
+    }
+
+    static function partagerArticle(Article $article, int $id_utilisateur, int $id_destinataire): void
+    {
+        $utilisateur = UtilisateurModel::getUserDetailsFromId($id_utilisateur);
+
+        $titre = "[PARTAGE] " . $utilisateur["prenom"] . " " . $utilisateur["nom"] . " vous a partagé un article";
+        $message = $utilisateur["prenom"] . " " .$utilisateur["nom"] . " vous a partagé l'article intitulé <i>" . mb_substr($article->getTitre(), 0, 40) . "...</i><a target='_blank' href='". $article->getUrlArticle() ."'>Lien vers l'article</a>";
+        NotificationModel::sendNotification($id_destinataire, $titre, $message);
     }
 }

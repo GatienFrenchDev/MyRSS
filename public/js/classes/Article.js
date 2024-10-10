@@ -123,6 +123,7 @@ class Article {
             ContextMenu.vider();
 
             const item_non_lu = ContextMenu.addItem("Marquer comme non lu");
+            const item_share_with = ContextMenu.addItem("Partager avec");
 
 
             if(espace_actif.article_wp){
@@ -134,6 +135,9 @@ class Article {
                     if (!espace_actif) {
                         return;
                     }
+                    // demande de confirmation auprès de l'utilisateur
+                    if (!window.confirm("Voulez-vous vraiment créer un brief sur WP HTI ?")) return;
+
                     await API.sendArticleToWP(this.id_article, espace_actif["id_espace"], "brief");
                     window.alert("Brief créé avec succès");
                 });
@@ -142,6 +146,7 @@ class Article {
                     if (!espace_actif) {
                         return;
                     }
+                    if (!window.confirm("Voulez-vous vraiment créer un mercato sur WP HTI ?")) return;
                     await API.sendArticleToWP(this.id_article, espace_actif["id_espace"], "mercato");
                     window.alert("Mercato créé avec succès");
                 });
@@ -150,6 +155,7 @@ class Article {
                     if (!espace_actif) {
                         return;
                     }
+                    if (!window.confirm("Voulez-vous vraiment créer un post CI sur WP HTI ?")) return;
                     await API.sendArticleToWP(this.id_article, espace_actif["id_espace"], "post_ci");
                     window.alert("Article créé avec succès");
                 });
@@ -161,6 +167,14 @@ class Article {
                 }
                 await API.setArticleNonLu(this.id_article, espace_actif["id_espace"]);
                 article.classList.add("article-non-lu");
+            });
+
+            item_share_with.addEventListener('click', async () => {
+                if (!espace_actif) {
+                    alert("Erreur: Aucun espace actif detecté");
+                    return;
+                }
+                window.location.href = `share?article=${this.id_article}&espace=${espace_actif["id_espace"]}`;
             });
             
         });
