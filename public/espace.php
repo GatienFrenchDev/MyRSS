@@ -31,7 +31,7 @@ try {
     $participants = EspaceModel::getParticipants($id_espace);
 } catch (EspaceNotFoundException $e) {
     http_response_code(404);
-    header("Location: /");
+    header("Location: /espaces");
 }
 
 require_once __DIR__ . "/../views/components/side-bar.php";

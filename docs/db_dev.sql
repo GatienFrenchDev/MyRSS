@@ -7,7 +7,7 @@
 #
 # Hôte: localhost (MySQL 9.0.0)
 # Base de données: myrss
-# Temps de génération: 2024-09-24 15:20:43 +0000
+# Temps de génération: 2024-10-09 18:35:37 +0000
 # ************************************************************
 
 
@@ -1167,6 +1167,9 @@ LOCK TABLES `est_lu` WRITE;
 INSERT INTO `est_lu` (`id_article`, `id_espace`)
 VALUES
 	(4266,11),
+	(26316,11),
+	(26325,11),
+	(26336,11),
 	(5422,28);
 
 /*!40000 ALTER TABLE `est_lu` ENABLE KEYS */;
@@ -1181,18 +1184,22 @@ DROP TABLE IF EXISTS `est_traite`;
 CREATE TABLE `est_traite` (
   `id_article` int NOT NULL,
   `id_espace` int NOT NULL,
+  `id_traite_par` int NOT NULL,
   UNIQUE KEY `id_article` (`id_article`,`id_espace`),
   KEY `id_espace` (`id_espace`) USING BTREE,
+  KEY `id_traite_par` (`id_traite_par`),
   CONSTRAINT `est_traite_ibfk_1` FOREIGN KEY (`id_article`) REFERENCES `article` (`id_article`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `est_traite_ibfk_2` FOREIGN KEY (`id_espace`) REFERENCES `espace` (`id_espace`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `est_traite_ibfk_2` FOREIGN KEY (`id_espace`) REFERENCES `espace` (`id_espace`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `est_traite_ibfk_3` FOREIGN KEY (`id_traite_par`) REFERENCES `utilisateur` (`id_utilisateur`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 LOCK TABLES `est_traite` WRITE;
 /*!40000 ALTER TABLE `est_traite` DISABLE KEYS */;
 
-INSERT INTO `est_traite` (`id_article`, `id_espace`)
+INSERT INTO `est_traite` (`id_article`, `id_espace`, `id_traite_par`)
 VALUES
-	(4266,11);
+	(26316,11,1),
+	(26336,11,1);
 
 /*!40000 ALTER TABLE `est_traite` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1294,12 +1301,6 @@ LOCK TABLES `notification` WRITE;
 
 INSERT INTO `notification` (`id_notification`, `titre`, `description`, `id_utilisateur`)
 VALUES
-	(33,'Nouvel article correspondant à votre règle <i>Test</i> a été trouvé','L\'article nommé <i>\'Intempéries dans le Var: les plages de Fréjus ferm...\'</i> correspond à une de vos règles. <a target=\'_blank\' href=\'https://www.bfmtv.com/var/intemperies-dans-le-var-les-plages-de-frejus-fermees-jusqu-a-nouvel-ordre_AN-202409240703.html\'>Lien vers l\'article</a>',1),
-	(34,'Nouvel article correspondant à votre règle <i>Test</i> a été trouvé','L\'article nommé <i>\'Dix ans plus tard, Saint-Martin-Vésubie rend homma...\'</i> correspond à une de vos règles. <a target=\'_blank\' href=\'https://www.bfmtv.com/cote-d-azur/replay-emissions/bonsoir-cote-d-azur/dix-ans-plus-tard-saint-martin-vesubie-rend-hommage-a-herve-gourdel_VN-202409240704.html\'>Lien vers l\'article</a>',1),
-	(35,'Nouvel article correspondant à votre règle <i>Test</i> a été trouvé','L\'article nommé <i>\'Mode: le footballeur des Bleus Jules Koundé casse ...\'</i> correspond à une de vos règles. <a target=\'_blank\' href=\'https://www.bfmtv.com/people/mode/mode-le-footballeur-des-bleus-jules-kounde-casse-les-codes-dans-la-nouvelle-campagne-de-jacquemus_VN-202409240702.html\'>Lien vers l\'article</a>',1),
-	(36,'Nouvel article correspondant à votre règle <i>Test</i> a été trouvé','L\'article nommé <i>\'Louvre-Lens: la Galerie du temps en chantier pour ...\'</i> correspond à une de vos règles. <a target=\'_blank\' href=\'https://www.bfmtv.com/grand-lille/replay-emissions/bonsoir-lille/louvre-lens-la-galerie-du-temps-en-chantier-pour-une-reouverture-le-4-decembre_VN-202409240700.html\'>Lien vers l\'article</a>',1),
-	(37,'Nouvel article correspondant à votre règle <i>Test</i> a été trouvé','L\'article nommé <i>\'Supermarché: que faire quand le prix indiqué en ra...\'</i> correspond à une de vos règles. <a target=\'_blank\' href=\'https://rmc.bfmtv.com/conso/supermarche-que-faire-quand-le-prix-indique-en-rayon-n-est-pas-celui-qui-s-affiche-en-caisse_AN-202409240698.html\'>Lien vers l\'article</a>',1),
-	(38,'Nouvel article correspondant à votre règle <i>Test</i> a été trouvé','L\'article nommé <i>\'Liban: au moins six morts dans une \"frappe ciblée\"...\'</i> correspond à une de vos règles. <a target=\'_blank\' href=\'https://www.bfmtv.com/international/moyen-orient/liban-l-armee-israelienne-lance-une-frappe-ciblee-sur-la-capitale-beyrouth_AV-202409240563.html\'>Lien vers l\'article</a>',1),
 	(39,'Nouvel article correspondant à votre règle <i>Test</i> a été trouvé','L\'article nommé <i>\'Vénissieux: un homme mortellement poignardé, son f...\'</i> correspond à une de vos règles. <a target=\'_blank\' href=\'https://www.bfmtv.com/lyon/replay-emissions/bonsoir-lyon/venissieux-un-homme-mortellement-poignarde-son-fils-de-16-ans-place-en-garde-a-vue_VN-202409240696.html\'>Lien vers l\'article</a>',1),
 	(40,'Nouvel article correspondant à votre règle <i>Test</i> a été trouvé','L\'article nommé <i>\'\"Ce n\'est pas notre guerre\": les Libanais coincés ...\'</i> correspond à une de vos règles. <a target=\'_blank\' href=\'https://www.bfmtv.com/international/moyen-orient/israel/ce-n-est-pas-notre-guerre-les-libanais-coinces-au-milieu-de-la-guerre-entre-israel-et-le-hezbollah_VN-202409240695.html\'>Lien vers l\'article</a>',1),
 	(41,'Nouvel article correspondant à votre règle <i>Test</i> a été trouvé','L\'article nommé <i>\'Lyon: une étude sur la présence de PFAS dans les c...\'</i> correspond à une de vos règles. <a target=\'_blank\' href=\'https://www.bfmtv.com/lyon/replay-emissions/bonsoir-lyon/lyon-une-etude-sur-la-presence-de-pfas-dans-les-creches-et-les-ecoles_VN-202409240694.html\'>Lien vers l\'article</a>',1),

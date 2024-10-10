@@ -49,3 +49,20 @@ a{
 a:hover{
     text-decoration: underline;
 }
+
+ul {
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+li > button{
+    padding: 3px;
+}

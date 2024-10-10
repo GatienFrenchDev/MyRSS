@@ -572,4 +572,14 @@ class API {
             body: data
         });
     }
+
+    static async removeParticipant(id_user, id_espace) {
+        const data = new FormData();
+        data.append("id_utilisateur", id_user);
+        data.append("id_espace", id_espace);
+        return await fetch(`api/admin/remove-participant.php`, {
+            method: "POST",
+            body: data
+        });
+    }
 }

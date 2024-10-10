@@ -192,7 +192,7 @@ class EspaceModel
         $mysqli->close();
 
         if (count($res) == 0) {
-            return new EspaceNotFoundException();
+            throw new EspaceNotFoundException();
         }
 
         return $res[0];
@@ -309,6 +309,35 @@ class EspaceModel
         $stmt->bind_param("i", $id_espace);
         $stmt->execute();
         $stmt->close();
+        $mysqli->close();
+    }
+
+    /**
+     * Retire un utilisateur d'un espace. Si l'espace ne contient plus d'utilisateur, il est supprimé.
+     * 
+     * @param int $id_utilisateur ID de l'utilisateur à retirer
+     * @param int $id_espace ID de l'espace à modifier
+     */
+    static function retirerUser(int $id_utilisateur, int $id_espace): void
+    {
+        $mysqli = Database::connexion();
+
+        $stmt = $mysqli->prepare("DELETE FROM contient_des WHERE id_utilisateur = ? AND id_espace = ?");
+        $stmt->bind_param("ii", $id_utilisateur, $id_espace);
+        $stmt->execute();
+        $stmt->close();
+
+        // Si l'espace ne contient plus d'utilisateur, on le supprime
+        $stmt = $mysqli->prepare("SELECT COUNT(id_utilisateur) FROM contient_des WHERE id_espace = ?");
+        $stmt->bind_param("i", $id_espace);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+
+        if ($res[0]["COUNT(id_utilisateur)"] == 0) {
+            self::delete($id_espace);
+        }
+
         $mysqli->close();
     }
 }
