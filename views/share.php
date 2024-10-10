@@ -30,6 +30,9 @@
                 <h1>Avec qui voulez vous partager cette article ?</h1>
                 <p>Liste de toutes les personnes présentes dans l'espace.</p>
             </header>
+            <?php if (count($participants) == 0) { ?>
+                <p style="padding:20px;"><i>Pas de participants autre que vous dans cet espace...</i></p>
+            <?php } ?>
             <?php foreach ($participants as $participant) { ?>
                 <button class="espace-container" onclick="shareArticle(<?= $id_article ?>, <?= $participant['id_utilisateur']?>)">
                     <div class="espace">
