@@ -27,6 +27,7 @@ class WordPress
      * @return bool True if the article was pushed successfully, false otherwise
      * 
      * @throws ArticleNotFoundException If the article was not found
+     * @throws WordPressException If an error occured while pushing the article
      * 
      * @example WordPress::pushToHTI(24608, "Martin Dupont", WordPressCategories::MERCATO);
      */
@@ -46,6 +47,8 @@ class WordPress
             "status" => "draft"
         ];
 
+        $payload = json_encode($payload);
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 1);
@@ -55,9 +58,10 @@ class WordPress
         curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         $res = curl_exec($ch);
+        $info = curl_getinfo($ch);
         curl_close($ch);
 
-        if ($res === false) {
+        if ($info["http_code"] != 201 || !$res){
             throw new WordPressException();
         }
 
