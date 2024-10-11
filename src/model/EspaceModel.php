@@ -114,7 +114,7 @@ class EspaceModel
         $role = "admin";
 
         $stmt = $mysqli->prepare("INSERT INTO contient_des (id_utilisateur, id_espace, role) VALUES (?, ?, ?)");
-        $stmt->bind_param("ii", $id_utilisateur, $id_espace, $role);
+        $stmt->bind_param("iis", $id_utilisateur, $id_espace, $role);
         $stmt->execute();
         $stmt->close();
 
